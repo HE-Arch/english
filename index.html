@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>EngForDev - 开发者英语</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
   <!-- 应用根容器：手机优先，桌面端居中限宽 -->
@@ -39,12 +39,12 @@
     <!-- 各 .view 默认隐藏，.active 显示；由 app.js 切换 -->
     <main id="main-view">
 
-      <!-- ---------- 首页：路径图 ---------- -->
+      <!-- ---------- 首页：章节选择 ---------- -->
       <section id="view-home" class="view active">
         <div class="view-inner">
           <h1 class="page-title">选择章节</h1>
           <p class="page-sub">自由选择想学习的内容，开口说英语</p>
-          <!-- 路径图节点由 app.js 根据 data.js 动态生成 -->
+          <!-- 章节列表由 app.js 根据 data.js 动态生成 -->
           <div id="path-map" class="path-map"></div>
         </div>
       </section>
@@ -81,16 +81,16 @@
             <button class="btn btn-primary btn-block" data-step-next>继续</button>
           </div>
 
-          <!-- 4. 练习题（8道） -->
+          <!-- 4. 练习题 -->
           <div class="step" id="step-quiz" hidden>
             <div class="quiz-header">
-              <span class="quiz-counter" id="quiz-counter">1 / 8</span>
+              <span class="quiz-counter" id="quiz-counter">1 / 16</span>
             </div>
             <div id="quiz-body" class="quiz-body"></div>
             <button class="btn btn-primary btn-block" id="quiz-check" disabled>检查</button>
           </div>
 
-          <!-- 5. 视频播放器（中英双字幕） -->
+          <!-- 5. 情景视频（中英双字幕 + 跟读） -->
           <div class="step" id="step-video" hidden>
             <h2 class="step-title">情景视频</h2>
             <div class="video-wrap" id="video-wrap">
@@ -105,8 +105,8 @@
                 <button class="shadow-close" id="shadow-close" title="关闭跟读" aria-label="关闭跟读">✕</button>
               </div>
               <div class="shadow-target">
-                <div class="shadow-target-en" id="shadow-target-en">—</div>
-                <div class="shadow-target-zh" id="shadow-target-zh">—</div>
+                <div class="shadow-target-en" id="shadow-target-en"></div>
+                <div class="shadow-target-zh" id="shadow-target-zh"></div>
               </div>
               <div class="shadow-result" id="shadow-result" hidden></div>
               <button class="btn btn-secondary btn-block" id="shadow-start">🎤 开始录音跟读</button>
@@ -123,10 +123,10 @@
             <div id="roleplay-options" class="roleplay-options"></div>
           </div>
 
-          <!-- 7. 章测（5题） -->
+          <!-- 7. 章测 -->
           <div class="step" id="step-exam" hidden>
             <div class="quiz-header">
-              <span class="quiz-counter" id="exam-counter">1 / 5</span>
+              <span class="quiz-counter" id="exam-counter">1 / 16</span>
               <span class="quiz-label">章测</span>
             </div>
             <div id="exam-body" class="quiz-body"></div>
@@ -168,7 +168,7 @@
       <!-- ---------- 视频页 ---------- -->
       <section id="view-video" class="view">
         <div class="view-inner">
-          <h1 class="page-title">视频库</h1>
+          <h1 class="page-title">视频</h1>
           <p class="page-sub">支持加载 .vtt 双字幕与跟读</p>
           <div id="video-list" class="card-list"></div>
           <!-- 视频播放器（选中后展开） -->
@@ -182,8 +182,8 @@
                 <button class="shadow-close" id="vp-shadow-close" title="关闭跟读" aria-label="关闭跟读">✕</button>
               </div>
               <div class="shadow-target">
-                <div class="shadow-target-en" id="vp-shadow-target-en">—</div>
-                <div class="shadow-target-zh" id="vp-shadow-target-zh">—</div>
+                <div class="shadow-target-en" id="vp-shadow-target-en"></div>
+                <div class="shadow-target-zh" id="vp-shadow-target-zh"></div>
               </div>
               <div class="shadow-result" id="vp-shadow-result" hidden></div>
               <button class="btn btn-secondary btn-block" id="vp-shadow-start">🎤 开始录音跟读</button>
@@ -199,7 +199,7 @@
       <section id="view-profile" class="view">
         <div class="view-inner">
           <h1 class="page-title">我的</h1>
-          <!-- 统计卡 -->
+          <!-- 统计 -->
           <div class="profile-stats">
             <div class="profile-stat">
               <div class="ps-value" id="profile-xp">0</div>
@@ -269,17 +269,17 @@
     <div id="word-popup" class="word-popup" hidden>
       <div class="word-popup-card">
         <div class="word-popup-head">
-          <span class="word-popup-word" id="word-popup-word">—</span>
+          <span class="word-popup-word" id="word-popup-word"></span>
           <button class="word-popup-close" id="word-popup-close" title="关闭" aria-label="关闭">✕</button>
         </div>
-        <div class="word-popup-def" id="word-popup-def">—</div>
+        <div class="word-popup-def" id="word-popup-def"></div>
         <button class="btn btn-primary btn-block" id="word-popup-speak">🔊 朗读</button>
       </div>
     </div>
   </div>
 
   <!-- 数据层先于逻辑层加载 -->
-  <script src="data.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="data.js?v=13"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>

@@ -4,626 +4,342 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EngForDev · 自动化测试</title>
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=11">
   <style>
-    /* 测试报告面板 */
-    #test-panel {
-      position: fixed; right: 8px; bottom: 80px; z-index: 9999;
-      width: 360px; max-height: 60vh; overflow: auto;
-      background: #1f1f1f; color: #eee; border-radius: 12px;
-      font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace;
-      box-shadow: 0 8px 30px rgba(0,0,0,.4); padding: 10px 12px;
-    }
-    #test-panel h3 { font-size: 13px; margin: 0 0 6px; color: #fff; }
-    #test-summary { font-weight: 700; margin-bottom: 6px; }
-    .t-row { padding: 1px 0; }
-    .t-pass { color: #6fdc6f; } .t-fail { color: #ff7a7a; }
-    #test-toggle {
-      position: fixed; right: 8px; bottom: 80px; z-index: 9998;
-      background:#58CC02;color:#fff;border:none;border-radius:8px;padding:6px 10px;font-weight:700;
-    }
+    #test-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 340px; background: #1a1a2e; color: #eee; font: 12px/1.5 monospace; z-index: 9999; overflow-y: auto; padding: 10px; box-sizing: border-box; border-left: 1px solid #333; }
+    #test-toggle { position: fixed; right: 10px; bottom: 10px; z-index: 10000; background: #58CC02; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 700; }
+    #test-summary { font-size: 14px; font-weight: 800; margin-bottom: 10px; padding: 8px; background: #222; border-radius: 6px; }
+    .t-pass { color: #6fdc6f; }
+    .t-fail { color: #ff7a7a; }
+    .t-section { color: #ffd166; margin-top: 12px; font-weight: 700; }
   </style>
 </head>
 <body>
-  <!-- ============ 应用 DOM（与 index.html 一致，供 app.js 真实初始化） ============ -->
-  <div id="app">
-    <header class="app-header">
-      <div class="logo"><span class="logo-mark">E</span><span class="logo-text">EngForDev</span></div>
-      <div class="stats">
-        <div class="stat-pill streak"><span class="stat-icon">🔥</span><span class="stat-value" id="streak-count">0</span></div>
-        <div class="stat-pill xp"><span class="stat-icon">⭐</span><span class="stat-value" id="xp-count">0</span></div>
-      </div>
-    </header>
+  <div id="app" style="display:none">
+    <header class="app-header"><div class="stats"><span id="streak-count">0</span><span id="xp-count">0</span></div></header>
     <main id="main-view">
-      <section id="view-home" class="view active">
-        <div class="view-inner">
-          <h1 class="page-title">学习路径</h1>
-          <p class="page-sub">沿路径前进，解锁开发者英语</p>
-          <div id="path-map" class="path-map"></div>
-        </div>
-      </section>
+      <section id="view-home" class="view active"><div class="view-inner"><div id="path-map" class="path-map"></div></div></section>
       <section id="view-learn" class="view">
-        <div class="step-progress">
-          <div class="step-progress-bar"><div id="step-progress-fill"></div></div>
-          <button class="step-exit" id="step-exit">✕</button>
-        </div>
         <div id="learn-stage" class="learn-stage">
-          <div class="step" id="step-goal" hidden>
-            <h2 class="step-title">本章目标</h2>
-            <div class="goal-card" id="goal-card"></div>
-            <button class="btn btn-primary btn-block" data-step-next>开始学习</button>
-          </div>
-          <div class="step" id="step-blocks" hidden>
-            <h2 class="step-title">核心词块</h2>
-            <p class="step-hint">点喇叭朗读，跟读练习</p>
-            <div id="blocks-list" class="blocks-list"></div>
-            <button class="btn btn-primary btn-block" data-step-next>继续</button>
-          </div>
-          <div class="step" id="step-grammar" hidden>
-            <h2 class="step-title">语法微讲解</h2>
-            <div id="grammar-card" class="grammar-card"></div>
-            <button class="btn btn-primary btn-block" data-step-next>继续</button>
-          </div>
-          <div class="step" id="step-quiz" hidden>
-            <div class="quiz-header"><span class="quiz-counter" id="quiz-counter">1 / 8</span></div>
-            <div id="quiz-body" class="quiz-body"></div>
-            <button class="btn btn-primary btn-block" id="quiz-check" disabled>检查</button>
-          </div>
-          <div class="step" id="step-video" hidden>
-            <h2 class="step-title">情景视频</h2>
-            <div class="video-wrap" id="video-wrap"></div>
-            <div id="subtitle-area" class="subtitle-area"></div>
-            <p class="step-hint">点击英文字母查看释义</p>
-            <div id="shadow-panel" class="shadow-panel" hidden>
-              <div class="shadow-head">
-                <span class="shadow-title">🎤 跟读练习</span>
-                <button class="shadow-close" id="shadow-close" title="关闭跟读" aria-label="关闭跟读">✕</button>
-              </div>
-              <div class="shadow-target">
-                <div class="shadow-target-en" id="shadow-target-en">—</div>
-                <div class="shadow-target-zh" id="shadow-target-zh">—</div>
-              </div>
-              <div class="shadow-result" id="shadow-result" hidden></div>
-              <button class="btn btn-secondary btn-block" id="shadow-start">🎤 开始录音跟读</button>
-            </div>
-            <button class="btn btn-secondary btn-block" id="step-video-shadow">🎤 跟读本句</button>
-            <button class="btn btn-primary btn-block" data-step-next>继续</button>
-          </div>
-          <div class="step" id="step-roleplay" hidden>
-            <h2 class="step-title">角色扮演</h2>
-            <p class="step-hint" id="roleplay-scene"></p>
-            <div id="roleplay-log" class="roleplay-log"></div>
-            <div id="roleplay-options" class="roleplay-options"></div>
-          </div>
-          <div class="step" id="step-exam" hidden>
-            <div class="quiz-header"><span class="quiz-counter" id="exam-counter">1 / 5</span><span class="quiz-label">章测</span></div>
-            <div id="exam-body" class="quiz-body"></div>
-            <button class="btn btn-primary btn-block" id="exam-check" disabled>检查</button>
-          </div>
-          <div class="step" id="step-done" hidden>
-            <div class="done-card">
-              <div class="done-emoji">🎉</div>
-              <h2 class="done-title">本章完成！</h2>
-              <div class="done-stats" id="done-stats"></div>
-              <button class="btn btn-primary btn-block" id="done-back-home">返回首页</button>
-            </div>
-          </div>
+          <div class="step" id="step-goal" hidden><div id="goal-card"></div></div>
+          <div class="step" id="step-blocks" hidden><div id="blocks-list"></div></div>
+          <div class="step" id="step-grammar" hidden><div id="grammar-card"></div></div>
+          <div class="step" id="step-quiz" hidden><div class="quiz-header"><span id="quiz-counter">1</span></div><div id="quiz-body" class="quiz-body"></div><button id="quiz-check">检查</button></div>
+          <div class="step" id="step-video" hidden><div id="video-wrap"></div><div id="subtitle-area"></div><div id="shadow-panel" hidden><div id="shadow-target-en"></div><div id="shadow-target-zh"></div><div id="shadow-result" hidden></div></div></div>
+          <div class="step" id="step-roleplay" hidden><p id="roleplay-scene"></p><div id="roleplay-log"></div><div id="roleplay-options"></div></div>
+          <div class="step" id="step-exam" hidden><div class="quiz-header"><span id="exam-counter">1</span></div><div id="exam-body" class="quiz-body"></div><button id="exam-check">检查</button></div>
+          <div class="step" id="step-done" hidden><div id="done-stats"></div></div>
         </div>
       </section>
-      <section id="view-review" class="view">
-        <div class="view-inner">
-          <h1 class="page-title">复习</h1>
-          <div class="tabs">
-            <button class="tab active" data-review-tab="wrong">错题本</button>
-            <button class="tab" data-review-tab="spaced">间隔复习</button>
-          </div>
-          <div id="review-wrong" class="review-pane active">
-            <div id="wrong-list" class="card-list"></div>
-            <button class="btn btn-secondary btn-block" id="wrong-redo">重做全部错题</button>
-          </div>
-          <div id="review-spaced" class="review-pane">
-            <div id="spaced-list" class="card-list"></div>
-          </div>
-        </div>
-      </section>
-      <section id="view-video" class="view">
-        <div class="view-inner">
-          <h1 class="page-title">视频库</h1>
-          <p class="page-sub">支持加载 .vtt 双字幕与跟读</p>
-          <div id="video-list" class="card-list"></div>
-          <div id="video-player" class="video-player" hidden>
-            <div class="video-wrap" id="vp-wrap"></div>
-            <div id="vp-subtitle" class="subtitle-area"></div>
-            <div id="vp-shadow-panel" class="shadow-panel" hidden>
-              <div class="shadow-head">
-                <span class="shadow-title">🎤 跟读练习</span>
-                <button class="shadow-close" id="vp-shadow-close" title="关闭跟读" aria-label="关闭跟读">✕</button>
-              </div>
-              <div class="shadow-target">
-                <div class="shadow-target-en" id="vp-shadow-target-en">—</div>
-                <div class="shadow-target-zh" id="vp-shadow-target-zh">—</div>
-              </div>
-              <div class="shadow-result" id="vp-shadow-result" hidden></div>
-              <button class="btn btn-secondary btn-block" id="vp-shadow-start">🎤 开始录音跟读</button>
-            </div>
-            <div class="vp-controls"><button class="btn btn-secondary" id="vp-shadow">🎤 跟读模式</button></div>
-          </div>
-        </div>
-      </section>
-      <section id="view-profile" class="view">
-        <div class="view-inner">
-          <h1 class="page-title">我的</h1>
-          <div class="profile-stats">
-            <div class="profile-stat"><div class="ps-value" id="profile-xp">0</div><div class="ps-label">总 XP</div></div>
-            <div class="profile-stat"><div class="ps-value" id="profile-streak">0</div><div class="ps-label">连续打卡</div></div>
-            <div class="profile-stat"><div class="ps-value" id="profile-chapters">0</div><div class="ps-label">完成章节</div></div>
-          </div>
-          <h2 class="section-title">徽章墙</h2>
-          <div id="badge-wall" class="badge-wall"></div>
-          <!-- AI 设置卡 -->
-          <h2 class="section-title">AI 角色扮演设置</h2>
-          <div class="settings-card">
-            <p class="settings-hint">填入 Gemini API Key 后，角色扮演将由 AI 生成回复。</p>
-            <label class="settings-label" for="gemini-api-key">Gemini API Key</label>
-            <input type="password" id="gemini-api-key" class="settings-input" placeholder="AIza..." autocomplete="off">
-            <div class="settings-row">
-              <button class="btn btn-secondary" id="gemini-save">保存</button>
-              <button class="btn btn-primary" id="gemini-test">测试连接</button>
-            </div>
-            <p class="settings-link">免费获取地址：<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></p>
-            <p class="settings-status" id="gemini-status"></p>
-          </div>
-          <button class="btn btn-danger btn-block" id="reset-progress">重置全部进度</button>
-        </div>
-      </section>
+      <section id="view-review" class="view"><div class="view-inner"><div id="review-wrong" class="review-pane"><div id="wrong-list"></div></div><div id="review-spaced" class="review-pane"><div id="spaced-list"></div></div></div></section>
+      <section id="view-video" class="view"><div class="view-inner"><div id="video-list"></div></div></section>
+      <section id="view-profile" class="view"><div class="view-inner"><div id="profile-xp">0</div><div id="profile-streak">0</div><div id="profile-chapters">0</div><div id="badge-wall"></div><input id="gemini-api-key"><p id="gemini-status"></p></div></section>
     </main>
     <nav class="bottom-nav">
-      <button class="nav-btn active" data-view="home"><span class="nav-icon">🏠</span><span class="nav-label">首页</span></button>
-      <button class="nav-btn" data-view="review"><span class="nav-icon">🔁</span><span class="nav-label">复习</span></button>
-      <button class="nav-btn" data-view="video"><span class="nav-icon">🎬</span><span class="nav-label">视频</span></button>
-      <button class="nav-btn" data-view="profile"><span class="nav-icon">👤</span><span class="nav-label">我的</span></button>
+      <button class="nav-btn active" data-view="home">首页</button>
+      <button class="nav-btn" data-view="review">复习</button>
+      <button class="nav-btn" data-view="video">视频</button>
+      <button class="nav-btn" data-view="profile">我的</button>
     </nav>
-    <div id="feedback" class="feedback">
-      <div class="feedback-inner" id="feedback-inner">
-        <div class="feedback-emoji" id="feedback-emoji"></div>
-        <div class="feedback-text" id="feedback-text"></div>
-      </div>
-    </div>
-    <div id="toast" class="toast" hidden></div>
-    <div id="word-popup" class="word-popup" hidden>
-      <div class="word-popup-card">
-        <div class="word-popup-head">
-          <span class="word-popup-word" id="word-popup-word">—</span>
-          <button class="word-popup-close" id="word-popup-close" title="关闭" aria-label="关闭">✕</button>
-        </div>
-        <div class="word-popup-def" id="word-popup-def">—</div>
-        <button class="btn btn-primary btn-block" id="word-popup-speak">🔊 朗读</button>
-      </div>
-    </div>
+    <div id="feedback"><div id="feedback-inner"><div id="feedback-emoji"></div><div id="feedback-text"></div></div></div>
+    <div id="toast" hidden></div>
+    <div id="word-popup" hidden><div class="word-popup-card"><span id="word-popup-word"></span><div id="word-popup-def"></div></div></div>
   </div>
 
-  <!-- ============ 测试面板 ============ -->
-  <button id="test-toggle">🧪 测试</button>
-  <div id="test-panel" hidden>
-    <h3>EngForDev 自动化测试</h3>
-    <div id="test-summary"></div>
+  <button id="test-toggle" onclick="document.getElementById('test-panel').style.display=(document.getElementById('test-panel').style.display==='none'?'block':'none')">测试面板</button>
+  <div id="test-panel">
+    <div id="test-summary">运行中…</div>
     <div id="test-list"></div>
   </div>
 
-  <script src="data.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="data.js?v=13"></script>
+  <script src="app.js?v=11"></script>
   <script>
-    /* ============================================================
-       测试脚本：用 console.log 输出每条断言，并在右下角面板汇总
-       覆盖：localStorage 读写 / 章节解锁 / 题目判分 / 页面切换
-       ============================================================ */
     (function () {
-      const panel = document.getElementById('test-panel');
+      const App = window.EngForDev;
+      const results = [];
       const list = document.getElementById('test-list');
       const summary = document.getElementById('test-summary');
-      const toggle = document.getElementById('test-toggle');
-      toggle.addEventListener('click', () => { panel.hidden = !panel.hidden; });
-
-      const results = [];
+      function section(name) {
+        const h = document.createElement('div');
+        h.className = 't-section';
+        h.textContent = '—— ' + name + ' ——';
+        list.appendChild(h);
+      }
       function assert(cond, msg) {
         const pass = !!cond;
         results.push({ pass, msg });
         const line = document.createElement('div');
-        line.className = 't-row ' + (pass ? 't-pass' : 't-fail');
+        line.className = pass ? 't-pass' : 't-fail';
         line.textContent = (pass ? '✅ ' : '❌ ') + msg;
         list.appendChild(line);
-        console.log((pass ? '✅ PASS - ' : '❌ FAIL - ') + msg);
-        return pass;
+        console.log('%c ' + (pass ? 'PASS' : 'FAIL') + ' %c ' + msg,
+          'color:' + (pass ? '#58CC02' : '#FF4B4B') + ';font-weight:700;', 'color:#ccc');
       }
 
-      function section(name) {
-        const h = document.createElement('div');
-        h.style.cssText = 'color:#9ecaef;font-weight:700;margin:8px 0 2px;border-top:1px solid #333;padding-top:6px;';
-        h.textContent = '— ' + name + ' —';
-        list.appendChild(h);
-        console.log('\n===== ' + name + ' =====');
+      console.log('%c EngForDev 测试开始', 'background:#58CC02;color:#fff;font-weight:700;padding:2px 6px;border-radius:4px;');
+
+      /* ---------- 1. 状态读写 ---------- */
+      section('状态读写');
+      App.state = App.defaultState();
+      App.state.xp = 123; App.state.streak = 7;
+      App.saveState(App.state);
+      const loaded = App.loadState();
+      assert(loaded.xp === 123, '写入 xp=123 后可读回');
+      assert(loaded.streak === 7, '写入 streak=7 后可读回');
+      assert(Array.isArray(loaded.wrong), '默认 wrong 为数组');
+      assert(loaded.currentChapterId === 'ch1', '默认当前章为 ch1');
+      assert(loaded.chapterProgress && typeof loaded.chapterProgress === 'object', '含 chapterProgress 字段');
+      // 故意写入坏 JSON 验证容错
+      localStorage.setItem('engfordev_v1', '{not json');
+      const safe = App.loadState();
+      assert(safe && typeof safe === 'object' && safe.xp === 0, '坏 JSON 时回退默认状态不抛错');
+
+      /* ---------- 2. 章节自由选择逻辑 ---------- */
+      section('章节自由选择逻辑');
+      const s2 = App.defaultState();
+      const ch1 = App.getChapter('ch1'), ch2 = App.getChapter('ch2'), ch3 = App.getChapter('ch3');
+      assert(App.chapterStatus(ch1, s2) === 'available', '默认 ch1 = available');
+      assert(App.chapterStatus(ch2, s2) === 'available', '默认 ch2 = available');
+      assert(App.isUnlocked(ch1, s2) === true, 'ch1 已解锁');
+      assert(App.isUnlocked(ch2, s2) === true, 'ch2 也已解锁（自由选择）');
+      App.state = App.defaultState();
+      const ok = App.markChapterDone('ch1', 1);
+      assert(ok === true, 'markChapterDone(ch1) 返回 true');
+      assert(App.state.completed.ch1 != null, 'ch1 写入 completed');
+      assert(App.state.xp === App.getChapter('ch1').xp, '完成 ch1 后 XP 增加');
+      assert(App.chapterStatus(ch1, App.state) === 'done', 'ch1 状态变 done');
+      assert(App.chapterStatus(ch2, App.state) === 'available', 'ch2 仍 available（可自由进入）');
+      assert(App.chapterStatus(ch3, App.state) === 'available', 'ch3 也 available');
+      const xpBefore = App.state.xp;
+      App.markChapterDone('ch1', 1);
+      assert(App.state.xp === xpBefore, '重复完成 ch1 不重复加分');
+
+      /* ---------- 3. 题目判分逻辑 ---------- */
+      section('题目判分逻辑');
+      const ch = App.getChapter('ch1');
+      const qChoice = ch.quiz[0];
+      assert(App.checkAnswer(qChoice, qChoice.answer).correct === true, '选择题 正确选项判对');
+      assert(App.checkAnswer(qChoice, (qChoice.answer + 1) % 4).correct === false, '选择题 错误选项判错');
+      const qOrder = ch.quiz.find(x => x.type === 'order');
+      assert(App.checkAnswer(qOrder, qOrder.answer).correct === true, '排序题 正确顺序判对');
+      assert(App.checkAnswer(qOrder, qOrder.answer.slice().reverse()).correct === false, '排序题 反序判错');
+      assert(App.checkAnswer(qOrder, qOrder.answer.slice(0, 2)).correct === false, '排序题 长度不足判错');
+      const qFill = ch.quiz.find(x => x.type === 'fill');
+      assert(qFill, 'ch1 含填空题');
+      assert(App.checkAnswer(qFill, qFill.answer).correct === true, '填空 正确答案判对');
+      assert(App.checkAnswer(qFill, '').correct === false, '填空 空串判错');
+      const qTrans = ch.quiz.find(x => x.type === 'translation');
+      if (qTrans) assert(App.checkAnswer(qTrans, qTrans.answer).correct === true, '翻译题 正确答案判对');
+      const qRetell = ch.quiz.find(x => x.type === 'retell');
+      if (qRetell) {
+        const good = (qRetell.keywords || []).join(' ');
+        assert(App.checkAnswer(qRetell, good).correct === true, '复述题 含全部关键词判对');
       }
+      assert(App.checkAnswer(null, 'x').correct === false, '空题目不抛错');
 
-      async function run() {
-        console.log('%c EngForDev 测试开始 ', 'background:#58CC02;color:#fff;font-weight:700;padding:2px 6px;border-radius:4px;');
-        panel.hidden = false;
+      /* ---------- 4. 页面切换 ---------- */
+      section('页面切换');
+      App.switchView('review');
+      assert(document.getElementById('view-review').classList.contains('active'), '切到复习页 active');
+      assert(!document.getElementById('view-home').classList.contains('active'), '切走后首页不再 active');
+      assert(App.currentView === 'review', 'currentView = review');
+      App.switchView('home');
+      assert(document.getElementById('view-home').classList.contains('active'), '切回首页 active');
+      assert(App.switchView('not-a-view') === false, '非法视图名返回 false');
 
-        const App = window.EngForDev;
+      /* ---------- 5. 渲染冒烟（章节自由选择列表） ---------- */
+      section('渲染冒烟');
+      App.renderPathMap();
+      const cardCount = document.querySelectorAll('#path-map .chapter-card').length;
+      assert(cardCount === 15, '首页渲染 15 个章节卡片（实际 ' + cardCount + '）');
+      const stages = document.querySelectorAll('#path-map .stage-label');
+      assert(stages.length === 3, '按 A1/A2/B1 三阶段分组');
+      assert(!document.querySelector('#path-map .node-circle.locked'), '无锁定节点');
+      assert(!!document.querySelector('#path-map .chapter-progress'), '含进度条');
+      assert(!!document.querySelector('#path-map .chapter-pct'), '含进度百分比');
 
-        /* ---------- 1. localStorage 读写 ---------- */
-        section('localStorage 读写');
-        localStorage.clear();
-        const sv = App.defaultState(); sv.xp = 123; sv.streak = 7;
-        App.saveState(sv);
-        const loaded = App.loadState();
-        assert(loaded.xp === 123, '写入 xp=123 后可读回');
-        assert(loaded.streak === 7, '写入 streak=7 后可读回');
-        assert(Array.isArray(loaded.wrong), '默认 wrong 为数组');
-        assert(loaded.currentChapterId === 'ch1', '默认当前章为 ch1');
-        // 故意写入坏 JSON 验证容错
-        localStorage.setItem('engfordev_v1', '{not json');
-        const safe = App.loadState();
-        assert(safe && typeof safe === 'object' && safe.xp === 0, '坏 JSON 时回退默认状态不抛错');
+      /* ---------- 6. 跟读评分 scoreSentence ---------- */
+      section('跟读评分 scoreSentence');
+      assert(typeof App.scoreSentence === 'function', 'App.scoreSentence 是函数');
+      const sFull = App.scoreSentence('I am a developer', 'I am a developer');
+      assert(sFull >= 0.9, '完全一致得分 ≥ 0.9（实际 ' + sFull.toFixed(2) + '）');
+      const sZero = App.scoreSentence('I am a developer', 'xyz abc qqq');
+      assert(sZero === 0, '完全无关得 0');
+      const sHalf = App.scoreSentence('I am a developer from Shanghai', 'I am a designer from Beijing');
+      assert(sHalf > 0 && sHalf < 0.9, '部分命中得分在 0~0.9 之间（实际 ' + sHalf.toFixed(2) + '）');
 
-        /* ---------- 2. 章节解锁逻辑 ---------- */
-        section('章节解锁逻辑');
-        // 用独立 state 测 chapterStatus，不污染 App.state
-        const s2 = App.defaultState();
-        const ch1 = App.getChapter('ch1'), ch2 = App.getChapter('ch2'), ch3 = App.getChapter('ch3');
-        assert(App.chapterStatus(ch1, s2) === 'current', '默认 ch1 = current');
-        assert(App.chapterStatus(ch2, s2) === 'locked', '默认 ch2 = locked');
-        assert(App.isUnlocked(ch1, s2) === true, 'ch1 已解锁');
-        assert(App.isUnlocked(ch2, s2) === false, 'ch2 未解锁');
-        // markChapterDone 操作 App.state
-        App.state = App.defaultState();
-        const ok = App.markChapterDone('ch1', 1);
-        assert(ok === true, 'markChapterDone(ch1) 返回 true');
-        assert(App.state.completed.ch1 != null, 'ch1 写入 completed');
-        assert(App.state.xp === App.getChapter('ch1').xp, '完成 ch1 后 XP 增加');
-        assert(App.state.currentChapterId === 'ch2', '解锁下一章 ch2');
-        assert(App.chapterStatus(ch1, App.state) === 'done', 'ch1 状态变 done');
-        assert(App.chapterStatus(ch2, App.state) === 'current', 'ch2 状态变 current');
-        assert(App.chapterStatus(ch3, App.state) === 'locked', 'ch3 仍 locked');
-        // 重复完成应幂等
-        const xpBefore = App.state.xp;
-        App.markChapterDone('ch1', 1);
-        assert(App.state.xp === xpBefore, '重复完成 ch1 不重复加分');
+      /* ---------- 7. 学习时长打卡 ---------- */
+      section('学习时长打卡');
+      assert(typeof App.addStudyTime === 'function', 'App.addStudyTime 是函数');
+      App.state = App.defaultState();
+      App.addStudyTime(5 * 60 * 1000);
+      assert(App.state.lastCheckIn === null, '未达 10 分钟不打卡');
+      App.addStudyTime(6 * 60 * 1000);
+      assert(App.state.lastCheckIn != null, '累计达 10 分钟后打卡');
+      assert(App.state.streak === 1, '首次打卡 streak=1');
+      App.addStudyTime(20 * 60 * 1000);
+      assert(App.state.streak === 1, '同一天再累计不二次打卡');
 
-        /* ---------- 3. 题目判分逻辑 ---------- */
-        section('题目判分逻辑');
-        const ch = App.getChapter('ch1');
-        const qChoice = ch.quiz[0];
-        assert(App.checkAnswer(qChoice, qChoice.answer).correct === true, '选择题 正确选项判对');
-        assert(App.checkAnswer(qChoice, 1).correct === false, '选择题 错误选项判错');
-        const qOrder = ch.quiz.find(x => x.type === 'order');
-        assert(App.checkAnswer(qOrder, qOrder.answer).correct === true, '排序题 正确顺序判对');
-        assert(App.checkAnswer(qOrder, qOrder.answer.slice().reverse()).correct === false, '排序题 反序判错');
-        assert(App.checkAnswer(qOrder, qOrder.answer.slice(0, 2)).correct === false, '排序题 长度不足判错');
-        const qFill = ch.quiz.find(x => x.type === 'fill' && x.answer === 'am');
-        assert(App.checkAnswer(qFill, 'am').correct === true, "填空 'am' 判对");
-        assert(App.checkAnswer(qFill, 'AM').correct === true, "填空 大小写不敏感 'AM' 判对");
-        assert(App.checkAnswer(qFill, ' am ').correct === true, "填空 前后空格容忍 ' am ' 判对");
-        assert(App.checkAnswer(qFill, 'is').correct === false, "填空 'is' 判错");
-        assert(App.checkAnswer(qFill, '').correct === false, '填空 空串判错');
-        assert(App.checkAnswer(null, 'x').correct === false, '空题目不抛错');
+      /* ---------- 8. 徽章 ---------- */
+      section('徽章系统');
+      App.state = App.defaultState();
+      App.awardBadges(App.state);
+      assert(!App.state.badges.includes('first_step'), 'xp=0 不发 first_step');
+      App.state.xp = 10;
+      App.awardBadges(App.state);
+      assert(App.state.badges.includes('first_step'), 'xp>0 → first_step');
+      App.state.shadowCount = 1;
+      App.awardBadges(App.state);
+      assert(App.state.badges.includes('first_shadow'), 'shadowCount>0 → first_shadow');
+      App.state.roleplayCount = 1;
+      App.awardBadges(App.state);
+      assert(App.state.badges.includes('first_roleplay'), 'roleplayCount>0 → first_roleplay');
 
-        /* ---------- 4. 页面切换 ---------- */
-        section('页面切换');
-        App.switchView('review');
-        assert(document.getElementById('view-review').classList.contains('active'), '切到复习页 #view-review.active');
-        assert(!document.getElementById('view-home').classList.contains('active'), '切走后 #view-home 不再 active');
-        assert(document.querySelector('.nav-btn[data-view="review"]').classList.contains('active'), '复习导航高亮');
-        assert(App.currentView === 'review', 'currentView = review');
-        App.switchView('profile');
-        assert(document.getElementById('view-profile').classList.contains('active'), '切到我的页 active');
-        App.switchView('home');
-        assert(document.getElementById('view-home').classList.contains('active'), '切回首页 active');
-        assert(App.switchView('not-a-view') === false, '非法视图名返回 false');
+      /* ---------- 9. 词义弹窗 ---------- */
+      section('词义弹窗');
+      App.state = App.defaultState();
+      App.saveState(App.state);
+      assert(typeof App.showWordPopup === 'function', 'App.showWordPopup 是函数');
+      App.showWordPopup('developer', '开发者');
+      const popup = document.getElementById('word-popup');
+      assert(popup && !popup.hidden, 'showWordPopup 后弹窗显示');
+      assert(document.getElementById('word-popup-word').textContent === 'developer', '弹窗词显示正确');
+      assert(document.getElementById('word-popup-def').textContent === '开发者', '弹窗释义显示正确');
+      App.hideWordPopup();
+      assert(popup.hidden === true, 'hideWordPopup 后弹窗隐藏');
 
-        /* ---------- 5. 渲染冒烟（路径图节点） ---------- */
-        section('渲染冒烟');
-        App.renderPathMap();
-        const nodeCount = document.querySelectorAll('#path-map .path-node').length;
-        assert(nodeCount === 5, '路径图渲染 5 个节点');
-        assert(!!document.querySelector('#path-map .node-circle.current'), '存在 current 脉冲节点');
-        assert(!!document.querySelector('#path-map .node-circle.locked'), '存在 locked 锁定节点');
+      /* ---------- 10. Gemini 安全 ---------- */
+      section('Gemini 调用安全');
+      assert(typeof App.getApiKey === 'function', 'App.getApiKey 是函数');
+      assert(typeof App.setApiKey === 'function', 'App.setApiKey 是函数');
+      assert(typeof App.clearApiKey === 'function', 'App.clearApiKey 是函数');
+      App.setApiKey('invalid-key-for-test');
+      assert(App.getApiKey() === 'invalid-key-for-test', 'setApiKey 后 getApiKey 可读回');
+      App.clearApiKey();
+      assert(App.getApiKey() === '', 'clearApiKey 后为空');
 
-        /* ---------- 6. 跟读评分 scoreSentence ---------- */
-        section('跟读评分 scoreSentence');
-        assert(typeof App.scoreSentence === 'function', 'App.scoreSentence 是函数');
-        // 完全一致：1.0
-        const sFull = App.scoreSentence("Hello world", "hello world");
-        assert(Math.abs(sFull - 1) < 1e-9, '完全相同 → 1.0');
-        // 半对：命中 1/2，但 said 长度 1 < target*0.6 → 触发长度惩罚 → 0.5*0.7 ≈ 0.35
-        const sHalf = App.scoreSentence("Hello world", "hello");
-        assert(sHalf > 0 && sHalf < 0.5, "命中一半且少说 → 0 < x < 0.5（含长度惩罚）");
-        // 多说但全命中：1.0（不惩罚多说）
-        const sMore = App.scoreSentence("Hi", "hi there friend");
-        assert(Math.abs(sMore - 1) < 1e-9, '多说但全命中 → 1.0');
-        // 空目标：0
-        assert(App.scoreSentence("", "anything") === 0, '空目标 → 0');
-        // 空回答：0
-        assert(App.scoreSentence("anything", "") === 0, '空回答 → 0');
-        // 大小写不敏感
-        assert(App.scoreSentence("Nice to meet you", "NICE TO MEET YOU") === 1, '大小写不敏感 → 1.0');
-        // 标点忽略
-        assert(App.scoreSentence("It's ten o'clock.", "its ten oclock") > 0.5, "忽略标点也能匹配");
+      /* ---------- 11. 角色扮演渲染 ---------- */
+      section('角色扮演渲染');
+      const ch1rp = App.getChapter('ch1');
+      App.learn.chapter = ch1rp;
+      App.renderRoleplayStart(ch1rp);
+      const log = document.getElementById('roleplay-log');
+      assert(log && log.children.length >= 1, '首句 NPC 台词已渲染');
+      const opts = document.getElementById('roleplay-options');
+      assert(opts && opts.children.length >= 1, '存在场景选择按钮');
 
-        /* ---------- 7. 学习时长打卡 addStudyTime + 连续 XP ---------- */
-        section('学习时长打卡');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        assert(typeof App.addStudyTime === 'function', 'App.addStudyTime 是函数');
-        // 累计 5 分钟（未达阈值）→ 不打卡
-        App.addStudyTime(5 * 60 * 1000);
-        assert(App.state.todayStudyMs === 5 * 60 * 1000, '5 分钟累计写入 todayStudyMs');
-        assert(App.state.lastCheckIn === null, '未达 10 分钟不打卡');
-        assert(App.state.streak === 0, '未打卡 streak 仍为 0');
-        // 再加 5 分钟 → 达 10 分钟 → 自动打卡
-        App.addStudyTime(5 * 60 * 1000);
-        assert(App.state.lastCheckIn !== null, '达 10 分钟触发 lastCheckIn 写入');
-        assert(App.state.streak === 1, '首次打卡 streak = 1');
-        // 连续打卡额外 XP：第 1 天 +1 XP
-        assert(App.state.xp === 1, '首次打卡获得 +1 连续 XP');
-        // 同一天再累计：不会二次打卡
-        App.addStudyTime(60 * 1000);
-        assert(App.state.streak === 1, '同一天再累计不二次打卡');
-        assert(App.state.xp === 1, '同一天不再额外加 XP');
-        // 首次打卡徽章发放
-        assert(App.state.badges.includes('first_checkin'), '首次打卡后获 first_checkin 徽章');
-        assert(App.state.badges.includes('first_step'), '有 XP 后获 first_step 徽章');
+      /* ---------- 12. 语音能力检测 ---------- */
+      section('语音能力检测');
+      assert(typeof App.supportsSpeech === 'function', 'App.supportsSpeech 是函数');
+      const sp = App.supportsSpeech();
+      assert(typeof sp === 'boolean', 'supportsSpeech 返回布尔值');
 
-        /* ---------- 8. 徽章发放（跟读 / 角色扮演 / A1） ---------- */
-        section('徽章发放');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        // 第一次跟读 → first_shadow
-        App.state.shadowCount = 1;
-        App.awardBadges(App.state);
-        assert(App.state.badges.includes('first_shadow'), 'shadowCount>0 → first_shadow');
-        // 第一次角色扮演 → first_roleplay
-        App.state.roleplayCount = 1;
-        App.awardBadges(App.state);
-        assert(App.state.badges.includes('first_roleplay'), 'roleplayCount>0 → first_roleplay');
-        // 完成前三章 → a1_done
-        ['ch1', 'ch2', 'ch3'].forEach(id => { App.state.completed[id] = { xp: 50, examScore: 1 }; });
-        App.awardBadges(App.state);
-        assert(App.state.badges.includes('a1_done'), '完成 ch1/ch2/ch3 → a1_done');
-        // 完成前两章还不够
-        App.state = App.defaultState();
-        App.state.completed.ch1 = { xp: 50 }; App.state.completed.ch2 = { xp: 60 };
-        App.awardBadges(App.state);
-        assert(!App.state.badges.includes('a1_done'), '只完成 ch1/ch2 不发 a1_done');
+      /* ---------- 13. tap 绑定 ---------- */
+      section('tap 绑定');
+      assert(typeof App.tap === 'function', 'App.tap 是函数');
+      const btn = document.createElement('button');
+      document.body.appendChild(btn);
+      let tapped = false;
+      App.tap(btn, () => { tapped = true; });
+      btn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+      assert(tapped === true, 'tap 绑定 pointerdown 能触发回调');
+      document.body.removeChild(btn);
 
-        /* ---------- 9. 词义弹窗 showWordPopup ---------- */
-        section('词义弹窗');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        assert(typeof App.showWordPopup === 'function', 'App.showWordPopup 是函数');
-        App.showWordPopup('developer', '开发者');
-        const popup = document.getElementById('word-popup');
-        assert(popup && !popup.hidden, '弹窗显示后 #word-popup 不再 hidden');
-        assert(document.getElementById('word-popup-word').textContent === 'developer', '弹窗词显示正确');
-        assert(document.getElementById('word-popup-def').textContent === '开发者', '弹窗释义显示正确');
-        App.hideWordPopup();
-        assert(popup.hidden === true, 'hideWordPopup 后弹窗隐藏');
+      /* ---------- 14. 测验渲染流程 ---------- */
+      section('测验渲染流程');
+      App.learn.chapter = ch1rp;
+      App.learn.quiz = { index: 0, answers: [], wrongs: [] };
+      App.renderCurrent('quiz', ch1rp.quiz.length);
+      const quizBody = document.getElementById('quiz-body');
+      assert(quizBody && quizBody.children.length > 0, 'renderCurrent 后 quiz-body 有内容');
 
-        /* ---------- 10. Gemini API Key 存取 ---------- */
-        section('Gemini API Key 存取');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        assert(typeof App.getApiKey === 'function', 'App.getApiKey 是函数');
-        assert(typeof App.setApiKey === 'function', 'App.setApiKey 是函数');
-        assert(typeof App.clearApiKey === 'function', 'App.clearApiKey 是函数');
-        // 默认无 Key
-        assert(App.getApiKey() === '', '默认无 API Key');
-        // 存 Key
-        App.setApiKey('AIza-test-123');
-        assert(App.getApiKey() === 'AIza-test-123', 'setApiKey 后能读到');
-        // 刷新后仍在（localStorage）
-        App.state = App.loadState();
-        assert(App.state.geminiApiKey === 'AIza-test-123', 'Key 持久化到 localStorage');
-        // 清空
-        App.clearApiKey();
-        assert(App.getApiKey() === '', 'clearApiKey 后 Key 清空');
-        // bindSettings 能把 Key 回显到输入框
-        App.setApiKey('AIza-echo-key');
-        App.bindSettings();
-        assert(document.getElementById('gemini-api-key').value === 'AIza-echo-key', 'bindSettings 回显 Key 到输入框');
+      /* ---------- 15. 全量判分校验 ---------- */
+      section('全量判分校验');
+      const chapters = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12','ch13','ch14','ch15'].map(id => App.getChapter(id)).filter(Boolean);
+      assert(chapters.length === 15, '共 15 章数据完整');
+      let totalQ = 0, totalFail = 0;
+      chapters.forEach(ch => {
+        [ch.quiz || [], ch.exam || []].forEach(qset => qset.forEach(q => {
+          totalQ++;
+          let ok = false;
+          try {
+            if (q.type === 'choice') ok = App.checkAnswer(q, q.answer).correct === true;
+            else if (q.type === 'fill' || q.type === 'translation') ok = App.checkAnswer(q, q.answer).correct === true;
+            else if (q.type === 'order') ok = App.checkAnswer(q, q.answer.slice()).correct === true;
+            else if (q.type === 'retell') {
+              const good = (q.keywords || []).join(' ');
+              ok = App.checkAnswer(q, good).correct === true;
+            }
+          } catch (e) { ok = false; console.warn('判分异常', ch.id, q.id, e); }
+          if (!ok) { totalFail++; console.warn('判分失败', ch.id, q.id, q.type); }
+        }));
+      });
+      assert(totalFail === 0, '全部 ' + totalQ + ' 题用正确答案判分通过（失败 ' + totalFail + '）');
 
-        /* ---------- 11. Gemini 调用安全：无 Key / 假 Key 不崩溃 ---------- */
-        section('Gemini 调用安全（不崩溃）');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        assert(typeof App.callGemini === 'function', 'App.callGemini 是函数');
-        assert(typeof App.testApiKey === 'function', 'App.testApiKey 是函数');
-        // 无 Key → callGemini 返回 null，不抛错
-        let r1 = null, threw1 = false;
-        try { r1 = await App.callGemini('', 'scene', [], 'hi'); } catch (e) { threw1 = true; }
-        assert(r1 === null && !threw1, '无 Key 时 callGemini 返回 null 且不抛错');
-        // 假 Key → fetch 会失败但 catch 返回 null，不抛错（Promise 不 reject）
-        let r2 = null, threw2 = false;
-        try { r2 = await App.callGemini('FAKE_KEY_123', 'scene', [], 'hi'); } catch (e) { threw2 = true; }
-        assert(!threw2, '假 Key 时 callGemini 不抛异常');
-        // testApiKey 无 Key 直接返回失败信息
-        const tr = await App.testApiKey('');
-        assert(tr.ok === false && tr.msg.length > 0, 'testApiKey 空 Key 返回 ok=false 且有提示');
-        // state.aiHistory 字段存在
-        assert(Array.isArray(App.defaultState().aiHistory), 'defaultState 含 aiHistory 数组');
+      /* ---------- 16. 章测去重 + knowledge ---------- */
+      section('章测去重');
+      function qsig(q) { return q.type + '|' + q.prompt + '|' + JSON.stringify(q.options || q.words || []) + '|' + JSON.stringify(q.answer); }
+      chapters.forEach(ch => {
+        const qSet = new Set((ch.quiz || []).map(qsig));
+        let dup = 0;
+        (ch.exam || []).forEach(e => { if (qSet.has(qsig(e))) dup++; });
+        const rate = (ch.exam || []).length ? dup / ch.exam.length : 0;
+        assert(rate < 0.2, ch.id + ' 章测重复率 ' + Math.round(rate * 100) + '% < 20%');
+        const noKn = (ch.exam || []).filter(e => !e.knowledge).length;
+        assert(noKn === 0, ch.id + ' 章测全部带 knowledge 标签');
+      });
 
-        /* ---------- 12. 角色扮演：无 Key 回退到预设树 ---------- */
-        section('角色扮演无 Key 回退');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        // 模拟进入 ch1 角色扮演
-        const ch1rp = App.getChapter('ch1');
-        assert(!!ch1rp && !!ch1rp.roleplay, 'ch1 存在 roleplay');
-        App.switchView('learn');
-        App.learn.chapter = ch1rp;
-        App.renderRoleplayStart(ch1rp);
-        const log = document.getElementById('roleplay-log');
-        const opts = document.getElementById('roleplay-options');
-        assert(!!log, 'roleplay-log 存在');
-        assert(!!opts, 'roleplay-options 存在');
-        // 第一句 NPC 台词已渲染
-        assert(log.children.length >= 1, '首句 NPC 台词已渲染');
-        // 选项数 = 起始节点 options.length
-        const startNode = ch1rp.roleplay.nodes[ch1rp.roleplay.start];
-        const startOpts = startNode.options.length;
-        assert(opts.children.length === startOpts, '首步选项数 = ' + startOpts);
-        // 选第一个正确选项：无 Key → 走回退路径（setTimeout 后显示下一 NPC）
-        const firstBtn = opts.querySelector('button');
-        assert(!!firstBtn, '首步有选项按钮');
-        // 按钮通过 tap(pointerdown) 绑定，派发 pointerdown 触发
-        firstBtn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
-        // 用户气泡应被追加
-        assert(log.children.length >= 2, '用户选择后日志追加了气泡');
+      /* ---------- 17. 开口占比 ---------- */
+      section('开口占比');
+      chapters.forEach(ch => {
+        const shadow = (ch.video && ch.video.cues) ? ch.video.cues.length : 0;
+        const rpSpeak = Object.values(ch.roleplay.nodes).filter(n => !n.end && !n.options).length;
+        // 分母为输出型练习（quiz+exam+shadow+roleplay），blocks 为词汇输入不计入
+        const total = (ch.quiz || []).length + (ch.exam || []).length + shadow + rpSpeak;
+        const speakPct = (shadow + rpSpeak) / total;
+        assert(speakPct >= 0.4, ch.id + ' 开口占比 ' + Math.round(speakPct * 100) + '% ≥ 40%');
+      });
 
-        /* ---------- 13. 语音合成兼容性 + tap 绑定 ---------- */
-        section('语音兼容与移动端 tap');
-        assert(typeof App.supportsSpeech === 'function', 'App.supportsSpeech 是函数');
-        // supportsSpeech 返回布尔值（不抛错）
-        const sp = App.supportsSpeech();
-        assert(typeof sp === 'boolean', 'supportsSpeech 返回布尔值');
-        // speak 在不支持时静默返回，不抛错
-        let speakThrew = false;
-        try { App.speak('hello'); } catch (e) { speakThrew = true; }
-        assert(!speakThrew, 'speak 不抛异常');
-        // tap 函数存在且可绑定
-        assert(typeof App.tap === 'function', 'App.tap 是函数');
-        const testBtn = document.createElement('button');
-        let tapped = false;
-        App.tap(testBtn, () => { tapped = true; });
-        // 派发 pointerdown 事件触发
-        testBtn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
-        assert(tapped === true, 'tap 绑定后 pointerdown 能触发回调');
-        // touchstart 也能触发（双保险）
-        const testBtn2 = document.createElement('button');
-        let tapped2 = false;
-        App.tap(testBtn2, () => { tapped2 = true; });
-        testBtn2.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, cancelable: true }));
-        assert(tapped2 === true, 'tap 绑定后 touchstart 也能触发回调');
-
-        /* ---------- 14. 语法→测验流程（renderCurrent 不抛错） ---------- */
-        section('语法→测验流程');
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        const ch1g = App.getChapter('ch1');
-        App.learn.chapter = ch1g;
-        App.learn.chapterId = ch1g.id;
-        // 模拟 grammar 继续按钮的回调逻辑
-        App.learn.quiz = { index: 0, answers: [], selected: null, answered: false };
-        let threw = false;
-        try {
-          App.renderCurrent('quiz', ch1g.quiz.length);
-        } catch (e) { threw = true; }
-        assert(!threw, 'renderCurrent(quiz) 不抛异常（App.learn.quiz 已修复）');
-        // 测验题应已渲染
-        const quizBody = document.getElementById('quiz-body');
-        assert(quizBody && quizBody.children.length > 0, 'renderCurrent 后 quiz-body 有内容');
-
-        /* ---------- 全量判分校验：三章所有 quiz/exam 题用正确答案必须通过 ---------- */
-        const chapters = ['ch1', 'ch2', 'ch3'].map(id => App.getChapter(id)).filter(Boolean);
-        let totalQ = 0, totalPass = 0, totalFail = 0;
-        chapters.forEach(ch => {
-          [ch.quiz || [], ch.exam || []].forEach(qset => qset.forEach(q => {
-            totalQ++;
-            let ok = false;
-            try {
-              if (q.type === 'choice') {
-                ok = App.checkAnswer(q, q.answer).correct === true;
-              } else if (q.type === 'fill' || q.type === 'translation') {
-                ok = App.checkAnswer(q, q.answer).correct === true;
-              } else if (q.type === 'order') {
-                ok = App.checkAnswer(q, q.answer.slice()).correct === true;
-              } else if (q.type === 'retell') {
-                // 用包含全部关键词的句子作为正确复述
-                const goodAnswer = (q.keywords || []).join(' ');
-                ok = App.checkAnswer(q, goodAnswer).correct === true;
-              }
-            } catch (e) { ok = false; }
-            if (ok) totalPass++; else { totalFail++; console.warn('判分失败', ch.id, q.id, q.type); }
-          }));
+      /* ---------- 18. roleplay 结构 ---------- */
+      section('角色扮演结构');
+      chapters.forEach(ch => {
+        const rp = ch.roleplay;
+        assert(rp.start && rp.nodes[rp.start], ch.id + ' roleplay 起始节点存在');
+        let endCount = 0, speakCount = 0;
+        Object.values(rp.nodes).forEach(n => {
+          if (n.end) endCount++;
+          if (!n.end && !n.options) { speakCount++; assert(!!n.expected && !!n.next, ch.id + ' 对话节点带 expected+next'); }
         });
-        assert(totalFail === 0, '三章全部 ' + totalQ + ' 题用正确答案判分通过（失败 ' + totalFail + '）');
+        assert(endCount > 0, ch.id + ' 至少一个 end 节点');
+        assert(speakCount >= 10, ch.id + ' 开口轮次 ≥ 10（实际 ' + speakCount + '）');
+      });
 
-        // 章测与练习题去重：题干+答案+选项完全一致的重复率 < 20%
-        function qsig(q) { return q.type + '|' + q.prompt + '|' + JSON.stringify(q.options || q.words || []) + '|' + JSON.stringify(q.answer); }
-        chapters.forEach(ch => {
-          const qSet = new Set((ch.quiz || []).map(qsig));
-          let dup = 0;
-          (ch.exam || []).forEach(e => { if (qSet.has(qsig(e))) dup++; });
-          const rate = (ch.exam || []).length ? dup / ch.exam.length : 0;
-          assert(rate < 0.2, ch.id + ' 章测重复率 ' + Math.round(rate * 100) + '% < 20%');
-          // 每道章测题必须有 knowledge 标签
-          const noKn = (ch.exam || []).filter(e => !e.knowledge).length;
-          assert(noKn === 0, ch.id + ' 章测全部带 knowledge 标签');
-        });
+      /* ---------- 19. roleplay 打字降级路径 ---------- */
+      section('角色扮演开口路径');
+      App.learn.chapter = ch1rp;
+      App.renderRoleplayStart(ch1rp);
+      const opts2 = document.getElementById('roleplay-options');
+      const sceneBtn = opts2.querySelector('button');
+      sceneBtn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+      const beforeCnt = App.learn.roleplay.speakCount;
+      const curNode0 = ch1rp.roleplay.nodes[App.learn.roleplay.cur];
+      App.roleplaySubmitAnswer(curNode0.expected);
+      assert(App.learn.roleplay.speakCount === beforeCnt + 1, '正确回答后 speakCount +1');
+      const curNode1 = ch1rp.roleplay.nodes[App.learn.roleplay.cur];
+      const beforeCnt2 = App.learn.roleplay.speakCount;
+      App.roleplaySubmitAnswer('wrong garbage answer xyz');
+      assert(App.learn.roleplay.speakCount === beforeCnt2, '错误回答不推进、speakCount 不变');
+      App.roleplaySubmitAnswer(curNode1.expected);
+      assert(App.learn.roleplay.speakCount === beforeCnt2 + 1, '重试正确后推进');
 
-        // 题型占比：开口输出（跟读 + 角色扮演口语）≥ 40%
-        chapters.forEach(ch => {
-          const shadow = (ch.video && ch.video.cues) ? ch.video.cues.length : 0;
-          const rpSpeak = Object.values(ch.roleplay.nodes).filter(n => !n.end && !n.options).length;
-          const total = ch.blocks.length + (ch.quiz || []).length + shadow + rpSpeak + (ch.exam || []).length;
-          const speakPct = (shadow + rpSpeak) / total;
-          assert(speakPct >= 0.4, ch.id + ' 开口占比 ' + Math.round(speakPct * 100) + '% ≥ 40%');
-        });
-
-        // 角色结构校验
-        chapters.forEach(ch => {
-          const rp = ch.roleplay;
-          assert(rp.start && rp.nodes[rp.start], ch.id + ' roleplay 起始节点存在');
-          let endCount = 0, speakCount = 0;
-          Object.values(rp.nodes).forEach(n => {
-            if (n.end) endCount++;
-            if (!n.end && !n.options) { speakCount++; assert(!!n.expected && !!n.next, ch.id + ' 对话节点带 expected+next'); }
-          });
-          assert(endCount > 0, ch.id + ' roleplay 至少有一个 end 节点');
-          assert(speakCount >= 18, ch.id + ' 开口轮次 ≥ 18（实际 ' + speakCount + '）');
-        });
-
-        /* ---------- 角色扮演：打字降级路径 + 结束统计 ---------- */
-        section('角色扮演开口路径');
-        const ch1rp2 = App.getChapter('ch1');
-        App.learn.chapter = ch1rp2;
-        App.renderRoleplayStart(ch1rp2);
-        const opts2 = document.getElementById('roleplay-options');
-        // 选场景 A
-        const sceneBtn = opts2.querySelector('button');
-        sceneBtn.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
-        // 直接提交正确答案（模拟打字路径）
-        const beforeCnt = App.learn.roleplay.speakCount;
-        const curNode0 = ch1rp2.roleplay.nodes[App.learn.roleplay.cur];
-        App.roleplaySubmitAnswer(curNode0.expected);
-        assert(App.learn.roleplay.speakCount === beforeCnt + 1, '正确回答后 speakCount +1');
-        // 提交错误答案：不推进，speakCount 不变
-        const curNode1 = ch1rp2.roleplay.nodes[App.learn.roleplay.cur];
-        const beforeCnt2 = App.learn.roleplay.speakCount;
-        App.roleplaySubmitAnswer('wrong garbage answer xyz');
-        assert(App.learn.roleplay.speakCount === beforeCnt2, '错误回答不推进、speakCount 不变');
-        // 再提交正确答案推进
-        App.roleplaySubmitAnswer(curNode1.expected);
-        assert(App.learn.roleplay.speakCount === beforeCnt2 + 1, '重试正确后推进');
-
-        /* ---------- 汇总 + 复位 ---------- */
-        const pass = results.filter(r => r.pass).length;
-        const fail = results.length - pass;
-        summary.textContent = '✅ ' + pass + ' 通过   ❌ ' + fail + ' 失败   共 ' + results.length + ' 项';
-        summary.style.color = fail === 0 ? '#6fdc6f' : '#ff7a7a';
-        console.log('%c 汇总：通过 ' + pass + ' / ' + results.length + (fail === 0 ? '  全部通过 🎉' : '  有 ' + fail + ' 项失败'),
-          'color:' + (fail === 0 ? '#58CC02' : '#FF4B4B') + ';font-weight:700;');
-
-        // 复位：清空进度，让测试页回到干净状态
-        localStorage.clear();
-        App.state = App.defaultState();
-        App.saveState(App.state);
-        App.renderHeader(); App.renderPathMap(); App.renderReview(); App.renderProfile();
-        App.switchView('home');
-      }
-
-      // 等 app.js init() 执行完毕后再跑测试
-      if (document.readyState === 'complete') run();
-      else window.addEventListener('load', run);
+      /* ---------- 汇总 ---------- */
+      const pass = results.filter(r => r.pass).length;
+      const fail = results.length - pass;
+      summary.textContent = '✅ ' + pass + ' 通过   ❌ ' + fail + ' 失败   共 ' + results.length + ' 项';
+      summary.style.color = fail === 0 ? '#6fdc6f' : '#ff7a7a';
+      console.log('%c 汇总：通过 ' + pass + ' / ' + results.length + (fail === 0 ? '  全部通过 🎉' : '  有 ' + fail + ' 项失败'),
+        'color:' + (fail === 0 ? '#58CC02' : '#FF4B4B') + ';font-weight:700;');
     })();
   </script>
 </body>

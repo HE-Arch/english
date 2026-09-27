@@ -13,6 +13,7 @@
   const CHAPTERS = [
     {
       id: 'ch1',
+      stage: 'A1',
       title: '自我介绍',
       emoji: '👋',
       goal: '学会用英语做一段完整、得体的自我介绍',
@@ -132,6 +133,7 @@
     // ---------- 第二章：数字与时间 ----------
     {
       id: 'ch2',
+      stage: 'A1',
       title: '数字与时间',
       emoji: '🔢',
       goal: '学会用英语表达数字、时刻与时间安排，能讨论工作量与日程',
@@ -251,6 +253,7 @@
     // ---------- 第三章：问路与方向 ----------
     {
       id: 'ch3',
+      stage: 'A1',
       title: '问路与方向',
       emoji: '🧭',
       goal: '学会用英语问路、指路，能在办公室或园区里描述位置与方向',
@@ -367,9 +370,1235 @@
       xp: 110
     },
 
-    // ---------- 占位章节（默认锁定，解锁逻辑可演示） ----------
-    { id: 'ch4', title: '代码评审',     emoji: '🔍', placeholder: true },
-    { id: 'ch5', title: '技术面试',     emoji: '🎯', placeholder: true }
+    // ---------- 第四章：购物与付款 ----------
+    {
+      id: 'ch4',
+      stage: 'A2',
+      title: '购物与付款',
+      emoji: '🛒',
+      goal: '学会用英语购物、询问价格、挑选商品并完成付款',
+      blocks: [
+        { en: "How much is this?",               zh: "这个多少钱？",         speak: "How much is this?" },
+        { en: "It's twenty dollars.",            zh: "二十美元。",           speak: "It's twenty dollars." },
+        { en: "Can I pay by card?",              zh: "我可以刷卡吗？",       speak: "Can I pay by card?" },
+        { en: "I'd like to buy this shirt.",     zh: "我想买这件衬衫。",     speak: "I'd like to buy this shirt." },
+        { en: "Do you have a smaller size?",     zh: "有小一点的尺码吗？",   speak: "Do you have a smaller size?" },
+        { en: "What color do you want?",         zh: "你想要什么颜色？",     speak: "What color do you want?" },
+        { en: "This one is too expensive.",      zh: "这个太贵了。",         speak: "This one is too expensive." },
+        { en: "Do you have any discount?",       zh: "有折扣吗？",           speak: "Do you have any discount?" },
+        { en: "I'll take it.",                   zh: "我要这个。",           speak: "I'll take it." },
+        { en: "Here's your receipt.",            zh: "这是你的收据。",       speak: "Here's your receipt." },
+        { en: "Can I get a refund?",             zh: "我可以退款吗？",       speak: "Can I get a refund?" },
+        { en: "It's on sale.",                   zh: "这个在打折。",         speak: "It's on sale." },
+        { en: "How would you like to pay?",      zh: "您想怎么付款？",       speak: "How would you like to pay?" },
+        { en: "Cash or credit?",                 zh: "现金还是信用卡？",     speak: "Cash or credit?" },
+        { en: "Keep the change.",                zh: "不用找零了。",         speak: "Keep the change." },
+        { en: "Where is the checkout?",          zh: "收银台在哪里？",       speak: "Where is the checkout?" }
+      ],
+      grammar: "How much ...? / Can I ...? / I'd like to ... / It's + 价格",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'How ___ is this bag?', options: ['many', 'much', 'old', 'long'], answer: 1, knowledge: '询问价格' },
+        { id: 'q2', type: 'fill', prompt: '我想买这件外套。 I ___ to buy this jacket.', answer: "would like", accept: ['would like', "'d like"], knowledge: '表达意愿' },
+        { id: 'q3', type: 'choice', prompt: 'Can I pay ___ card?', options: ['by', 'on', 'in', 'with'], answer: 0, knowledge: '付款方式' },
+        { id: 'q4', type: 'order', prompt: '连词成句：take / I / it / will', words: ['take', 'I', 'it', 'will'], answer: ['I', 'will', 'take', 'it'], knowledge: '决定购买' },
+        { id: 'q5', type: 'translation', prompt: '中译英：这个多少钱？', answer: 'How much is this', accept: ['How much is this', 'How much does this cost'], knowledge: '询问价格' },
+        { id: 'q6', type: 'choice', prompt: 'It\'s ___ sale.', options: ['on', 'in', 'at', 'for'], answer: 0, knowledge: '打折表达' },
+        { id: 'q7', type: 'fill', prompt: '有小一点的尺码吗？ Do you have a ___ size?', answer: 'smaller', accept: ['smaller'], knowledge: '比较级' },
+        { id: 'q8', type: 'retell', prompt: 'I would like to buy this blue shirt.', keywords: ['buy', 'blue', 'shirt'], knowledge: '表达购买意愿' },
+        { id: 'q9', type: 'choice', prompt: 'Cash ___ credit?', options: ['or', 'and', 'but', 'so'], answer: 0, knowledge: '付款方式' },
+        { id: 'q10', type: 'translation', prompt: '中译英：我要这个。', answer: "I'll take it", accept: ["I'll take it", 'I will take it'], knowledge: '决定购买' },
+        { id: 'q11', type: 'fill', prompt: '这是你的收据。 Here\'s your ___.', answer: 'receipt', accept: ['receipt'], knowledge: '付款用语' },
+        { id: 'q12', type: 'choice', prompt: 'Do you have any ___? (折扣)', options: ['discount', 'size', 'color', 'receipt'], answer: 0, knowledge: '折扣' },
+        { id: 'q13', type: 'order', prompt: '连词成句：pay / you / How / like / would / to', words: ['pay', 'you', 'How', 'like', 'would', 'to'], answer: ['How', 'would', 'you', 'like', 'to', 'pay'], knowledge: '付款方式' },
+        { id: 'q14', type: 'retell', prompt: 'This shirt is too expensive for me.', keywords: ['shirt', 'too', 'expensive'], knowledge: '价格评价' },
+        { id: 'q15', type: 'translation', prompt: '中译英：不用找零了。', answer: 'Keep the change', accept: ['Keep the change'], knowledge: '付款用语' },
+        { id: 'q16', type: 'choice', prompt: 'Can I get a ___? (退款)', options: ['refund', 'receipt', 'discount', 'size'], answer: 0, knowledge: '退款' }
+      ],
+      video: {
+        title: 'At the Store',
+        cues: [
+          { en: "How much is this T-shirt?",      zh: "这件T恤多少钱？" },
+          { en: "It's fifteen dollars on sale.",  zh: "打折后十五美元。" },
+          { en: "Do you have a medium size?",     zh: "有中码吗？" },
+          { en: "Yes, over there on the shelf.",  zh: "有的，那边架子上。" },
+          { en: "I'll take two of them.",         zh: "我要两件。" },
+          { en: "How would you like to pay?",     zh: "您想怎么付款？" },
+          { en: "I'll pay by credit card.",       zh: "我刷信用卡。" },
+          { en: "Please enter your PIN.",         zh: "请输入密码。" },
+          { en: "Here's your receipt.",           zh: "这是您的收据。" },
+          { en: "Thank you, have a nice day.",    zh: "谢谢，祝您愉快。" },
+          { en: "You too, goodbye.",              zh: "你也是，再见。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Hi! Are you ready to shop? Pick a scenario.", options: [
+            { text: "A. 买衣服", next: 'a1' },
+            { text: "B. 超市结账", next: 'b1' }
+          ] },
+          // 场景 A：买衣服
+          a1: { npc: "Welcome! Can I help you find something?", expected: "I'm looking for a jacket.", next: 'a2' },
+          a2: { npc: "What size do you wear?", expected: "I wear a medium.", next: 'a3' },
+          a3: { npc: "How about this black one?", expected: "How much is it?", next: 'a4' },
+          a4: { npc: "It's eighty dollars.", expected: "That's too expensive.", next: 'a5' },
+          a5: { npc: "It's on sale for fifty.", expected: "OK, I'll take it.", next: 'a6' },
+          a6: { npc: "How would you like to pay?", expected: "By credit card.", next: 'a7' },
+          a7: { npc: "Here's your receipt. Thank you!", expected: "Thank you, bye.", next: 'rEnd' },
+          // 场景 B：超市结账
+          b1: { npc: "Hello, did you find everything?", expected: "Yes, just these items.", next: 'b2' },
+          b2: { npc: "That will be thirty-two dollars.", expected: "Can I pay by card?", next: 'b3' },
+          b3: { npc: "Sure, please insert your card.", expected: "OK, here you go.", next: 'b4' },
+          b4: { npc: "Would you like a bag?", expected: "No, thanks.", next: 'b5' },
+          b5: { npc: "Here's your receipt.", expected: "Thank you very much.", next: 'b6' },
+          b6: { npc: "Have a great day!", expected: "You too, goodbye.", next: 'rEnd' },
+          rEnd: { npc: "Nice job finishing your shopping!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'How much ___ these shoes?', options: ['is', 'are', 'do', 'does'], answer: 1, knowledge: '询问价格' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我可以刷卡吗？', answer: 'Can I pay by card', accept: ['Can I pay by card', 'May I pay by card'], knowledge: '付款方式' },
+        { id: 'e3', type: 'fill', prompt: 'I\'d ___ to buy this watch.', answer: 'like', accept: ['like'], knowledge: '表达意愿' },
+        { id: 'e4', type: 'choice', prompt: 'It\'s ___ sale today.', options: ['in', 'on', 'at', 'to'], answer: 1, knowledge: '打折表达' },
+        { id: 'e5', type: 'order', prompt: '连词成句：expensive / too / is / This', words: ['expensive', 'too', 'is', 'This'], answer: ['This', 'is', 'too', 'expensive'], knowledge: '价格评价' },
+        { id: 'e6', type: 'retell', prompt: 'I want a larger size in blue.', keywords: ['larger', 'size', 'blue'], knowledge: '尺码与颜色' },
+        { id: 'e7', type: 'translation', prompt: '中译英：我要这个。', answer: "I'll take it", accept: ["I'll take it"], knowledge: '决定购买' },
+        { id: 'e8', type: 'choice', prompt: 'Can I get a ___? (退款)', options: ['receipt', 'refund', 'discount', 'bag'], answer: 1, knowledge: '退款' },
+        { id: 'e9', type: 'fill', prompt: '现金还是信用卡？ Cash ___ credit?', answer: 'or', accept: ['or'], knowledge: '付款方式' },
+        { id: 'e10', type: 'retell', prompt: 'The jacket costs one hundred dollars.', keywords: ['jacket', 'costs', 'dollars'], knowledge: '价格表达' },
+        { id: 'e11', type: 'choice', prompt: 'Do you have a ___ size? (更小)', options: ['bigger', 'smaller', 'taller', 'shorter'], answer: 1, knowledge: '比较级' },
+        { id: 'e12', type: 'translation', prompt: '中译英：有折扣吗？', answer: 'Do you have any discount', accept: ['Do you have any discount', 'Is there a discount'], knowledge: '折扣' },
+        { id: 'e13', type: 'order', prompt: '连词成句：pay / like / you / would / How / to', words: ['pay', 'like', 'you', 'would', 'How', 'to'], answer: ['How', 'would', 'you', 'like', 'to', 'pay'], knowledge: '付款方式' },
+        { id: 'e14', type: 'fill', prompt: '这是你的收据。 Here\'s your ___.', answer: 'receipt', accept: ['receipt'], knowledge: '付款用语' },
+        { id: 'e15', type: 'retell', prompt: 'I will pay with cash today.', keywords: ['pay', 'cash', 'today'], knowledge: '付款方式' },
+        { id: 'e16', type: 'choice', prompt: 'Keep the ___. (找零)', options: ['money', 'change', 'receipt', 'bag'], answer: 1, knowledge: '付款用语' }
+      ],
+      xp: 120
+    },
+
+    // ---------- 第五章：餐厅点餐 ----------
+    {
+      id: 'ch5',
+      stage: 'A2',
+      title: '餐厅点餐',
+      emoji: '🍽️',
+      goal: '学会用英语在餐厅点餐、询问菜品并完成用餐',
+      blocks: [
+        { en: "A table for two, please.",       zh: "请安排两人桌。",     speak: "A table for two, please." },
+        { en: "Here is the menu.",              zh: "这是菜单。",         speak: "Here is the menu." },
+        { en: "What do you recommend?",         zh: "你推荐什么？",       speak: "What do you recommend?" },
+        { en: "I'd like the steak, please.",    zh: "我想要牛排。",       speak: "I'd like the steak, please." },
+        { en: "How would you like it cooked?",  zh: "您想要几分熟？",     speak: "How would you like it cooked?" },
+        { en: "Medium, please.",                zh: "五分熟，谢谢。",     speak: "Medium, please." },
+        { en: "Could I have some water?",       zh: "可以给我一些水吗？", speak: "Could I have some water?" },
+        { en: "The food is delicious.",         zh: "食物很美味。",       speak: "The food is delicious." },
+        { en: "Check, please.",                 zh: "请结账。",           speak: "Check, please." },
+        { en: "Here's your bill.",              zh: "这是您的账单。",     speak: "Here's your bill." },
+        { en: "Keep the change.",               zh: "不用找零了。",       speak: "Keep the change." },
+        { en: "Do you have a vegetarian dish?", zh: "有素菜吗？",         speak: "Do you have a vegetarian dish?" },
+        { en: "Is this spicy?",                 zh: "这个辣吗？",         speak: "Is this spicy?" },
+        { en: "I'm allergic to peanuts.",       zh: "我对花生过敏。",     speak: "I'm allergic to peanuts." },
+        { en: "Can I get it to go?",            zh: "可以打包吗？",       speak: "Can I get it to go?" },
+        { en: "Enjoy your meal!",               zh: "祝您用餐愉快！",     speak: "Enjoy your meal!" }
+      ],
+      grammar: "I'd like ... / Could I have ...? / How would you like ...? / 点餐用语",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'A table ___ two, please.', options: ['for', 'of', 'with', 'to'], answer: 0, knowledge: '订桌' },
+        { id: 'q2', type: 'fill', prompt: '你推荐什么？ What do you ___?', answer: 'recommend', accept: ['recommend'], knowledge: '询问推荐' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我想要牛排。', answer: "I'd like the steak", accept: ["I'd like the steak", 'I would like the steak'], knowledge: '点餐' },
+        { id: 'q4', type: 'choice', prompt: 'How would you like it ___?', options: ['cook', 'cooked', 'cooking', 'cooks'], answer: 1, knowledge: '熟度' },
+        { id: 'q5', type: 'fill', prompt: '五分熟，谢谢。 ___, please.', answer: 'Medium', accept: ['medium', 'Medium'], knowledge: '熟度' },
+        { id: 'q6', type: 'order', prompt: '连词成句：have / water / Could / I / some', words: ['have', 'water', 'Could', 'I', 'some'], answer: ['Could', 'I', 'have', 'some', 'water'], knowledge: '请求服务' },
+        { id: 'q7', type: 'choice', prompt: '___, please. (结账)', options: ['Menu', 'Check', 'Bill', 'Water'], answer: 1, knowledge: '结账' },
+        { id: 'q8', type: 'retell', prompt: 'The pasta is very delicious today.', keywords: ['pasta', 'delicious', 'today'], knowledge: '评价菜品' },
+        { id: 'q9', type: 'translation', prompt: '中译英：有素菜吗？', answer: 'Do you have a vegetarian dish', accept: ['Do you have a vegetarian dish', 'Do you have vegetarian food'], knowledge: '特殊饮食' },
+        { id: 'q10', type: 'choice', prompt: 'I\'m allergic ___ nuts.', options: ['to', 'for', 'with', 'of'], answer: 0, knowledge: '过敏' },
+        { id: 'q11', type: 'fill', prompt: '可以打包吗？ Can I get it to ___?', answer: 'go', accept: ['go'], knowledge: '打包' },
+        { id: 'q12', type: 'choice', prompt: 'Is this ___? (辣)', options: ['sweet', 'spicy', 'salty', 'cold'], answer: 1, knowledge: '口味' },
+        { id: 'q13', type: 'order', prompt: '连词成句：meal / your / Enjoy', words: ['meal', 'your', 'Enjoy'], answer: ['Enjoy', 'your', 'meal'], knowledge: '用餐祝语' },
+        { id: 'q14', type: 'retell', prompt: 'I would like the fish and some rice.', keywords: ['fish', 'rice', 'would like'], knowledge: '点餐' },
+        { id: 'q15', type: 'translation', prompt: '中译英：食物很美味。', answer: 'The food is delicious', accept: ['The food is delicious', 'The food tastes delicious'], knowledge: '评价菜品' },
+        { id: 'q16', type: 'choice', prompt: 'Here\'s your ___. (账单)', options: ['menu', 'bill', 'receipt', 'food'], answer: 1, knowledge: '结账' }
+      ],
+      video: {
+        title: 'At the Restaurant',
+        cues: [
+          { en: "Good evening, a table for two?",   zh: "晚上好，两位吗？" },
+          { en: "Yes, by the window please.",       zh: "是的，靠窗的位置。" },
+          { en: "Here are your menus.",             zh: "这是菜单。" },
+          { en: "Are you ready to order?",          zh: "可以点餐了吗？" },
+          { en: "I'd like the steak, medium.",      zh: "我要牛排，五分熟。" },
+          { en: "And for you, sir?",                zh: "先生您呢？" },
+          { en: "The grilled salmon, please.",      zh: "请给我烤三文鱼。" },
+          { en: "Would you like anything to drink?",zh: "要喝点什么吗？" },
+          { en: "Just water, thanks.",              zh: "水就好，谢谢。" },
+          { en: "Enjoy your meal!",                 zh: "祝您用餐愉快！" },
+          { en: "Check, please.",                   zh: "请结账。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Hungry? Pick a dining scenario.", options: [
+            { text: "A. 正式餐厅", next: 'a1' },
+            { text: "B. 快餐店", next: 'b1' }
+          ] },
+          a1: { npc: "Good evening! How many people?", expected: "A table for two.", next: 'a2' },
+          a2: { npc: "Here is the menu. Ready to order?", expected: "I'd like the steak.", next: 'a3' },
+          a3: { npc: "How would you like it cooked?", expected: "Medium, please.", next: 'a4' },
+          a4: { npc: "Would you like a drink?", expected: "Water, please.", next: 'a5' },
+          a5: { npc: "Here's your food. Enjoy!", expected: "Thank you.", next: 'a6' },
+          a6: { npc: "How was everything?", expected: "Delicious, thanks.", next: 'a7' },
+          a7: { npc: "Here's your bill.", expected: "Keep the change.", next: 'rEnd' },
+          b1: { npc: "Hi, what can I get for you?", expected: "I want a burger.", next: 'b2' },
+          b2: { npc: "For here or to go?", expected: "For here.", next: 'b3' },
+          b3: { npc: "Would you like fries with that?", expected: "Yes, please.", next: 'b4' },
+          b4: { npc: "What drink do you want?", expected: "A cola, please.", next: 'b5' },
+          b5: { npc: "That will be eight dollars.", expected: "Here you are.", next: 'b6' },
+          b6: { npc: "Thank you, enjoy your meal!", expected: "Thanks, you too.", next: 'rEnd' },
+          rEnd: { npc: "Great dining practice!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'A table for ___, please.', options: ['two', 'second', 'twice', 'two of'], answer: 0, knowledge: '订桌' },
+        { id: 'e2', type: 'translation', prompt: '中译英：你推荐什么？', answer: 'What do you recommend', accept: ['What do you recommend', 'What would you recommend'], knowledge: '询问推荐' },
+        { id: 'e3', type: 'fill', prompt: 'I\'d ___ the chicken, please.', answer: 'like', accept: ['like'], knowledge: '点餐' },
+        { id: 'e4', type: 'choice', prompt: 'How would you like it ___?', options: ['cooked', 'cook', 'cooks', 'cooking'], answer: 0, knowledge: '熟度' },
+        { id: 'e5', type: 'order', prompt: '连词成句：have / I / Could / water / some', words: ['have', 'I', 'Could', 'water', 'some'], answer: ['Could', 'I', 'have', 'some', 'water'], knowledge: '请求服务' },
+        { id: 'e6', type: 'retell', prompt: 'The soup is too spicy for me.', keywords: ['soup', 'too', 'spicy'], knowledge: '口味' },
+        { id: 'e7', type: 'translation', prompt: '中译英：请结账。', answer: 'Check, please', accept: ['Check, please', 'The check, please', 'Bill, please'], knowledge: '结账' },
+        { id: 'e8', type: 'choice', prompt: 'I\'m allergic ___ seafood.', options: ['to', 'for', 'in', 'with'], answer: 0, knowledge: '过敏' },
+        { id: 'e9', type: 'fill', prompt: '可以打包吗？ Can I get it to ___?', answer: 'go', accept: ['go'], knowledge: '打包' },
+        { id: 'e10', type: 'retell', prompt: 'I would like a salad and some bread.', keywords: ['salad', 'bread', 'would like'], knowledge: '点餐' },
+        { id: 'e11', type: 'choice', prompt: 'Is this dish ___? (辣)', options: ['sweet', 'spicy', 'sour', 'bitter'], answer: 1, knowledge: '口味' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我对花生过敏。', answer: "I'm allergic to peanuts", accept: ["I'm allergic to peanuts", 'I am allergic to peanuts'], knowledge: '过敏' },
+        { id: 'e13', type: 'order', prompt: '连词成句：bill / your / Here\'s', words: ['bill', 'your', "Here's"], answer: ["Here's", 'your', 'bill'], knowledge: '结账' },
+        { id: 'e14', type: 'fill', prompt: '食物很美味。 The food is ___.', answer: 'delicious', accept: ['delicious', 'great', 'tasty'], knowledge: '评价菜品' },
+        { id: 'e15', type: 'retell', prompt: 'Could I have the check, please?', keywords: ['have', 'check', 'please'], knowledge: '结账' },
+        { id: 'e16', type: 'choice', prompt: 'Keep the ___. (找零)', options: ['bill', 'change', 'money', 'tip'], answer: 1, knowledge: '结账' }
+      ],
+      xp: 120
+    },
+
+    // ---------- 第六章：打电话与预约 ----------
+    {
+      id: 'ch6',
+      stage: 'A2',
+      title: '打电话与预约',
+      emoji: '📞',
+      goal: '学会用英语打电话、预约时间并记录留言',
+      blocks: [
+        { en: "Hello, this is Alex speaking.",    zh: "你好，我是 Alex。",      speak: "Hello, this is Alex speaking." },
+        { en: "May I speak to Tom?",              zh: "我可以和 Tom 通话吗？",  speak: "May I speak to Tom?" },
+        { en: "Who's calling, please?",           zh: "请问您是哪位？",         speak: "Who's calling, please?" },
+        { en: "Hold on a moment.",                zh: "请稍等。",               speak: "Hold on a moment." },
+        { en: "I'm afraid he's not in.",          zh: "恐怕他不在。",           speak: "I'm afraid he's not in." },
+        { en: "Can I take a message?",            zh: "我可以捎个口信吗？",     speak: "Can I take a message?" },
+        { en: "I'd like to make an appointment.", zh: "我想预约。",             speak: "I'd like to make an appointment." },
+        { en: "What time works for you?",         zh: "您什么时间方便？",       speak: "What time works for you?" },
+        { en: "How about Monday at ten?",         zh: "周一十点怎么样？",       speak: "How about Monday at ten?" },
+        { en: "That works for me.",               zh: "我没问题。",             speak: "That works for me." },
+        { en: "Let me write it down.",            zh: "我记一下。",             speak: "Let me write it down." },
+        { en: "Could you call back later?",       zh: "您可以晚点再打来吗？",   speak: "Could you call back later?" },
+        { en: "I'll call you tomorrow.",          zh: "我明天打给你。",         speak: "I'll call you tomorrow." },
+        { en: "The line is busy.",                zh: "占线了。",               speak: "The line is busy." },
+        { en: "Sorry, wrong number.",             zh: "对不起，打错了。",       speak: "Sorry, wrong number." },
+        { en: "Thanks for calling, bye.",         zh: "谢谢你来电，再见。",     speak: "Thanks for calling, bye." }
+      ],
+      grammar: "May I ...? / I'd like to ... / Could you ...? / 电话用语",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'Hello, this ___ Alex.', options: ['is', 'am', 'are', 'be'], answer: 0, knowledge: '电话自我介绍' },
+        { id: 'q2', type: 'fill', prompt: '我可以和 Tom 通话吗？ May I ___ to Tom?', answer: 'speak', accept: ['speak'], knowledge: '请求通话' },
+        { id: 'q3', type: 'translation', prompt: '中译英：请问您是哪位？', answer: "Who's calling, please", accept: ["Who's calling, please", 'Who is calling, please', 'May I ask who is calling'], knowledge: '询问来电者' },
+        { id: 'q4', type: 'choice', prompt: 'Hold ___ a moment.', options: ['on', 'in', 'at', 'to'], answer: 0, knowledge: '稍等' },
+        { id: 'q5', type: 'fill', prompt: '请稍等。 Hold on a ___.', answer: 'moment', accept: ['moment', 'minute', 'second'], knowledge: '稍等' },
+        { id: 'q6', type: 'order', prompt: '连词成句：take / Can / message / I / a', words: ['take', 'Can', 'message', 'I', 'a'], answer: ['Can', 'I', 'take', 'a', 'message'], knowledge: '留言' },
+        { id: 'q7', type: 'choice', prompt: 'I\'d like to ___ an appointment.', options: ['do', 'make', 'have', 'go'], answer: 1, knowledge: '预约' },
+        { id: 'q8', type: 'retell', prompt: 'I want to make an appointment for Friday.', keywords: ['appointment', 'Friday', 'make'], knowledge: '预约' },
+        { id: 'q9', type: 'translation', prompt: '中译英：周一十点怎么样？', answer: 'How about Monday at ten', accept: ['How about Monday at ten', 'What about Monday at ten'], knowledge: '预约时间' },
+        { id: 'q10', type: 'choice', prompt: 'That works ___ me.', options: ['for', 'to', 'with', 'in'], answer: 0, knowledge: '表示同意' },
+        { id: 'q11', type: 'fill', prompt: '我记一下。 Let me write it ___.', answer: 'down', accept: ['down'], knowledge: '记录' },
+        { id: 'q12', type: 'choice', prompt: 'The line is ___. (占线)', options: ['free', 'busy', 'full', 'open'], answer: 1, knowledge: '电话状态' },
+        { id: 'q13', type: 'order', prompt: '连词成句：call / you / back / Could / later', words: ['call', 'you', 'back', 'Could', 'later'], answer: ['Could', 'you', 'call', 'back', 'later'], knowledge: '回电' },
+        { id: 'q14', type: 'retell', prompt: 'He is not in right now, sorry.', keywords: ['not in', 'sorry', 'now'], knowledge: '对方不在' },
+        { id: 'q15', type: 'translation', prompt: '中译英：对不起，打错了。', answer: 'Sorry, wrong number', accept: ['Sorry, wrong number', "I'm sorry, wrong number"], knowledge: '打错电话' },
+        { id: 'q16', type: 'choice', prompt: 'I\'ll call you ___. (明天)', options: ['yesterday', 'tomorrow', 'today', 'now'], answer: 1, knowledge: '时间安排' }
+      ],
+      video: {
+        title: 'Making a Call',
+        cues: [
+          { en: "Hello, this is the doctor's office.", zh: "你好，这里是诊所。" },
+          { en: "Hi, I'd like to make an appointment.",zh: "你好，我想预约。" },
+          { en: "What day works for you?",             zh: "您哪天方便？" },
+          { en: "How about Wednesday morning?",        zh: "周三上午怎么样？" },
+          { en: "Wednesday at nine works.",            zh: "周三九点可以。" },
+          { en: "May I have your name?",               zh: "请问您叫什么名字？" },
+          { en: "My name is Alex Lee.",                zh: "我叫 Alex Lee。" },
+          { en: "OK, see you Wednesday.",              zh: "好的，周三见。" },
+          { en: "Thank you very much.",                zh: "非常感谢。" },
+          { en: "You're welcome, goodbye.",            zh: "不客气，再见。" },
+          { en: "Have a nice day.",                    zh: "祝您愉快。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Ready to practice phone calls? Pick a scenario.", options: [
+            { text: "A. 预约牙医", next: 'a1' },
+            { text: "B. 给同事留言", next: 'b1' }
+          ] },
+          a1: { npc: "Hello, Dental Clinic. How can I help?", expected: "I'd like an appointment.", next: 'a2' },
+          a2: { npc: "What day works for you?", expected: "How about Friday?", next: 'a3' },
+          a3: { npc: "Friday at three is available.", expected: "That works for me.", next: 'a4' },
+          a4: { npc: "May I have your name?", expected: "My name is Alex.", next: 'a5' },
+          a5: { npc: "And your phone number?", expected: "It's 13800000000.", next: 'a6' },
+          a6: { npc: "OK, confirmed for Friday three.", expected: "Thank you very much.", next: 'a7' },
+          a7: { npc: "See you then, goodbye.", expected: "Goodbye.", next: 'rEnd' },
+          b1: { npc: "Hello, this is Tom's office.", expected: "May I speak to Tom?", next: 'b2' },
+          b2: { npc: "He's out. Can I take a message?", expected: "Yes, please.", next: 'b3' },
+          b3: { npc: "What's the message?", expected: "Tell him to call Alex.", next: 'b4' },
+          b4: { npc: "OK, I'll tell him.", expected: "Thank you, bye.", next: 'rEnd' },
+          rEnd: { npc: "Great phone practice!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'Hello, this ___ Sarah speaking.', options: ['is', 'am', 'are', 'be'], answer: 0, knowledge: '电话自我介绍' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我可以和 Tom 通话吗？', answer: 'May I speak to Tom', accept: ['May I speak to Tom', 'Can I speak to Tom'], knowledge: '请求通话' },
+        { id: 'e3', type: 'fill', prompt: '请问您是哪位？ Who\'s ___, please?', answer: 'calling', accept: ['calling'], knowledge: '询问来电者' },
+        { id: 'e4', type: 'choice', prompt: 'Hold ___, please.', options: ['on', 'in', 'at', 'for'], answer: 0, knowledge: '稍等' },
+        { id: 'e5', type: 'order', prompt: '连词成句：a / take / I / Can / message', words: ['a', 'take', 'I', 'Can', 'message'], answer: ['Can', 'I', 'take', 'a', 'message'], knowledge: '留言' },
+        { id: 'e6', type: 'retell', prompt: 'I am afraid he is not in today.', keywords: ['not in', 'afraid', 'today'], knowledge: '对方不在' },
+        { id: 'e7', type: 'translation', prompt: '中译英：我想预约。', answer: "I'd like to make an appointment", accept: ["I'd like to make an appointment", 'I would like to make an appointment'], knowledge: '预约' },
+        { id: 'e8', type: 'choice', prompt: 'What time works ___ you?', options: ['for', 'to', 'with', 'on'], answer: 0, knowledge: '预约时间' },
+        { id: 'e9', type: 'fill', prompt: '我记一下。 Let me write it ___.', answer: 'down', accept: ['down'], knowledge: '记录' },
+        { id: 'e10', type: 'retell', prompt: 'Please call me back this afternoon.', keywords: ['call back', 'afternoon', 'please'], knowledge: '回电' },
+        { id: 'e11', type: 'choice', prompt: 'The line is ___. (占线)', options: ['busy', 'free', 'clear', 'good'], answer: 0, knowledge: '电话状态' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我明天打给你。', answer: "I'll call you tomorrow", accept: ["I'll call you tomorrow", 'I will call you tomorrow'], knowledge: '时间安排' },
+        { id: 'e13', type: 'order', prompt: '连词成句：number / wrong / Sorry', words: ['number', 'wrong', 'Sorry'], answer: ['Sorry', 'wrong', 'number'], knowledge: '打错电话' },
+        { id: 'e14', type: 'fill', prompt: '我没问题。 That ___ for me.', answer: 'works', accept: ['works'], knowledge: '表示同意' },
+        { id: 'e15', type: 'retell', prompt: 'Could you call back later, please?', keywords: ['call back', 'later', 'please'], knowledge: '回电' },
+        { id: 'e16', type: 'choice', prompt: 'I\'m ___ he\'s not in.', options: ['afraid', 'sorry', 'sad', 'happy'], answer: 0, knowledge: '对方不在' }
+      ],
+      xp: 120
+    },
+
+    // ---------- 第七章：天气与穿着 ----------
+    {
+      id: 'ch7',
+      stage: 'B1',
+      title: '天气与穿着',
+      emoji: '☀️',
+      goal: '学会用英语描述天气、温度并讨论穿着搭配',
+      blocks: [
+        { en: "How's the weather today?",         zh: "今天天气怎么样？",     speak: "How's the weather today?" },
+        { en: "It's sunny and warm.",             zh: "阳光明媚，很暖和。",   speak: "It's sunny and warm." },
+        { en: "It's raining outside.",            zh: "外面在下雨。",         speak: "It's raining outside." },
+        { en: "What's the temperature?",          zh: "气温多少？",           speak: "What's the temperature?" },
+        { en: "It's twenty-five degrees.",        zh: "二十五度。",           speak: "It's twenty-five degrees." },
+        { en: "You should wear a coat.",          zh: "你应该穿件外套。",     speak: "You should wear a coat." },
+        { en: "It's too cold today.",             zh: "今天太冷了。",         speak: "It's too cold today." },
+        { en: "Take an umbrella with you.",       zh: "带把伞吧。",           speak: "Take an umbrella with you." },
+        { en: "I like wearing a T-shirt.",        zh: "我喜欢穿T恤。",        speak: "I like wearing a T-shirt." },
+        { en: "This jacket fits me well.",        zh: "这件夹克很合身。",     speak: "This jacket fits me well." },
+        { en: "It looks nice on you.",            zh: "你穿这个很好看。",     speak: "It looks nice on you." },
+        { en: "The forecast says it will snow.",  zh: "预报说会下雪。",       speak: "The forecast says it will snow." },
+        { en: "It's windy today.",                zh: "今天风很大。",         speak: "It's windy today." },
+        { en: "I need a pair of gloves.",         zh: "我需要一副手套。",     speak: "I need a pair of gloves." },
+        { en: "What should I wear?",              zh: "我该穿什么？",         speak: "What should I wear?" },
+        { en: "Dress warmly, it's freezing.",     zh: "穿暖和点，天很冷。",   speak: "Dress warmly, it's freezing." }
+      ],
+      grammar: "How's the weather? / It's + 形容词 / should + 动词原形 / 穿着表达",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'How\'s the ___ today?', options: ['weather', 'whether', 'temperature', 'season'], answer: 0, knowledge: '询问天气' },
+        { id: 'q2', type: 'fill', prompt: '外面在下雨。 It\'s ___ outside.', answer: 'raining', accept: ['raining', 'rainy'], knowledge: '天气描述' },
+        { id: 'q3', type: 'translation', prompt: '中译英：今天天气怎么样？', answer: "How's the weather today", accept: ["How's the weather today", 'How is the weather today', "What's the weather like today"], knowledge: '询问天气' },
+        { id: 'q4', type: 'choice', prompt: 'What\'s the ___?', options: ['weather', 'temperature', 'degree', 'hot'], answer: 1, knowledge: '询问温度' },
+        { id: 'q5', type: 'fill', prompt: '二十五度。 It\'s twenty-five ___.', answer: 'degrees', accept: ['degrees', 'degree'], knowledge: '温度单位' },
+        { id: 'q6', type: 'order', prompt: '连词成句：wear / should / a / You / coat', words: ['wear', 'should', 'a', 'You', 'coat'], answer: ['You', 'should', 'wear', 'a', 'coat'], knowledge: '建议穿着' },
+        { id: 'q7', type: 'choice', prompt: 'Take an umbrella ___ you.', options: ['with', 'for', 'to', 'on'], answer: 0, knowledge: '携带物品' },
+        { id: 'q8', type: 'retell', prompt: 'It is very cold and snowy today.', keywords: ['cold', 'snowy', 'today'], knowledge: '天气描述' },
+        { id: 'q9', type: 'translation', prompt: '中译英：你应该穿件外套。', answer: 'You should wear a coat', accept: ['You should wear a coat', 'You ought to wear a coat'], knowledge: '建议穿着' },
+        { id: 'q10', type: 'choice', prompt: 'It looks nice ___ you.', options: ['on', 'in', 'for', 'with'], answer: 0, knowledge: '穿着评价' },
+        { id: 'q11', type: 'fill', prompt: '我需要一副手套。 I need a ___ of gloves.', answer: 'pair', accept: ['pair'], knowledge: '量词' },
+        { id: 'q12', type: 'choice', prompt: 'It\'s ___ today. (有风)', options: ['sunny', 'windy', 'foggy', 'cloudy'], answer: 1, knowledge: '天气描述' },
+        { id: 'q13', type: 'order', prompt: '连词成句：snow / will / It / tomorrow', words: ['snow', 'will', 'It', 'tomorrow'], answer: ['It', 'will', 'snow', 'tomorrow'], knowledge: '天气预报' },
+        { id: 'q14', type: 'retell', prompt: 'This jacket fits me very well.', keywords: ['jacket', 'fits', 'well'], knowledge: '穿着评价' },
+        { id: 'q15', type: 'translation', prompt: '中译英：预报说会下雪。', answer: 'The forecast says it will snow', accept: ['The forecast says it will snow', 'The forecast says it is going to snow'], knowledge: '天气预报' },
+        { id: 'q16', type: 'choice', prompt: 'I like ___ a T-shirt.', options: ['wear', 'wearing', 'wears', 'to wearing'], answer: 1, knowledge: '穿着喜好' }
+      ],
+      video: {
+        title: 'Weather and Clothes',
+        cues: [
+          { en: "How's the weather today?",       zh: "今天天气怎么样？" },
+          { en: "It's rainy and a bit cold.",     zh: "下雨，有点冷。" },
+          { en: "What's the temperature?",        zh: "气温多少？" },
+          { en: "About fifteen degrees.",         zh: "大约十五度。" },
+          { en: "I should wear a jacket then.",   zh: "那我该穿件夹克。" },
+          { en: "Yes, and take an umbrella.",     zh: "对，带把伞。" },
+          { en: "How about tomorrow?",            zh: "明天呢？" },
+          { en: "It will be sunny and warm.",     zh: "明天晴，暖和。" },
+          { en: "Great, I'll wear a T-shirt.",    zh: "太好了，我穿T恤。" },
+          { en: "That sounds nice.",              zh: "听起来不错。" },
+          { en: "See you tomorrow!",              zh: "明天见！" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Let's talk about weather. Pick a scenario.", options: [
+            { text: "A. 出门前讨论穿着", next: 'a1' },
+            { text: "B. 聊周末天气计划", next: 'b1' }
+          ] },
+          a1: { npc: "How's the weather today?", expected: "It's cold and rainy.", next: 'a2' },
+          a2: { npc: "What should I wear?", expected: "Wear a warm coat.", next: 'a3' },
+          a3: { npc: "Should I take an umbrella?", expected: "Yes, take one.", next: 'a4' },
+          a4: { npc: "How about my shoes?", expected: "Wear waterproof shoes.", next: 'a5' },
+          a5: { npc: "Don't forget your scarf!", expected: "Thanks, I won't.", next: 'a6' },
+          a6: { npc: "OK, you're all set now.", expected: "Have a good day!", next: 'rEnd' },
+          b1: { npc: "What's the weather this weekend?", expected: "It will be sunny.", next: 'b2' },
+          b2: { npc: "Great! What will you do?", expected: "I'll go to the park.", next: 'b3' },
+          b3: { npc: "What will you wear?", expected: "A T-shirt and shorts.", next: 'b4' },
+          b4: { npc: "Will you bring sunscreen?", expected: "Yes, I will.", next: 'b5' },
+          b5: { npc: "Sounds perfect. Enjoy!", expected: "Thanks, you too.", next: 'rEnd' },
+          rEnd: { npc: "Nice weather chat!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'How\'s the weather ___?', options: ['today', 'yesterday', 'last', 'ago'], answer: 0, knowledge: '询问天气' },
+        { id: 'e2', type: 'translation', prompt: '中译英：气温多少？', answer: "What's the temperature", accept: ["What's the temperature", 'What is the temperature'], knowledge: '询问温度' },
+        { id: 'e3', type: 'fill', prompt: 'It\'s twenty ___ Celsius.', answer: 'degrees', accept: ['degrees', 'degree'], knowledge: '温度单位' },
+        { id: 'e4', type: 'choice', prompt: 'You ___ wear a coat.', options: ['should', 'do', 'are', 'is'], answer: 0, knowledge: '建议穿着' },
+        { id: 'e5', type: 'order', prompt: '连词成句：umbrella / an / Take / you / with', words: ['umbrella', 'an', 'Take', 'you', 'with'], answer: ['Take', 'an', 'umbrella', 'with', 'you'], knowledge: '携带物品' },
+        { id: 'e6', type: 'retell', prompt: 'It is going to snow tomorrow morning.', keywords: ['snow', 'tomorrow', 'morning'], knowledge: '天气预报' },
+        { id: 'e7', type: 'translation', prompt: '中译英：今天风很大。', answer: "It's windy today", accept: ["It's windy today", 'It is windy today'], knowledge: '天气描述' },
+        { id: 'e8', type: 'choice', prompt: 'It looks nice ___ her.', options: ['on', 'in', 'for', 'to'], answer: 0, knowledge: '穿着评价' },
+        { id: 'e9', type: 'fill', prompt: '我需要一副手套。 I need a ___ of gloves.', answer: 'pair', accept: ['pair'], knowledge: '量词' },
+        { id: 'e10', type: 'retell', prompt: 'The jacket does not fit me well.', keywords: ['jacket', 'not fit', 'well'], knowledge: '穿着评价' },
+        { id: 'e11', type: 'choice', prompt: 'It\'s ___ today. (下雪)', options: ['snowing', 'snow', 'snows', 'snowed'], answer: 0, knowledge: '天气描述' },
+        { id: 'e12', type: 'translation', prompt: '中译英：你穿这个很好看。', answer: 'It looks nice on you', accept: ['It looks nice on you', 'You look nice in it'], knowledge: '穿着评价' },
+        { id: 'e13', type: 'order', prompt: '连词成句：T-shirt / this / I / like', words: ['T-shirt', 'this', 'I', 'like'], answer: ['I', 'like', 'this', 'T-shirt'], knowledge: '穿着喜好' },
+        { id: 'e14', type: 'fill', prompt: '穿暖和点。 Dress ___.', answer: 'warmly', accept: ['warmly', 'warm'], knowledge: '穿着建议' },
+        { id: 'e15', type: 'retell', prompt: 'I need a warm scarf and gloves.', keywords: ['scarf', 'gloves', 'warm'], knowledge: '穿着用品' },
+        { id: 'e16', type: 'choice', prompt: 'The ___ says it will rain.', options: ['forecast', 'weather', 'degree', 'coat'], answer: 0, knowledge: '天气预报' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第八章：健康与看医生 ----------
+    {
+      id: 'ch8',
+      stage: 'B1',
+      title: '健康与看医生',
+      emoji: '🏥',
+      goal: '学会用英语描述症状、看医生并理解医嘱',
+      blocks: [
+        { en: "I don't feel well today.",           zh: "我今天感觉不舒服。",   speak: "I don't feel well today." },
+        { en: "I have a headache.",                 zh: "我头疼。",             speak: "I have a headache." },
+        { en: "I have a sore throat.",              zh: "我嗓子疼。",           speak: "I have a sore throat." },
+        { en: "I've had a fever since yesterday.",  zh: "我从昨天开始发烧。",   speak: "I've had a fever since yesterday." },
+        { en: "I feel dizzy.",                      zh: "我觉得头晕。",         speak: "I feel dizzy." },
+        { en: "My stomach hurts.",                  zh: "我肚子疼。",           speak: "My stomach hurts." },
+        { en: "I have a cough.",                    zh: "我咳嗽。",             speak: "I have a cough." },
+        { en: "I can't sleep well.",                zh: "我睡不好。",           speak: "I can't sleep well." },
+        { en: "I'd like to see a doctor.",          zh: "我想看医生。",         speak: "I'd like to see a doctor." },
+        { en: "What are your symptoms?",            zh: "你有什么症状？",       speak: "What are your symptoms?" },
+        { en: "How long have you felt this way?",   zh: "你这样多久了？",       speak: "How long have you felt this way?" },
+        { en: "Take this medicine three times a day.", zh: "这药一天吃三次。", speak: "Take this medicine three times a day." },
+        { en: "Drink more water and rest.",         zh: "多喝水，多休息。",     speak: "Drink more water and rest." },
+        { en: "Are you allergic to any medicine?",  zh: "你对什么药过敏吗？",   speak: "Are you allergic to any medicine?" },
+        { en: "I need a sick note.",                zh: "我需要一张病假条。",   speak: "I need a sick note." },
+        { en: "I hope you feel better soon.",       zh: "希望你快点好起来。",   speak: "I hope you feel better soon." }
+      ],
+      grammar: "I have a ... / How long have you ...? / 祈使句 (Take/Drink) / 症状表达",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'I don\'t ___ well today.', options: ['feel', 'feels', 'feeling', 'felt'], answer: 0, knowledge: '描述不适' },
+        { id: 'q2', type: 'fill', prompt: '我头疼。 I have a ___.', answer: 'headache', accept: ['headache'], knowledge: '症状' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我今天感觉不舒服。', answer: "I don't feel well today", accept: ["I don't feel well today", 'I do not feel well today', "I'm not feeling well today"], knowledge: '描述不适' },
+        { id: 'q4', type: 'choice', prompt: 'I have a ___ throat.', options: ['sore', 'pain', 'hurt', 'ache'], answer: 0, knowledge: '症状' },
+        { id: 'q5', type: 'fill', prompt: '我咳嗽。 I have a ___.', answer: 'cough', accept: ['cough'], knowledge: '症状' },
+        { id: 'q6', type: 'order', prompt: '连词成句：see / I / like / a / to / doctor / would', words: ['see', 'I', 'like', 'a', 'to', 'doctor', 'would'], answer: ['I', 'would', 'like', 'to', 'see', 'a', 'doctor'], knowledge: '就医' },
+        { id: 'q7', type: 'choice', prompt: 'How ___ have you felt this way?', options: ['long', 'far', 'many', 'much'], answer: 0, knowledge: '询问病程' },
+        { id: 'q8', type: 'retell', prompt: 'I have had a fever for two days.', keywords: ['fever', 'two', 'days'], knowledge: '症状' },
+        { id: 'q9', type: 'translation', prompt: '中译英：你有什么症状？', answer: 'What are your symptoms', accept: ['What are your symptoms', 'What symptoms do you have'], knowledge: '询问症状' },
+        { id: 'q10', type: 'choice', prompt: 'Take this medicine three ___ a day.', options: ['times', 'time', 'hours', 'days'], answer: 0, knowledge: '医嘱' },
+        { id: 'q11', type: 'fill', prompt: '多喝水。 Drink more ___.', answer: 'water', accept: ['water'], knowledge: '医嘱' },
+        { id: 'q12', type: 'choice', prompt: 'Are you allergic ___ any medicine?', options: ['to', 'for', 'with', 'of'], answer: 0, knowledge: '过敏' },
+        { id: 'q13', type: 'order', prompt: '连词成句：rest / water / and / more / Drink', words: ['rest', 'water', 'and', 'more', 'Drink'], answer: ['Drink', 'more', 'water', 'and', 'rest'], knowledge: '医嘱' },
+        { id: 'q14', type: 'retell', prompt: 'My stomach hurts a lot today.', keywords: ['stomach', 'hurts', 'today'], knowledge: '症状' },
+        { id: 'q15', type: 'translation', prompt: '中译英：我需要一张病假条。', answer: 'I need a sick note', accept: ['I need a sick note', 'I need a sick leave note'], knowledge: '病假' },
+        { id: 'q16', type: 'choice', prompt: 'I hope you feel ___ soon.', options: ['better', 'worse', 'good', 'bad'], answer: 0, knowledge: '祝愿' }
+      ],
+      video: {
+        title: 'At the Doctor',
+        cues: [
+          { en: "Good morning, what's wrong?",       zh: "早上好，哪里不舒服？" },
+          { en: "I have a headache and a fever.",    zh: "我头疼还发烧。" },
+          { en: "How long have you felt this way?",  zh: "这样多久了？" },
+          { en: "Since yesterday morning.",          zh: "从昨天早上开始。" },
+          { en: "Do you have a sore throat?",        zh: "嗓子疼吗？" },
+          { en: "Yes, a little bit.",                zh: "有一点。" },
+          { en: "Let me check your temperature.",    zh: "我量一下你的体温。" },
+          { en: "You have a mild flu.",              zh: "你得了轻度流感。" },
+          { en: "Take this medicine three times a day.", zh: "这药一天吃三次。" },
+          { en: "Drink more water and rest.",        zh: "多喝水多休息。" },
+          { en: "Thank you, doctor.",                zh: "谢谢您，医生。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Time to see a doctor. Pick a scenario.", options: [
+            { text: "A. 感冒看医生", next: 'a1' },
+            { text: "B. 胃疼就诊", next: 'b1' }
+          ] },
+          a1: { npc: "Hello, what brings you in today?", expected: "I have a bad cold.", next: 'a2' },
+          a2: { npc: "What are your symptoms?", expected: "I have a cough and fever.", next: 'a3' },
+          a3: { npc: "How long have you had it?", expected: "For three days.", next: 'a4' },
+          a4: { npc: "Let me listen to your chest.", expected: "OK, doctor.", next: 'a5' },
+          a5: { npc: "Take this medicine twice a day.", expected: "Thank you, doctor.", next: 'a6' },
+          a6: { npc: "Rest and drink more water.", expected: "I will, thanks.", next: 'rEnd' },
+          b1: { npc: "Hi, what seems to be the problem?", expected: "My stomach hurts.", next: 'b2' },
+          b2: { npc: "Since when do you feel this?", expected: "Since this morning.", next: 'b3' },
+          b3: { npc: "Did you eat anything unusual?", expected: "No, I didn't.", next: 'b4' },
+          b4: { npc: "I'll prescribe some medicine.", expected: "Thank you very much.", next: 'b5' },
+          b5: { npc: "Avoid spicy food for a week.", expected: "OK, I will.", next: 'rEnd' },
+          rEnd: { npc: "Take care and get well soon!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'I don\'t feel ___ today.', options: ['well', 'good', 'fine', 'nice'], answer: 0, knowledge: '描述不适' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我头疼。', answer: 'I have a headache', accept: ['I have a headache', "I've got a headache", 'My head hurts'], knowledge: '症状' },
+        { id: 'e3', type: 'fill', prompt: '我嗓子疼。 I have a ___ throat.', answer: 'sore', accept: ['sore'], knowledge: '症状' },
+        { id: 'e4', type: 'choice', prompt: 'I\'ve had a fever ___ yesterday.', options: ['since', 'for', 'from', 'at'], answer: 0, knowledge: '病程' },
+        { id: 'e5', type: 'order', prompt: '连词成句：a / I / to / see / doctor / would / like', words: ['a', 'I', 'to', 'see', 'doctor', 'would', 'like'], answer: ['I', 'would', 'like', 'to', 'see', 'a', 'doctor'], knowledge: '就医' },
+        { id: 'e6', type: 'retell', prompt: 'I have a cough and a runny nose.', keywords: ['cough', 'runny', 'nose'], knowledge: '症状' },
+        { id: 'e7', type: 'translation', prompt: '中译英：你这样多久了？', answer: 'How long have you felt this way', accept: ['How long have you felt this way', 'How long have you been feeling this way'], knowledge: '询问病程' },
+        { id: 'e8', type: 'choice', prompt: 'Take this medicine three ___ a day.', options: ['times', 'time', 'meals', 'hours'], answer: 0, knowledge: '医嘱' },
+        { id: 'e9', type: 'fill', prompt: '多喝水，多休息。 Drink more water and ___.', answer: 'rest', accept: ['rest'], knowledge: '医嘱' },
+        { id: 'e10', type: 'retell', prompt: 'I feel dizzy after standing up.', keywords: ['dizzy', 'standing', 'feel'], knowledge: '症状' },
+        { id: 'e11', type: 'choice', prompt: 'Are you allergic ___ penicillin?', options: ['to', 'for', 'with', 'in'], answer: 0, knowledge: '过敏' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我需要一张病假条。', answer: 'I need a sick note', accept: ['I need a sick note', 'I need a sick leave note'], knowledge: '病假' },
+        { id: 'e13', type: 'order', prompt: '连词成句：hope / feel / I / soon / you / better', words: ['hope', 'feel', 'I', 'soon', 'you', 'better'], answer: ['I', 'hope', 'you', 'feel', 'better', 'soon'], knowledge: '祝愿' },
+        { id: 'e14', type: 'fill', prompt: '我觉得头晕。 I feel ___.', answer: 'dizzy', accept: ['dizzy'], knowledge: '症状' },
+        { id: 'e15', type: 'retell', prompt: 'I cannot sleep well at night.', keywords: ['sleep', 'well', 'night'], knowledge: '症状' },
+        { id: 'e16', type: 'choice', prompt: 'I hope you feel ___ soon.', options: ['better', 'worse', 'sick', 'ill'], answer: 0, knowledge: '祝愿' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第九章：兴趣爱好 ----------
+    {
+      id: 'ch9',
+      stage: 'A2',
+      title: '兴趣爱好',
+      emoji: '🎨',
+      goal: '学会用英语谈论兴趣爱好、表达喜欢与不喜欢',
+      blocks: [
+        { en: "What do you do in your free time?",     zh: "你空闲时间做什么？",     speak: "What do you do in your free time?" },
+        { en: "I like reading books.",                 zh: "我喜欢看书。",           speak: "I like reading books." },
+        { en: "I enjoy playing the guitar.",           zh: "我喜欢弹吉他。",         speak: "I enjoy playing the guitar." },
+        { en: "My hobby is painting.",                 zh: "我的爱好是画画。",       speak: "My hobby is painting." },
+        { en: "I'm interested in photography.",        zh: "我对摄影感兴趣。",       speak: "I'm interested in photography." },
+        { en: "I love watching movies.",               zh: "我喜欢看电影。",         speak: "I love watching movies." },
+        { en: "I prefer listening to music.",          zh: "我更喜欢听音乐。",       speak: "I prefer listening to music." },
+        { en: "I'm fond of cooking.",                  zh: "我喜欢烹饪。",           speak: "I'm fond of cooking." },
+        { en: "I hate doing housework.",               zh: "我讨厌做家务。",         speak: "I hate doing housework." },
+        { en: "I often go hiking on weekends.",        zh: "我周末经常去远足。",     speak: "I often go hiking on weekends." },
+        { en: "Do you play any sports?",               zh: "你做什么运动吗？",       speak: "Do you play any sports?" },
+        { en: "I play basketball twice a week.",       zh: "我每周打两次篮球。",     speak: "I play basketball twice a week." },
+        { en: "I collect stamps as a hobby.",          zh: "我集邮作为爱好。",       speak: "I collect stamps as a hobby." },
+        { en: "It's a great way to relax.",            zh: "这是放松的好方式。",     speak: "It's a great way to relax." },
+        { en: "I've been dancing for two years.",      zh: "我跳舞已经两年了。",     speak: "I've been dancing for two years." },
+        { en: "What kind of music do you like?",       zh: "你喜欢什么类型的音乐？", speak: "What kind of music do you like?" }
+      ],
+      grammar: "like / enjoy / be interested in / be fond of + doing；频率副词",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'I like ___ books.', options: ['read', 'reading', 'reads', 'to reading'], answer: 1, knowledge: '喜欢做某事' },
+        { id: 'q2', type: 'fill', prompt: '我对摄影感兴趣。 I\'m ___ in photography.', answer: 'interested', accept: ['interested'], knowledge: '对…感兴趣' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我喜欢看电影。', answer: 'I love watching movies', accept: ['I love watching movies', 'I like watching movies'], knowledge: '喜欢做某事' },
+        { id: 'q4', type: 'choice', prompt: 'I enjoy ___ the guitar.', options: ['play', 'playing', 'plays', 'to play'], answer: 1, knowledge: '喜欢做某事' },
+        { id: 'q5', type: 'fill', prompt: '我的爱好是画画。 My ___ is painting.', answer: 'hobby', accept: ['hobby'], knowledge: '爱好' },
+        { id: 'q6', type: 'order', prompt: '连词成句：free / do / time / your / What / in / you / do', words: ['free', 'do', 'time', 'your', 'What', 'in', 'you', 'do'], answer: ['What', 'do', 'you', 'do', 'in', 'your', 'free', 'time'], knowledge: '询问爱好' },
+        { id: 'q7', type: 'choice', prompt: 'I\'m fond ___ cooking.', options: ['of', 'in', 'on', 'for'], answer: 0, knowledge: '喜欢做某事' },
+        { id: 'q8', type: 'retell', prompt: 'I often go hiking with my friends.', keywords: ['hiking', 'friends', 'often'], knowledge: '休闲活动' },
+        { id: 'q9', type: 'translation', prompt: '中译英：我讨厌做家务。', answer: 'I hate doing housework', accept: ['I hate doing housework', 'I dislike doing housework'], knowledge: '不喜欢' },
+        { id: 'q10', type: 'choice', prompt: 'I play basketball ___ a week.', options: ['two', 'twice', 'second', 'two times'], answer: 1, knowledge: '频率表达' },
+        { id: 'q11', type: 'fill', prompt: '这是放松的好方式。 It\'s a great way to ___.', answer: 'relax', accept: ['relax'], knowledge: '放松' },
+        { id: 'q12', type: 'choice', prompt: 'I prefer ___ to music.', options: ['listen', 'listening', 'listens', 'to listening'], answer: 1, knowledge: '更喜欢' },
+        { id: 'q13', type: 'order', prompt: '连词成句：kind / music / What / like / of / you / do', words: ['kind', 'music', 'What', 'like', 'of', 'you', 'do'], answer: ['What', 'kind', 'of', 'music', 'do', 'you', 'like'], knowledge: '询问喜好' },
+        { id: 'q14', type: 'retell', prompt: 'I have been painting since I was ten.', keywords: ['painting', 'since', 'ten'], knowledge: '爱好持续时间' },
+        { id: 'q15', type: 'translation', prompt: '中译英：我周末经常去远足。', answer: 'I often go hiking on weekends', accept: ['I often go hiking on weekends', 'I usually go hiking on weekends'], knowledge: '频率与活动' },
+        { id: 'q16', type: 'choice', prompt: 'Do you play any ___?', options: ['sports', 'sport', 'a sport', 'sporting'], answer: 0, knowledge: '运动' }
+      ],
+      video: {
+        title: 'Talking About Hobbies',
+        cues: [
+          { en: "What do you do in your free time?",   zh: "你空闲时间做什么？" },
+          { en: "I really enjoy playing the guitar.", zh: "我非常喜欢弹吉他。" },
+          { en: "How long have you been playing?",    zh: "你弹了多久了？" },
+          { en: "For about three years now.",          zh: "大概三年了。" },
+          { en: "That's impressive! Do you sing too?", zh: "真厉害！你也唱歌吗？" },
+          { en: "No, I just play for fun.",            zh: "不，我只是弹着玩。" },
+          { en: "What about you? Any hobbies?",        zh: "你呢？有什么爱好？" },
+          { en: "I love taking photos.",               zh: "我喜欢拍照。" },
+          { en: "Maybe we can share sometime.",        zh: "也许哪天我们可以交流。" },
+          { en: "Sounds great, I'd like that.",        zh: "听起来不错，我很乐意。" },
+          { en: "See you later then!",                 zh: "那回头见！" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Let's talk about hobbies! Pick a scenario.", options: [
+            { text: "A. 认识新朋友聊爱好", next: 'a1' },
+            { text: "B. 加入社团面试", next: 'b1' }
+          ] },
+          a1: { npc: "Hi! What do you do in your free time?", expected: "I like reading books.", next: 'a2' },
+          a2: { npc: "What kind of books do you like?", expected: "I like science fiction.", next: 'a3' },
+          a3: { npc: "Do you have any other hobbies?", expected: "I enjoy playing the guitar.", next: 'a4' },
+          a4: { npc: "How long have you been playing?", expected: "For about two years.", next: 'a5' },
+          a5: { npc: "That's cool. I love hiking.", expected: "I go hiking sometimes too.", next: 'a6' },
+          a6: { npc: "We should go together sometime!", expected: "That sounds great.", next: 'rEnd' },
+          b1: { npc: "Welcome to the art club. Why do you want to join?", expected: "I love painting.", next: 'b2' },
+          b2: { npc: "How long have you been painting?", expected: "Since I was a child.", next: 'b3' },
+          b3: { npc: "What style do you prefer?", expected: "I like watercolor.", next: 'b4' },
+          b4: { npc: "Great! Can you show us your work?", expected: "Sure, here it is.", next: 'b5' },
+          b5: { npc: "Amazing! You're in the club.", expected: "Thank you so much.", next: 'rEnd' },
+          rEnd: { npc: "Nice hobby chat!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'I enjoy ___ basketball.', options: ['play', 'playing', 'plays', 'to play'], answer: 1, knowledge: '喜欢做某事' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我对摄影感兴趣。', answer: "I'm interested in photography", accept: ["I'm interested in photography", 'I am interested in photography'], knowledge: '对…感兴趣' },
+        { id: 'e3', type: 'fill', prompt: '我喜欢烹饪。 I\'m ___ of cooking.', answer: 'fond', accept: ['fond'], knowledge: '喜欢做某事' },
+        { id: 'e4', type: 'choice', prompt: 'My ___ is collecting stamps.', options: ['hobby', 'like', 'interest', 'fun'], answer: 0, knowledge: '爱好' },
+        { id: 'e5', type: 'order', prompt: '连词成句：weekends / often / I / on / hiking / go', words: ['weekends', 'often', 'I', 'on', 'hiking', 'go'], answer: ['I', 'often', 'go', 'hiking', 'on', 'weekends'], knowledge: '频率与活动' },
+        { id: 'e6', type: 'retell', prompt: 'I love listening to classical music.', keywords: ['love', 'classical', 'music'], knowledge: '音乐喜好' },
+        { id: 'e7', type: 'translation', prompt: '中译英：我喜欢看电影。', answer: 'I love watching movies', accept: ['I love watching movies', 'I like watching movies'], knowledge: '喜欢做某事' },
+        { id: 'e8', type: 'choice', prompt: 'I hate ___ the dishes.', options: ['wash', 'washing', 'washes', 'to wash'], answer: 1, knowledge: '不喜欢' },
+        { id: 'e9', type: 'fill', prompt: '我每周打两次篮球。 I play basketball ___ a week.', answer: 'twice', accept: ['twice'], knowledge: '频率表达' },
+        { id: 'e10', type: 'retell', prompt: 'It is a great way to relax after work.', keywords: ['relax', 'work', 'way'], knowledge: '放松' },
+        { id: 'e11', type: 'choice', prompt: 'I prefer tea ___ coffee.', options: ['to', 'than', 'over', 'from'], answer: 0, knowledge: '更喜欢' },
+        { id: 'e12', type: 'translation', prompt: '中译英：你做什么运动吗？', answer: 'Do you play any sports', accept: ['Do you play any sports', 'Do you do any sports'], knowledge: '运动' },
+        { id: 'e13', type: 'order', prompt: '连词成句：music / kind / of / What / you / like / do', words: ['music', 'kind', 'of', 'What', 'you', 'like', 'do'], answer: ['What', 'kind', 'of', 'music', 'do', 'you', 'like'], knowledge: '询问喜好' },
+        { id: 'e14', type: 'fill', prompt: '我跳舞已经两年了。 I\'ve been ___ for two years.', answer: 'dancing', accept: ['dancing'], knowledge: '持续动作' },
+        { id: 'e15', type: 'retell', prompt: 'I collect coins as a hobby since childhood.', keywords: ['collect', 'coins', 'hobby'], knowledge: '收藏爱好' },
+        { id: 'e16', type: 'choice', prompt: 'What ___ you do in your free time?', options: ['do', 'does', 'are', 'is'], answer: 0, knowledge: '询问爱好' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第十章：旅行与交通 ----------
+    {
+      id: 'ch10',
+      stage: 'A2',
+      title: '旅行与交通',
+      emoji: '✈️',
+      goal: '学会用英语谈论旅行、问路与搭乘交通工具',
+      blocks: [
+        { en: "I'm going to Beijing next week.",         zh: "我下周要去北京。",       speak: "I'm going to Beijing next week." },
+        { en: "How do I get to the airport?",           zh: "怎么去机场？",           speak: "How do I get to the airport?" },
+        { en: "You can take the subway.",                zh: "你可以坐地铁。",         speak: "You can take the subway." },
+        { en: "How long does it take?",                  zh: "要花多长时间？",         speak: "How long does it take?" },
+        { en: "It takes about forty minutes.",           zh: "大约四十分钟。",         speak: "It takes about forty minutes." },
+        { en: "Where is the nearest bus stop?",          zh: "最近的公交站在哪？",     speak: "Where is the nearest bus stop?" },
+        { en: "I'd like to book a train ticket.",        zh: "我想订一张火车票。",     speak: "I'd like to book a train ticket." },
+        { en: "What time does the flight depart?",       zh: "航班几点起飞？",         speak: "What time does the flight depart?" },
+        { en: "The flight is delayed.",                  zh: "航班延误了。",           speak: "The flight is delayed." },
+        { en: "I'm traveling for business.",             zh: "我出差。",               speak: "I'm traveling for business." },
+        { en: "Please fasten your seatbelt.",             zh: "请系好安全带。",         speak: "Please fasten your seatbelt." },
+        { en: "Which platform does the train leave from?",zh: "火车从哪个站台出发？",   speak: "Which platform does the train leave from?" },
+        { en: "Is there a direct flight?",                zh: "有直飞航班吗？",         speak: "Is there a direct flight?" },
+        { en: "The traffic is very heavy.",              zh: "交通很拥堵。",           speak: "The traffic is very heavy." },
+        { en: "I prefer traveling by train.",            zh: "我更喜欢坐火车旅行。",   speak: "I prefer traveling by train." },
+        { en: "Have a safe trip!",                       zh: "一路平安！",             speak: "Have a safe trip!" }
+      ],
+      grammar: "How do I get to ...? / How long does it take? / take + 交通工具 / 现在进行时表将来",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'I\'m ___ to Beijing next week.', options: ['go', 'going', 'goes', 'gone'], answer: 1, knowledge: '现在进行时表将来' },
+        { id: 'q2', type: 'fill', prompt: '怎么去机场？ How do I ___ to the airport?', answer: 'get', accept: ['get'], knowledge: '问路' },
+        { id: 'q3', type: 'translation', prompt: '中译英：你可以坐地铁。', answer: 'You can take the subway', accept: ['You can take the subway', 'You can take the metro'], knowledge: '交通方式' },
+        { id: 'q4', type: 'choice', prompt: 'How long ___ it take?', options: ['do', 'does', 'is', 'are'], answer: 1, knowledge: '询问时长' },
+        { id: 'q5', type: 'fill', prompt: '大约四十分钟。 It ___ about forty minutes.', answer: 'takes', accept: ['takes'], knowledge: '花费时间' },
+        { id: 'q6', type: 'order', prompt: '连词成句：nearest / Where / stop / the / is / bus', words: ['nearest', 'Where', 'stop', 'the', 'is', 'bus'], answer: ['Where', 'is', 'the', 'nearest', 'bus', 'stop'], knowledge: '问路' },
+        { id: 'q7', type: 'choice', prompt: 'I\'d like to ___ a train ticket.', options: ['book', 'make', 'do', 'take'], answer: 0, knowledge: '订票' },
+        { id: 'q8', type: 'retell', prompt: 'The flight to Shanghai is delayed.', keywords: ['flight', 'delayed', 'Shanghai'], knowledge: '航班状态' },
+        { id: 'q9', type: 'translation', prompt: '中译英：航班几点起飞？', answer: 'What time does the flight depart', accept: ['What time does the flight depart', 'When does the flight depart'], knowledge: '航班时间' },
+        { id: 'q10', type: 'choice', prompt: 'Please fasten your ___.', options: ['seatbelt', 'belt', 'shoes', 'bag'], answer: 0, knowledge: '安全提示' },
+        { id: 'q11', type: 'fill', prompt: '我出差。 I\'m traveling for ___.', answer: 'business', accept: ['business'], knowledge: '出行目的' },
+        { id: 'q12', type: 'choice', prompt: 'The traffic is very ___.', options: ['heavy', 'big', 'large', 'strong'], answer: 0, knowledge: '交通状况' },
+        { id: 'q13', type: 'order', prompt: '连词成句：train / the / does / leave / When', words: ['train', 'the', 'does', 'leave', 'When'], answer: ['When', 'does', 'the', 'train', 'leave'], knowledge: '询问时刻' },
+        { id: 'q14', type: 'retell', prompt: 'I prefer traveling by high-speed train.', keywords: ['prefer', 'train', 'traveling'], knowledge: '出行偏好' },
+        { id: 'q15', type: 'translation', prompt: '中译英：一路平安！', answer: 'Have a safe trip', accept: ['Have a safe trip', 'Have a safe journey'], knowledge: '送别祝愿' },
+        { id: 'q16', type: 'choice', prompt: 'Is there a ___ flight? (直飞)', options: ['direct', 'straight', 'fast', 'quick'], answer: 0, knowledge: '航班类型' }
+      ],
+      video: {
+        title: 'At the Train Station',
+        cues: [
+          { en: "Excuse me, where is platform five?",   zh: "请问五号站台在哪？" },
+          { en: "Go straight and turn right.",           zh: "直走然后右转。" },
+          { en: "What time does the train leave?",       zh: "火车几点发车？" },
+          { en: "It leaves at ten thirty.",              zh: "十点半发车。" },
+          { en: "Which platform does it use?",           zh: "在哪个站台？" },
+          { en: "Platform three, over there.",           zh: "三号站台，在那边。" },
+          { en: "Is the train on time?",                 zh: "火车准点吗？" },
+          { en: "Yes, it's on schedule.",                zh: "是的，准点。" },
+          { en: "How long is the trip?",                 zh: "路程多长？" },
+          { en: "About two and a half hours.",            zh: "大约两个半小时。" },
+          { en: "Thank you for your help.",              zh: "谢谢你的帮助。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Ready to travel? Pick a scenario.", options: [
+            { text: "A. 机场值机", next: 'a1' },
+            { text: "B. 问路去酒店", next: 'b1' }
+          ] },
+          a1: { npc: "Good morning! May I see your passport?", expected: "Here you are.", next: 'a2' },
+          a2: { npc: "Where are you flying to today?", expected: "I'm flying to Tokyo.", next: 'a3' },
+          a3: { npc: "Do you have any bags to check?", expected: "Just this one.", next: 'a4' },
+          a4: { npc: "Window or aisle seat?", expected: "A window seat, please.", next: 'a5' },
+          a5: { npc: "Here's your boarding pass.", expected: "Thank you very much.", next: 'a6' },
+          a6: { npc: "Have a safe flight!", expected: "Thanks, you too.", next: 'rEnd' },
+          b1: { npc: "Excuse me, can you help me?", expected: "Sure, what is it?", next: 'b2' },
+          b2: { npc: "How do I get to the Grand Hotel?", expected: "Take the subway to Central.", next: 'b3' },
+          b3: { npc: "How long does it take?", expected: "About twenty minutes.", next: 'b4' },
+          b4: { npc: "Which line should I take?", expected: "Take the red line.", next: 'b5' },
+          b5: { npc: "You're welcome, enjoy your stay!", expected: "Thank you so much.", next: 'rEnd' },
+          rEnd: { npc: "Safe travels!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'I\'m ___ to Shanghai tomorrow.', options: ['travel', 'traveling', 'travels', 'traveled'], answer: 1, knowledge: '现在进行时表将来' },
+        { id: 'e2', type: 'translation', prompt: '中译英：怎么去机场？', answer: 'How do I get to the airport', accept: ['How do I get to the airport', 'How can I get to the airport'], knowledge: '问路' },
+        { id: 'e3', type: 'fill', prompt: '你可以坐地铁。 You can ___ the subway.', answer: 'take', accept: ['take'], knowledge: '交通方式' },
+        { id: 'e4', type: 'choice', prompt: 'How long does it ___?', options: ['take', 'takes', 'taking', 'took'], answer: 0, knowledge: '询问时长' },
+        { id: 'e5', type: 'order', prompt: '连词成句：ticket / book / like / a / I\'d / to / plane', words: ['ticket', 'book', 'like', 'a', "I'd", 'to', 'plane'], answer: ["I'd", 'like', 'to', 'book', 'a', 'plane', 'ticket'], knowledge: '订票' },
+        { id: 'e6', type: 'retell', prompt: 'The morning flight is delayed by one hour.', keywords: ['flight', 'delayed', 'hour'], knowledge: '航班状态' },
+        { id: 'e7', type: 'translation', prompt: '中译英：请系好安全带。', answer: 'Please fasten your seatbelt', accept: ['Please fasten your seatbelt', 'Please put on your seatbelt'], knowledge: '安全提示' },
+        { id: 'e8', type: 'choice', prompt: 'Which ___ does the train leave from?', options: ['platform', 'station', 'stop', 'gate'], answer: 0, knowledge: '站台' },
+        { id: 'e9', type: 'fill', prompt: '交通很拥堵。 The ___ is very heavy.', answer: 'traffic', accept: ['traffic'], knowledge: '交通状况' },
+        { id: 'e10', type: 'retell', prompt: 'I am traveling for business this week.', keywords: ['traveling', 'business', 'week'], knowledge: '出行目的' },
+        { id: 'e11', type: 'choice', prompt: 'Is there a ___ flight? (直飞)', options: ['direct', 'nonstop', 'both A and B', 'neither'], answer: 2, knowledge: '航班类型' },
+        { id: 'e12', type: 'translation', prompt: '中译英：航班几点起飞？', answer: 'What time does the flight depart', accept: ['What time does the flight depart', 'When does the flight leave'], knowledge: '航班时间' },
+        { id: 'e13', type: 'order', prompt: '连词成句：safe / Have / trip / a', words: ['safe', 'Have', 'trip', 'a'], answer: ['Have', 'a', 'safe', 'trip'], knowledge: '送别祝愿' },
+        { id: 'e14', type: 'fill', prompt: '我更喜欢坐火车旅行。 I prefer ___ by train.', answer: 'traveling', accept: ['traveling', 'travelling'], knowledge: '出行偏好' },
+        { id: 'e15', type: 'retell', prompt: 'The nearest bus stop is two blocks away.', keywords: ['bus', 'stop', 'nearest', 'blocks'], knowledge: '问路' },
+        { id: 'e16', type: 'choice', prompt: 'The train ___ at 9 AM.', options: ['departs', 'depart', 'departing', 'to depart'], answer: 0, knowledge: '时刻表达' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第十一章：酒店住宿 ----------
+    {
+      id: 'ch11',
+      stage: 'A2',
+      title: '酒店住宿',
+      emoji: '🏨',
+      goal: '学会用英语预订酒店、办理入住与退房',
+      blocks: [
+        { en: "I'd like to book a room.",              zh: "我想订一个房间。",     speak: "I'd like to book a room." },
+        { en: "Do you have any vacancies?",            zh: "还有空房吗？",         speak: "Do you have any vacancies?" },
+        { en: "I have a reservation under Smith.",     zh: "我有一个预订，名字是 Smith。", speak: "I have a reservation under Smith." },
+        { en: "I'd like a single room, please.",       zh: "我想要一间单人房。",   speak: "I'd like a single room, please." },
+        { en: "How much is it per night?",             zh: "每晚多少钱？",         speak: "How much is it per night?" },
+        { en: "I'll check in now.",                    zh: "我现在要办理入住。",   speak: "I'll check in now." },
+        { en: "Here's your key card.",                 zh: "这是您的房卡。",       speak: "Here's your key card." },
+        { en: "What time is checkout?",                zh: "几点退房？",           speak: "What time is checkout?" },
+        { en: "Breakfast is included.",                zh: "早餐含在内。",         speak: "Breakfast is included." },
+        { en: "Could I have a wake-up call?",          zh: "可以叫早吗？",         speak: "Could I have a wake-up call?" },
+        { en: "The room is very clean.",               zh: "房间很干净。",         speak: "The room is very clean." },
+        { en: "Can I get an extra pillow?",             zh: "可以多给我一个枕头吗？", speak: "Can I get an extra pillow?" },
+        { en: "I'd like to check out, please.",        zh: "我要退房。",           speak: "I'd like to check out, please." },
+        { en: "Here's your final bill.",               zh: "这是您的账单。",       speak: "Here's your final bill." },
+        { en: "Could you call a taxi for me?",         zh: "可以帮我叫辆出租车吗？", speak: "Could you call a taxi for me?" },
+        { en: "I enjoyed my stay here.",               zh: "我住得很愉快。",       speak: "I enjoyed my stay here." }
+      ],
+      grammar: "I'd like ... / Could I ...? / check in / check out / 现在时",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'I\'d like to ___ a room.', options: ['book', 'make', 'do', 'take'], answer: 0, knowledge: '预订' },
+        { id: 'q2', type: 'fill', prompt: '还有空房吗？ Do you have any ___?', answer: 'vacancies', accept: ['vacancies', 'rooms'], knowledge: '空房' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我想要一间单人房。', answer: "I'd like a single room, please", accept: ["I'd like a single room, please", 'I would like a single room'], knowledge: '房型' },
+        { id: 'q4', type: 'choice', prompt: 'How much is it ___ night?', options: ['per', 'each', 'every', 'one'], answer: 0, knowledge: '价格' },
+        { id: 'q5', type: 'fill', prompt: '我现在要办理入住。 I\'ll ___ in now.', answer: 'check', accept: ['check'], knowledge: '入住' },
+        { id: 'q6', type: 'order', prompt: '连词成句：key / your / card / Here\'s', words: ['key', 'your', 'card', "Here's"], answer: ["Here's", 'your', 'key', 'card'], knowledge: '房卡' },
+        { id: 'q7', type: 'choice', prompt: 'What time is ___?', options: ['checkout', 'check out', 'check-out', 'all of above'], answer: 3, knowledge: '退房' },
+        { id: 'q8', type: 'retell', prompt: 'Breakfast is included in the room price.', keywords: ['breakfast', 'included', 'price'], knowledge: '早餐' },
+        { id: 'q9', type: 'translation', prompt: '中译英：几点退房？', answer: 'What time is checkout', accept: ['What time is checkout', 'What time do I check out'], knowledge: '退房' },
+        { id: 'q10', type: 'choice', prompt: 'Could I have a ___ call? (叫早)', options: ['wake-up', 'morning', 'early', 'alarm'], answer: 0, knowledge: '叫早服务' },
+        { id: 'q11', type: 'fill', prompt: '可以多给我一个枕头吗？ Can I get an ___ pillow?', answer: 'extra', accept: ['extra'], knowledge: '额外需求' },
+        { id: 'q12', type: 'choice', prompt: 'I have a reservation ___ Smith.', options: ['under', 'by', 'with', 'name'], answer: 0, knowledge: '预订姓名' },
+        { id: 'q13', type: 'order', prompt: '连词成句：out / to / check / I\'d / like', words: ['out', 'to', 'check', "I'd", 'like'], answer: ["I'd", 'like', 'to', 'check', 'out'], knowledge: '退房' },
+        { id: 'q14', type: 'retell', prompt: 'The room is very clean and comfortable.', keywords: ['clean', 'comfortable', 'room'], knowledge: '房间评价' },
+        { id: 'q15', type: 'translation', prompt: '中译英：我住得很愉快。', answer: 'I enjoyed my stay here', accept: ['I enjoyed my stay here', 'I had a great stay'], knowledge: '住宿评价' },
+        { id: 'q16', type: 'choice', prompt: 'Could you call a ___ for me?', options: ['taxi', 'bus', 'train', 'plane'], answer: 0, knowledge: '叫车' }
+      ],
+      video: {
+        title: 'At the Hotel',
+        cues: [
+          { en: "Good evening, welcome to our hotel.", zh: "晚上好，欢迎光临。" },
+          { en: "I have a reservation under Lee.",     zh: "我有预订，名字是 Lee。" },
+          { en: "Yes, a double room for two nights.",  zh: "是的，双人房住两晚。" },
+          { en: "Could I see your ID, please?",         zh: "请出示您的证件。" },
+          { en: "Sure, here's my passport.",            zh: "好的，这是护照。" },
+          { en: "Here's your key card, room 508.",      zh: "这是您的房卡，508 房。" },
+          { en: "What time is breakfast?",              zh: "早餐几点？" },
+          { en: "From seven to ten in the morning.",    zh: "早上七点到十点。" },
+          { en: "And what time is checkout?",           zh: "几点退房？" },
+          { en: "Before twelve noon.",                  zh: "中午十二点前。" },
+          { en: "Thank you, good night.",               zh: "谢谢，晚安。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Welcome to the hotel! Pick a scenario.", options: [
+            { text: "A. 办理入住", next: 'a1' },
+            { text: "B. 办理退房", next: 'b1' }
+          ] },
+          a1: { npc: "Good evening! Do you have a reservation?", expected: "Yes, under Brown.", next: 'a2' },
+          a2: { npc: "A single room for three nights?", expected: "Yes, that's right.", next: 'a3' },
+          a3: { npc: "Could I see your ID, please?", expected: "Here's my passport.", next: 'a4' },
+          a4: { npc: "Would you like a smoking room?", expected: "No, non-smoking.", next: 'a5' },
+          a5: { npc: "Here's your key, room 302.", expected: "Thank you very much.", next: 'a6' },
+          a6: { npc: "Breakfast is from 7 to 10.", expected: "Got it, thanks.", next: 'rEnd' },
+          b1: { npc: "Good morning! Checking out today?", expected: "Yes, room 405.", next: 'b2' },
+          b2: { npc: "How was your stay?", expected: "It was wonderful.", next: 'b3' },
+          b3: { npc: "Here's your final bill.", expected: "Can I pay by card?", next: 'b4' },
+          b4: { npc: "Of course, please sign here.", expected: "OK, thank you.", next: 'b5' },
+          b5: { npc: "Would you like me to call a taxi?", expected: "Yes, please.", next: 'rEnd' },
+          rEnd: { npc: "Thank you for staying with us!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'I\'d like to ___ a single room.', options: ['book', 'have', 'make', 'take'], answer: 0, knowledge: '预订' },
+        { id: 'e2', type: 'translation', prompt: '中译英：还有空房吗？', answer: 'Do you have any vacancies', accept: ['Do you have any vacancies', 'Do you have any rooms available'], knowledge: '空房' },
+        { id: 'e3', type: 'fill', prompt: '这是您的房卡。 Here\'s your key ___.', answer: 'card', accept: ['card'], knowledge: '房卡' },
+        { id: 'e4', type: 'choice', prompt: 'I have a reservation ___ Brown.', options: ['under', 'by', 'with', 'as'], answer: 0, knowledge: '预订姓名' },
+        { id: 'e5', type: 'order', prompt: '连词成句：night / per / it / much / How / is', words: ['night', 'per', 'it', 'much', 'How', 'is'], answer: ['How', 'much', 'is', 'it', 'per', 'night'], knowledge: '价格' },
+        { id: 'e6', type: 'retell', prompt: 'Breakfast is included in the room rate.', keywords: ['breakfast', 'included', 'rate'], knowledge: '早餐' },
+        { id: 'e7', type: 'translation', prompt: '中译英：我现在要办理入住。', answer: "I'll check in now", accept: ["I'll check in now", 'I would like to check in now'], knowledge: '入住' },
+        { id: 'e8', type: 'choice', prompt: 'Could I have a ___ call at 6 AM?', options: ['wake-up', 'morning', 'early', 'alarm'], answer: 0, knowledge: '叫早服务' },
+        { id: 'e9', type: 'fill', prompt: '我要退房。 I\'d like to check ___, please.', answer: 'out', accept: ['out'], knowledge: '退房' },
+        { id: 'e10', type: 'retell', prompt: 'The room is clean with a nice view.', keywords: ['clean', 'view', 'room'], knowledge: '房间评价' },
+        { id: 'e11', type: 'choice', prompt: 'Can I get an ___ blanket?', options: ['extra', 'more', 'another', 'big'], answer: 0, knowledge: '额外需求' },
+        { id: 'e12', type: 'translation', prompt: '中译英：这是您的账单。', answer: "Here's your final bill", accept: ["Here's your final bill", 'Here is your bill'], knowledge: '账单' },
+        { id: 'e13', type: 'order', prompt: '连词成句：stay / here / my / enjoyed / I', words: ['stay', 'here', 'my', 'enjoyed', 'I'], answer: ['I', 'enjoyed', 'my', 'stay', 'here'], knowledge: '住宿评价' },
+        { id: 'e14', type: 'fill', prompt: '可以帮我叫辆出租车吗？ Could you ___ a taxi for me?', answer: 'call', accept: ['call'], knowledge: '叫车' },
+        { id: 'e15', type: 'retell', prompt: 'Checkout is before twelve noon.', keywords: ['checkout', 'twelve', 'noon'], knowledge: '退房时间' },
+        { id: 'e16', type: 'choice', prompt: 'What time is ___?', options: ['checkout', 'breakfast', 'both', 'neither'], answer: 2, knowledge: '酒店时间' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第十二章：情感与感受 ----------
+    {
+      id: 'ch12',
+      stage: 'B1',
+      title: '情感与感受',
+      emoji: '💭',
+      goal: '学会用英语表达情绪、感受并安慰他人',
+      blocks: [
+        { en: "I feel happy today.",                 zh: "我今天很开心。",       speak: "I feel happy today." },
+        { en: "I'm a little nervous.",               zh: "我有点紧张。",         speak: "I'm a little nervous." },
+        { en: "She looks excited about the trip.",   zh: "她对这次旅行看起来很兴奋。", speak: "She looks excited about the trip." },
+        { en: "I'm proud of my team.",               zh: "我为我的团队感到骄傲。", speak: "I'm proud of my team." },
+        { en: "He seems disappointed.",              zh: "他看起来很失望。",     speak: "He seems disappointed." },
+        { en: "I'm worried about the exam.",         zh: "我担心考试。",         speak: "I'm worried about the exam." },
+        { en: "Don't worry, everything will be fine.",zh: "别担心，一切都会好的。", speak: "Don't worry, everything will be fine." },
+        { en: "I'm so grateful for your help.",      zh: "我非常感谢你的帮助。", speak: "I'm so grateful for your help." },
+        { en: "She burst into tears.",               zh: "她突然哭了起来。",     speak: "She burst into tears." },
+        { en: "I'm really looking forward to it.",   zh: "我真的很期待。",       speak: "I'm really looking forward to it." },
+        { en: "I feel a bit down today.",            zh: "我今天有点沮丧。",     speak: "I feel a bit down today." },
+        { en: "Cheer up! It's not the end.",         zh: "振作起来！又不是世界末日。", speak: "Cheer up! It's not the end." },
+        { en: "I'm touched by your kindness.",       zh: "我被你的善良感动了。", speak: "I'm touched by your kindness." },
+        { en: "Let me know if you need anything.",   zh: "需要什么就告诉我。",   speak: "Let me know if you need anything." },
+        { en: "I'm thrilled to hear the news.",      zh: "听到这个消息我很激动。", speak: "I'm thrilled to hear the news." },
+        { en: "Everything will work out.",            zh: "一切都会解决的。",     speak: "Everything will work out." }
+      ],
+      grammar: "feel / look / seem + 形容词；be proud of / be worried about / look forward to",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'I feel ___ today.', options: ['happy', 'happily', 'happiness', 'happier'], answer: 0, knowledge: '表达感受' },
+        { id: 'q2', type: 'fill', prompt: '我有点紧张。 I\'m a little ___.', answer: 'nervous', accept: ['nervous'], knowledge: '情绪' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我为我的团队感到骄傲。', answer: "I'm proud of my team", accept: ["I'm proud of my team", 'I am proud of my team'], knowledge: '骄傲' },
+        { id: 'q4', type: 'choice', prompt: 'She ___ excited.', options: ['looks', 'look', 'looking', 'to look'], answer: 0, knowledge: '看起来' },
+        { id: 'q5', type: 'fill', prompt: '我担心考试。 I\'m ___ about the exam.', answer: 'worried', accept: ['worried'], knowledge: '担心' },
+        { id: 'q6', type: 'order', prompt: '连词成句：fine / will / everything / be', words: ['fine', 'will', 'everything', 'be'], answer: ['Everything', 'will', 'be', 'fine'], knowledge: '安慰' },
+        { id: 'q7', type: 'choice', prompt: 'I\'m looking forward ___ the party.', options: ['to', 'for', 'at', 'in'], answer: 0, knowledge: '期待' },
+        { id: 'q8', type: 'retell', prompt: 'I am so grateful for your support.', keywords: ['grateful', 'support', 'your'], knowledge: '感激' },
+        { id: 'q9', type: 'translation', prompt: '中译英：别担心，一切都会好的。', answer: "Don't worry, everything will be fine", accept: ["Don't worry, everything will be fine", 'Do not worry, everything will be fine'], knowledge: '安慰' },
+        { id: 'q10', type: 'choice', prompt: 'He seems ___. (失望)', options: ['disappointed', 'excited', 'proud', 'happy'], answer: 0, knowledge: '情绪' },
+        { id: 'q11', type: 'fill', prompt: '我今天有点沮丧。 I feel a bit ___ today.', answer: 'down', accept: ['down', 'sad'], knowledge: '情绪' },
+        { id: 'q12', type: 'choice', prompt: 'I\'m ___ to hear the news.', options: ['thrilled', 'thrill', 'thrilling', 'thrills'], answer: 0, knowledge: '激动' },
+        { id: 'q13', type: 'order', prompt: '连词成句：up / Cheer', words: ['up', 'Cheer'], answer: ['Cheer', 'up'], knowledge: '鼓励' },
+        { id: 'q14', type: 'retell', prompt: 'She burst into tears after hearing the news.', keywords: ['tears', 'news', 'burst'], knowledge: '情绪反应' },
+        { id: 'q15', type: 'translation', prompt: '中译英：我真的很期待。', answer: "I'm really looking forward to it", accept: ["I'm really looking forward to it", 'I am really looking forward to it'], knowledge: '期待' },
+        { id: 'q16', type: 'choice', prompt: 'I\'m touched ___ your kindness.', options: ['by', 'with', 'for', 'to'], answer: 0, knowledge: '被感动' }
+      ],
+      video: {
+        title: 'Sharing Feelings',
+        cues: [
+          { en: "You look a bit down today.",          zh: "你今天看起来有点沮丧。" },
+          { en: "I didn't get the job I wanted.",      zh: "我没得到想要的工作。" },
+          { en: "I'm so sorry to hear that.",          zh: "听到这个我很遗憾。" },
+          { en: "I feel really disappointed.",         zh: "我感到很失望。" },
+          { en: "Don't worry, you'll find something.", zh: "别担心，你会找到的。" },
+          { en: "Thanks, that means a lot.",            zh: "谢谢，那对我很重要。" },
+          { en: "How about we grab some coffee?",      zh: "我们去喝杯咖啡怎么样？" },
+          { en: "That would be nice.",                  zh: "那太好了。" },
+          { en: "You're a great friend.",               zh: "你真是个好朋友。" },
+          { en: "I'm proud to know you.",               zh: "认识你我很骄傲。" },
+          { en: "Let's go, I'm feeling better.",        zh: "走吧，我感觉好多了。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Let's share some feelings. Pick a scenario.", options: [
+            { text: "A. 安慰失意的朋友", next: 'a1' },
+            { text: "B. 分享好消息", next: 'b1' }
+          ] },
+          a1: { npc: "You don't look happy. What's wrong?", expected: "I failed my driving test.", next: 'a2' },
+          a2: { npc: "I'm sorry to hear that.", expected: "I feel really disappointed.", next: 'a3' },
+          a3: { npc: "Don't worry, you can try again.", expected: "Thanks for saying that.", next: 'a4' },
+          a4: { npc: "I'm proud of you for trying.", expected: "That means a lot to me.", next: 'a5' },
+          a5: { npc: "Want to grab dinner later?", expected: "Sure, that sounds nice.", next: 'a6' },
+          a6: { npc: "Cheer up, tomorrow is a new day.", expected: "You're right, thanks.", next: 'rEnd' },
+          b1: { npc: "You seem excited! What happened?", expected: "I got the promotion!", next: 'b2' },
+          b2: { npc: "That's amazing! I'm so happy for you.", expected: "Thank you so much.", next: 'b3' },
+          b3: { npc: "How do you feel about it?", expected: "I'm really thrilled.", next: 'b4' },
+          b4: { npc: "You deserve it, you worked hard.", expected: "I'm grateful for the support.", next: 'b5' },
+          b5: { npc: "Let's celebrate this weekend!", expected: "Sounds like a plan.", next: 'rEnd' },
+          rEnd: { npc: "Great emotional expression!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'I feel ___ about the interview.', options: ['nervous', 'nervously', 'nerve', 'nerves'], answer: 0, knowledge: '情绪' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我为你感到骄傲。', answer: "I'm proud of you", accept: ["I'm proud of you", 'I am proud of you'], knowledge: '骄傲' },
+        { id: 'e3', type: 'fill', prompt: '他看起来很失望。 He seems ___.', answer: 'disappointed', accept: ['disappointed'], knowledge: '情绪' },
+        { id: 'e4', type: 'choice', prompt: 'She ___ worried about her mom.', options: ['looks', 'look', 'looking', 'looked'], answer: 0, knowledge: '看起来' },
+        { id: 'e5', type: 'order', prompt: '连词成句：fine / be / everything / will', words: ['fine', 'be', 'everything', 'will'], answer: ['Everything', 'will', 'be', 'fine'], knowledge: '安慰' },
+        { id: 'e6', type: 'retell', prompt: 'I am looking forward to the weekend.', keywords: ['looking', 'forward', 'weekend', 'am'], knowledge: '期待' },
+        { id: 'e7', type: 'translation', prompt: '中译英：我被你的善良感动了。', answer: "I'm touched by your kindness", accept: ["I'm touched by your kindness", 'I am touched by your kindness'], knowledge: '被感动' },
+        { id: 'e8', type: 'choice', prompt: 'I\'m so grateful ___ your help.', options: ['for', 'to', 'by', 'with'], answer: 0, knowledge: '感激' },
+        { id: 'e9', type: 'fill', prompt: '振作起来！ ___ up!', answer: 'Cheer', accept: ['cheer', 'Cheer'], knowledge: '鼓励' },
+        { id: 'e10', type: 'retell', prompt: 'She burst into tears during the movie.', keywords: ['tears', 'burst', 'movie'], knowledge: '情绪反应' },
+        { id: 'e11', type: 'choice', prompt: 'I\'m ___ to hear the good news.', options: ['thrilled', 'thrill', 'thrills', 'thrilling'], answer: 0, knowledge: '激动' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我今天有点沮丧。', answer: "I feel a bit down today", accept: ["I feel a bit down today", 'I feel a little down today'], knowledge: '情绪' },
+        { id: 'e13', type: 'order', prompt: '连词成句：will / out / work / everything', words: ['will', 'out', 'work', 'everything'], answer: ['Everything', 'will', 'work', 'out'], knowledge: '安慰' },
+        { id: 'e14', type: 'fill', prompt: '我担心明天的考试。 I\'m ___ about tomorrow\'s exam.', answer: 'worried', accept: ['worried'], knowledge: '担心' },
+        { id: 'e15', type: 'retell', prompt: 'He seemed excited about the new job.', keywords: ['excited', 'job', 'seemed'], knowledge: '情绪' },
+        { id: 'e16', type: 'choice', prompt: 'Don\'t ___, everything will be fine.', options: ['worry', 'worried', 'worrying', 'worries'], answer: 0, knowledge: '安慰' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第十三章：会议沟通 ----------
+    {
+      id: 'ch13',
+      stage: 'B1',
+      title: '会议沟通',
+      emoji: '👥',
+      goal: '学会用英语主持会议、表达观点与达成共识',
+      blocks: [
+        { en: "Let's start the meeting.",              zh: "我们开始开会吧。",     speak: "Let's start the meeting." },
+        { en: "The purpose of today's meeting is...",  zh: "今天会议的目的是……",   speak: "The purpose of today's meeting is..." },
+        { en: "Could you share your thoughts?",         zh: "你能分享一下你的想法吗？", speak: "Could you share your thoughts?" },
+        { en: "I agree with that point.",              zh: "我同意那个观点。",     speak: "I agree with that point." },
+        { en: "I'm afraid I disagree.",                zh: "恐怕我不同意。",       speak: "I'm afraid I disagree." },
+        { en: "Let me clarify what I mean.",           zh: "让我澄清一下我的意思。", speak: "Let me clarify what I mean." },
+        { en: "I'd like to add something.",             zh: "我想补充一点。",       speak: "I'd like to add something." },
+        { en: "Could you repeat that, please?",         zh: "你能再说一遍吗？",     speak: "Could you repeat that, please?" },
+        { en: "Let's move on to the next item.",        zh: "我们进入下一项吧。",   speak: "Let's move on to the next item." },
+        { en: "We're running out of time.",             zh: "我们快没时间了。",     speak: "We're running out of time." },
+        { en: "Let's take a vote.",                     zh: "我们投票吧。",         speak: "Let's take a vote." },
+        { en: "The majority is in favor.",              zh: "多数人赞成。",         speak: "The majority is in favor." },
+        { en: "To sum up, we decided to...",            zh: "总结一下，我们决定……", speak: "To sum up, we decided to..." },
+        { en: "I'll send out the minutes later.",       zh: "我稍后会发会议纪要。", speak: "I'll send out the minutes later." },
+        { en: "Let's wrap up the meeting.",             zh: "我们结束会议吧。",     speak: "Let's wrap up the meeting." },
+        { en: "Thank you all for coming.",              zh: "感谢大家的到来。",     speak: "Thank you all for coming." }
+      ],
+      grammar: "I agree / disagree with... / Let's... / Could you...? / 会议常用表达",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'Let\'s ___ the meeting.', options: ['start', 'starts', 'starting', 'started'], answer: 0, knowledge: '开场' },
+        { id: 'q2', type: 'fill', prompt: '今天会议的目的是…… The ___ of today\'s meeting is...', answer: 'purpose', accept: ['purpose'], knowledge: '会议目的' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我同意那个观点。', answer: 'I agree with that point', accept: ['I agree with that point', 'I agree with you'], knowledge: '同意' },
+        { id: 'q4', type: 'choice', prompt: 'I\'m ___ I disagree.', options: ['afraid', 'sorry', 'sad', 'both A and B'], answer: 3, knowledge: '不同意' },
+        { id: 'q5', type: 'fill', prompt: '让我澄清一下我的意思。 Let me ___ what I mean.', answer: 'clarify', accept: ['clarify'], knowledge: '澄清' },
+        { id: 'q6', type: 'order', prompt: '连词成句：move / Let\'s / on / next / the / to / item', words: ['move', "Let's", 'on', 'next', 'the', 'to', 'item'], answer: ["Let's", 'move', 'on', 'to', 'the', 'next', 'item'], knowledge: '推进议程' },
+        { id: 'q7', type: 'choice', prompt: 'Let\'s take a ___.', options: ['vote', 'break', 'both', 'seat'], answer: 2, knowledge: '投票' },
+        { id: 'q8', type: 'retell', prompt: 'We are running out of time for the meeting.', keywords: ['running', 'out', 'time', 'meeting'], knowledge: '时间控制' },
+        { id: 'q9', type: 'translation', prompt: '中译英：你能再说一遍吗？', answer: 'Could you repeat that, please', accept: ['Could you repeat that, please', 'Could you say that again'], knowledge: '请求重复' },
+        { id: 'q10', type: 'choice', prompt: 'The majority is in ___.', options: ['favor', 'agree', 'support', 'yes'], answer: 0, knowledge: '投票结果' },
+        { id: 'q11', type: 'fill', prompt: '我想补充一点。 I\'d like to ___ something.', answer: 'add', accept: ['add'], knowledge: '补充' },
+        { id: 'q12', type: 'choice', prompt: 'Let\'s ___ up the meeting.', options: ['wrap', 'end', 'finish', 'close'], answer: 0, knowledge: '结束' },
+        { id: 'q13', type: 'order', prompt: '连词成句：up / wrap / Let\'s / the / meeting', words: ['up', 'wrap', "Let's", 'the', 'meeting'], answer: ["Let's", 'wrap', 'up', 'the', 'meeting'], knowledge: '结束' },
+        { id: 'q14', type: 'retell', prompt: 'I will send out the meeting minutes tomorrow.', keywords: ['minutes', 'send', 'out', 'tomorrow'], knowledge: '会议纪要' },
+        { id: 'q15', type: 'translation', prompt: '中译英：感谢大家的到来。', answer: 'Thank you all for coming', accept: ['Thank you all for coming', 'Thanks everyone for coming'], knowledge: '致谢' },
+        { id: 'q16', type: 'choice', prompt: 'Could you ___ your thoughts?', options: ['share', 'sharing', 'shared', 'shares'], answer: 0, knowledge: '征求意见' }
+      ],
+      video: {
+        title: 'At a Team Meeting',
+        cues: [
+          { en: "Let's start the meeting, everyone.",     zh: "大家，我们开始开会吧。" },
+          { en: "Today we'll discuss the new project.",   zh: "今天我们讨论新项目。" },
+          { en: "What are your thoughts on the plan?",    zh: "你们对这个计划有什么想法？" },
+          { en: "I think the timeline is too tight.",     zh: "我觉得时间太紧了。" },
+          { en: "I agree, we need more time.",            zh: "我同意，我们需要更多时间。" },
+          { en: "I'm afraid I disagree with that.",       zh: "恐怕我不同意。" },
+          { en: "Could you clarify your point?",          zh: "你能澄清一下吗？" },
+          { en: "Let's move on to the budget item.",      zh: "我们进入预算这一项吧。" },
+          { en: "Shall we take a vote on this?",          zh: "我们投票决定好吗？" },
+          { en: "The majority is in favor.",              zh: "多数人赞成。" },
+          { en: "To sum up, we agreed to extend it.",     zh: "总结一下，我们同意延期。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Meeting in session! Pick a scenario.", options: [
+            { text: "A. 主持项目会议", next: 'a1' },
+            { text: "B. 表达反对意见", next: 'b1' }
+          ] },
+          a1: { npc: "Good morning everyone, let's begin.", expected: "Thanks for coming today.", next: 'a2' },
+          a2: { npc: "What's the purpose of this meeting?", expected: "To review the Q3 plan.", next: 'a3' },
+          a3: { npc: "Could you share your thoughts?", expected: "I think the timeline works.", next: 'a4' },
+          a4: { npc: "Does anyone disagree?", expected: "I agree with the proposal.", next: 'a5' },
+          a5: { npc: "Let's take a vote then.", expected: "I vote in favor.", next: 'a6' },
+          a6: { npc: "Great, the motion passes.", expected: "Thank you all for coming.", next: 'rEnd' },
+          b1: { npc: "So the plan is to cut the budget by 30%.", expected: "I'm afraid I disagree.", next: 'b2' },
+          b2: { npc: "Could you clarify why?", expected: "It would hurt our quality.", next: 'b3' },
+          b3: { npc: "What do you suggest instead?", expected: "Maybe cut by ten percent.", next: 'b4' },
+          b4: { npc: "Does anyone support this idea?", expected: "I support the suggestion.", next: 'b5' },
+          b5: { npc: "Let's vote on the compromise.", expected: "I vote for the compromise.", next: 'rEnd' },
+          rEnd: { npc: "Meeting adjourned. Great work!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'Let\'s ___ the meeting now.', options: ['start', 'starts', 'starting', 'to start'], answer: 0, knowledge: '开场' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我同意那个观点。', answer: 'I agree with that point', accept: ['I agree with that point', 'I agree with you on that'], knowledge: '同意' },
+        { id: 'e3', type: 'fill', prompt: '我想补充一点。 I\'d like to ___ something.', answer: 'add', accept: ['add'], knowledge: '补充' },
+        { id: 'e4', type: 'choice', prompt: 'I\'m afraid I ___.', options: ['disagree', 'disagrees', 'disagreeing', 'disagreed'], answer: 0, knowledge: '不同意' },
+        { id: 'e5', type: 'order', prompt: '连词成句：take / Let\'s / a / vote', words: ['take', "Let's", 'a', 'vote'], answer: ["Let's", 'take', 'a', 'vote'], knowledge: '投票' },
+        { id: 'e6', type: 'retell', prompt: 'We are running out of time in this meeting.', keywords: ['running', 'out', 'time', 'meeting'], knowledge: '时间控制' },
+        { id: 'e7', type: 'translation', prompt: '中译英：你能再说一遍吗？', answer: 'Could you repeat that, please', accept: ['Could you repeat that, please', 'Could you say that again, please'], knowledge: '请求重复' },
+        { id: 'e8', type: 'choice', prompt: 'The majority is in ___ of the plan.', options: ['favor', 'agree', 'support', 'approve'], answer: 0, knowledge: '投票结果' },
+        { id: 'e9', type: 'fill', prompt: '让我澄清一下。 Let me ___ what I mean.', answer: 'clarify', accept: ['clarify'], knowledge: '澄清' },
+        { id: 'e10', type: 'retell', prompt: 'I will send out the minutes after the meeting.', keywords: ['minutes', 'send', 'out', 'meeting'], knowledge: '会议纪要' },
+        { id: 'e11', type: 'choice', prompt: 'Let\'s wrap ___ the meeting.', options: ['up', 'out', 'in', 'on'], answer: 0, knowledge: '结束' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我们进入下一项吧。', answer: "Let's move on to the next item", accept: ["Let's move on to the next item", 'Let us move to the next item'], knowledge: '推进议程' },
+        { id: 'e13', type: 'order', prompt: '连词成句：for / coming / all / Thank / you', words: ['for', 'coming', 'all', 'Thank', 'you'], answer: ['Thank', 'you', 'all', 'for', 'coming'], knowledge: '致谢' },
+        { id: 'e14', type: 'fill', prompt: '今天会议的目的是讨论预算。 The ___ of today\'s meeting is the budget.', answer: 'purpose', accept: ['purpose', 'goal'], knowledge: '会议目的' },
+        { id: 'e15', type: 'retell', prompt: 'To sum up, we decided to launch in May.', keywords: ['sum', 'up', 'decided', 'May'], knowledge: '总结' },
+        { id: 'e16', type: 'choice', prompt: 'Could you ___ your thoughts on this?', options: ['share', 'sharing', 'shared', 'to share'], answer: 0, knowledge: '征求意见' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第十四章：邮件与消息 ----------
+    {
+      id: 'ch14',
+      stage: 'B1',
+      title: '邮件与消息',
+      emoji: '📧',
+      goal: '学会用英语写正式/非正式邮件与即时消息',
+      blocks: [
+        { en: "Dear Mr. Smith,",                         zh: "尊敬的 Smith 先生：",  speak: "Dear Mr. Smith," },
+        { en: "I hope this email finds you well.",       zh: "希望您收到这封邮件时一切安好。", speak: "I hope this email finds you well." },
+        { en: "I'm writing to inquire about...",         zh: "我写信是想询问……",   speak: "I'm writing to inquire about..." },
+        { en: "I'm writing to confirm our meeting.",     zh: "我写信是想确认我们的会议。", speak: "I'm writing to confirm our meeting." },
+        { en: "Please find the attachment below.",       zh: "请查收附件。",         speak: "Please find the attachment below." },
+        { en: "I look forward to hearing from you.",     zh: "期待您的回复。",       speak: "I look forward to hearing from you." },
+        { en: "Best regards,",                           zh: "此致，",               speak: "Best regards," },
+        { en: "Hey, are you free tonight?",              zh: "嘿，今晚有空吗？",     speak: "Hey, are you free tonight?" },
+        { en: "Could you send me the report?",           zh: "你能把报告发给我吗？", speak: "Could you send me the report?" },
+        { en: "I'll get back to you soon.",              zh: "我很快回复你。",       speak: "I'll get back to you soon." },
+        { en: "Sorry for the late reply.",               zh: "抱歉回复晚了。",       speak: "Sorry for the late reply." },
+        { en: "Let me know your thoughts.",              zh: "告诉我你的想法。",     speak: "Let me know your thoughts." },
+        { en: "Thanks in advance.",                      zh: "提前感谢。",           speak: "Thanks in advance." },
+        { en: "Have a great weekend!",                   zh: "周末愉快！",           speak: "Have a great weekend!" },
+        { en: "Could you clarify your request?",         zh: "你能澄清一下你的请求吗？", speak: "Could you clarify your request?" },
+        { en: "Kindly respond at your earliest convenience.", zh: "请在方便时尽快回复。", speak: "Kindly respond at your earliest convenience." }
+      ],
+      grammar: "正式 vs 非正式邮件格式；I'm writing to... / Please find... / look forward to",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: '___ Mr. Smith, (尊敬的)', options: ['Dear', 'Hey', 'Hi', 'Yo'], answer: 0, knowledge: '称呼' },
+        { id: 'q2', type: 'fill', prompt: '希望您一切安好。 I hope this email ___ you well.', answer: 'finds', accept: ['finds'], knowledge: '问候' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我写信是想询问价格。', answer: "I'm writing to inquire about the price", accept: ["I'm writing to inquire about the price", 'I am writing to ask about the price'], knowledge: '写信目的' },
+        { id: 'q4', type: 'choice', prompt: 'Please find the ___ below.', options: ['attachment', 'attach', 'attached', 'attaching'], answer: 0, knowledge: '附件' },
+        { id: 'q5', type: 'fill', prompt: '期待您的回复。 I look ___ to hearing from you.', answer: 'forward', accept: ['forward'], knowledge: '结尾' },
+        { id: 'q6', type: 'order', prompt: '连词成句：regards / Best', words: ['regards', 'Best'], answer: ['Best', 'regards'], knowledge: '结尾敬语' },
+        { id: 'q7', type: 'choice', prompt: 'Hey, are you ___ tonight?', options: ['free', 'freely', 'freedom', 'frees'], answer: 0, knowledge: '非正式问候' },
+        { id: 'q8', type: 'retell', prompt: 'Sorry for the late reply, I was busy.', keywords: ['late', 'reply', 'sorry', 'busy'], knowledge: '致歉' },
+        { id: 'q9', type: 'translation', prompt: '中译英：你能把报告发给我吗？', answer: 'Could you send me the report', accept: ['Could you send me the report', 'Can you send me the report'], knowledge: '请求' },
+        { id: 'q10', type: 'choice', prompt: 'I\'ll get ___ to you soon.', options: ['back', 'out', 'in', 'up'], answer: 0, knowledge: '回复' },
+        { id: 'q11', type: 'fill', prompt: '提前感谢。 Thanks in ___.', answer: 'advance', accept: ['advance'], knowledge: '致谢' },
+        { id: 'q12', type: 'choice', prompt: 'Have a ___ weekend!', options: ['great', 'greatly', 'greatness', 'well'], answer: 0, knowledge: '祝愿' },
+        { id: 'q13', type: 'order', prompt: '连词成句：thoughts / your / know / Let / me', words: ['thoughts', 'your', 'know', 'Let', 'me'], answer: ['Let', 'me', 'know', 'your', 'thoughts'], knowledge: '征求意见' },
+        { id: 'q14', type: 'retell', prompt: 'Could you clarify your request by email?', keywords: ['clarify', 'request', 'email'], knowledge: '澄清' },
+        { id: 'q15', type: 'translation', prompt: '中译英：周末愉快！', answer: 'Have a great weekend', accept: ['Have a great weekend', 'Have a nice weekend'], knowledge: '祝愿' },
+        { id: 'q16', type: 'choice', prompt: 'I\'m writing to ___ our meeting.', options: ['confirm', 'confirms', 'confirmed', 'confirming'], answer: 0, knowledge: '确认' }
+      ],
+      video: {
+        title: 'Writing an Email',
+        cues: [
+          { en: "Dear Ms. Wang,",                         zh: "尊敬的王女士：" },
+          { en: "I hope you're doing well.",              zh: "希望您一切安好。" },
+          { en: "I'm writing to confirm our meeting.",    zh: "我写信是想确认我们的会议。" },
+          { en: "Please find the agenda attached.",       zh: "请查收附件议程。" },
+          { en: "Could you let me know if it works?",     zh: "能告诉我是否合适吗？" },
+          { en: "I look forward to hearing from you.",    zh: "期待您的回复。" },
+          { en: "Best regards,",                           zh: "此致，" },
+          { en: "John Brown",                              zh: "John Brown" },
+          { en: "Hey, got your message.",                  zh: "嘿，收到你的消息了。" },
+          { en: "I'll send the report by noon.",           zh: "我中午前发报告。" },
+          { en: "Talk to you later!",                       zh: "回头聊！" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Compose your message. Pick a scenario.", options: [
+            { text: "A. 写正式商务邮件", next: 'a1' },
+            { text: "B. 跟同事发即时消息", next: 'b1' }
+          ] },
+          a1: { npc: "How do you start a formal email?", expected: "Dear Mr. Anderson,", next: 'a2' },
+          a2: { npc: "What's your purpose in writing?", expected: "I'd like to schedule a meeting.", next: 'a3' },
+          a3: { npc: "How do you ask for an attachment?", expected: "Please find the file attached.", next: 'a4' },
+          a4: { npc: "How do you close it politely?", expected: "I look forward to your reply.", next: 'a5' },
+          a5: { npc: "What's a good sign-off?", expected: "Best regards,", next: 'a6' },
+          a6: { npc: "Perfect, your email is ready!", expected: "Thank you for your help.", next: 'rEnd' },
+          b1: { npc: "Hey, can you do me a quick favor?", expected: "Sure, what do you need?", next: 'b2' },
+          b2: { npc: "Could you send me the sales data?", expected: "I'll send it right away.", next: 'b3' },
+          b3: { npc: "Thanks! When can I expect it?", expected: "Within the next hour.", next: 'b4' },
+          b4: { npc: "Awesome, you're the best.", expected: "No problem at all.", next: 'b5' },
+          b5: { npc: "Got it, talk soon!", expected: "Talk to you later.", next: 'rEnd' },
+          rEnd: { npc: "Message sent successfully!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: '___ Professor Lee, (正式称呼)', options: ['Dear', 'Hey', 'Hi there', 'Yo'], answer: 0, knowledge: '称呼' },
+        { id: 'e2', type: 'translation', prompt: '中译英：期待您的回复。', answer: 'I look forward to hearing from you', accept: ['I look forward to hearing from you', 'I am looking forward to your reply'], knowledge: '结尾' },
+        { id: 'e3', type: 'fill', prompt: '请查收附件。 Please find the ___ below.', answer: 'attachment', accept: ['attachment'], knowledge: '附件' },
+        { id: 'e4', type: 'choice', prompt: 'I\'m writing to ___ about the order.', options: ['inquire', 'inquiries', 'inquiring', 'inquired'], answer: 0, knowledge: '询问' },
+        { id: 'e5', type: 'order', prompt: '连词成句：regards / Best', words: ['regards', 'Best'], answer: ['Best', 'regards'], knowledge: '结尾敬语' },
+        { id: 'e6', type: 'retell', prompt: 'Sorry for the late reply, I was on vacation.', keywords: ['late', 'reply', 'sorry', 'vacation'], knowledge: '致歉' },
+        { id: 'e7', type: 'translation', prompt: '中译英：你能把报告发给我吗？', answer: 'Could you send me the report', accept: ['Could you send me the report', 'Can you please send me the report'], knowledge: '请求' },
+        { id: 'e8', type: 'choice', prompt: 'I\'ll get ___ to you by tomorrow.', options: ['back', 'out', 'in', 'on'], answer: 0, knowledge: '回复' },
+        { id: 'e9', type: 'fill', prompt: '提前感谢。 Thanks in ___.', answer: 'advance', accept: ['advance'], knowledge: '致谢' },
+        { id: 'e10', type: 'retell', prompt: 'Let me know your thoughts on the proposal.', keywords: ['thoughts', 'proposal', 'know'], knowledge: '征求意见' },
+        { id: 'e11', type: 'choice', prompt: 'Have a ___ weekend!', options: ['great', 'well', 'greatly', 'goodly'], answer: 0, knowledge: '祝愿' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我写信是想确认会议。', answer: "I'm writing to confirm our meeting", accept: ["I'm writing to confirm our meeting", 'I am writing to confirm the meeting'], knowledge: '确认' },
+        { id: 'e13', type: 'order', prompt: '连词成句：well / finds / email / this / you / I / hope', words: ['well', 'finds', 'email', 'this', 'you', 'I', 'hope'], answer: ['I', 'hope', 'this', 'email', 'finds', 'you', 'well'], knowledge: '问候' },
+        { id: 'e14', type: 'fill', prompt: '你能澄清一下你的请求吗？ Could you ___ your request?', answer: 'clarify', accept: ['clarify'], knowledge: '澄清' },
+        { id: 'e15', type: 'retell', prompt: 'Kindly respond at your earliest convenience.', keywords: ['respond', 'earliest', 'convenience'], knowledge: '礼貌请求' },
+        { id: 'e16', type: 'choice', prompt: '___ for the late reply.', options: ['Sorry', 'Excuse', 'Pardon', 'Forgive'], answer: 0, knowledge: '致歉' }
+      ],
+      xp: 130
+    },
+
+    // ---------- 第十五章：面试与求职 ----------
+    {
+      id: 'ch15',
+      stage: 'B1',
+      title: '面试与求职',
+      emoji: '💼',
+      goal: '学会用英语求职面试、自我介绍与回答常见问题',
+      blocks: [
+        { en: "I'm applying for the marketing position.", zh: "我应聘市场部职位。", speak: "I'm applying for the marketing position." },
+        { en: "I have three years of experience.",        zh: "我有三年工作经验。", speak: "I have three years of experience." },
+        { en: "I graduated from Peking University.",      zh: "我毕业于北京大学。", speak: "I graduated from Peking University." },
+        { en: "My major was business administration.",    zh: "我的专业是工商管理。", speak: "My major was business administration." },
+        { en: "I'm good at communication.",               zh: "我擅长沟通。",       speak: "I'm good at communication." },
+        { en: "My strength is problem-solving.",          zh: "我的优势是解决问题。", speak: "My strength is problem-solving." },
+        { en: "I'm a team player.",                        zh: "我有团队合作精神。", speak: "I'm a team player." },
+        { en: "I'm a quick learner.",                      zh: "我学习能力强。",     speak: "I'm a quick learner." },
+        { en: "Why do you want this job?",                 zh: "你为什么想要这份工作？", speak: "Why do you want this job?" },
+        { en: "Where do you see yourself in five years?",  zh: "你五年内的职业规划是什么？", speak: "Where do you see yourself in five years?" },
+        { en: "I hope to grow into a manager.",            zh: "我希望成长为经理。", speak: "I hope to grow into a manager." },
+        { en: "What's your expected salary?",              zh: "你的期望薪资是多少？", speak: "What's your expected salary?" },
+        { en: "I'm looking forward to joining your team.", zh: "我期待加入你们团队。", speak: "I'm looking forward to joining your team." },
+        { en: "When can you start?",                       zh: "你什么时候能入职？", speak: "When can you start?" },
+        { en: "I can start in two weeks.",                 zh: "我两周后可以入职。", speak: "I can start in two weeks." },
+        { en: "Thank you for the interview.",              zh: "感谢这次面试。",     speak: "Thank you for the interview." }
+      ],
+      grammar: "现在完成时/过去时表达经历；be good at / strength is / apply for",
+      quiz: [
+        { id: 'q1', type: 'choice', prompt: 'I\'m ___ for the marketing position.', options: ['applying', 'apply', 'applied', 'applies'], answer: 0, knowledge: '应聘' },
+        { id: 'q2', type: 'fill', prompt: '我有三年工作经验。 I have three years of ___.', answer: 'experience', accept: ['experience'], knowledge: '工作经验' },
+        { id: 'q3', type: 'translation', prompt: '中译英：我毕业于北京大学。', answer: 'I graduated from Peking University', accept: ['I graduated from Peking University', 'I am a graduate of Peking University'], knowledge: '教育背景' },
+        { id: 'q4', type: 'choice', prompt: 'I\'m good ___ communication.', options: ['at', 'in', 'on', 'for'], answer: 0, knowledge: '技能' },
+        { id: 'q5', type: 'fill', prompt: '我的优势是解决问题。 My ___ is problem-solving.', answer: 'strength', accept: ['strength'], knowledge: '优势' },
+        { id: 'q6', type: 'order', prompt: '连词成句：player / a / team / I\'m', words: ['player', 'a', 'team', "I'm"], answer: ["I'm", 'a', 'team', 'player'], knowledge: '团队精神' },
+        { id: 'q7', type: 'choice', prompt: 'I\'m a ___ learner.', options: ['quick', 'fast', 'both A and B', 'neither'], answer: 2, knowledge: '学习能力' },
+        { id: 'q8', type: 'retell', prompt: 'My major at university was computer science.', keywords: ['major', 'computer', 'science', 'university'], knowledge: '专业' },
+        { id: 'q9', type: 'translation', prompt: '中译英：你为什么想要这份工作？', answer: 'Why do you want this job', accept: ['Why do you want this job', 'Why are you interested in this job'], knowledge: '求职动机' },
+        { id: 'q10', type: 'choice', prompt: 'Where do you see ___ in five years?', options: ['yourself', 'you', 'your', 'yours'], answer: 0, knowledge: '职业规划' },
+        { id: 'q11', type: 'fill', prompt: '我期待加入你们团队。 I\'m looking ___ to joining your team.', answer: 'forward', accept: ['forward'], knowledge: '求职意愿' },
+        { id: 'q12', type: 'choice', prompt: 'I can start ___ two weeks.', options: ['in', 'after', 'for', 'on'], answer: 0, knowledge: '入职时间' },
+        { id: 'q13', type: 'order', prompt: '连词成句：interview / Thank / for / you / the', words: ['interview', 'Thank', 'for', 'you', 'the'], answer: ['Thank', 'you', 'for', 'the', 'interview'], knowledge: '致谢' },
+        { id: 'q14', type: 'retell', prompt: 'I hope to grow into a project manager.', keywords: ['grow', 'manager', 'hope'], knowledge: '职业规划' },
+        { id: 'q15', type: 'translation', prompt: '中译英：感谢这次面试。', answer: 'Thank you for the interview', accept: ['Thank you for the interview', 'Thanks for the interview'], knowledge: '致谢' },
+        { id: 'q16', type: 'choice', prompt: 'What\'s your expected ___?', options: ['salary', 'salaries', 'salaried', 'salar'], answer: 0, knowledge: '薪资' }
+      ],
+      video: {
+        title: 'A Job Interview',
+        cues: [
+          { en: "Good morning, please have a seat.",      zh: "早上好，请坐。" },
+          { en: "Thank you for having me.",                zh: "谢谢你们邀请我。" },
+          { en: "Tell me a little about yourself.",        zh: "请简单介绍一下你自己。" },
+          { en: "I have five years of sales experience.",  zh: "我有五年销售经验。" },
+          { en: "What are your greatest strengths?",       zh: "你最大的优势是什么？" },
+          { en: "I'm a strong team player.",               zh: "我有很强的团队精神。" },
+          { en: "Why do you want to work here?",           zh: "你为什么想来这里工作？" },
+          { en: "I admire your company culture.",          zh: "我很欣赏你们的公司文化。" },
+          { en: "Where do you see yourself in five years?",zh: "你五年内的规划是什么？" },
+          { en: "I hope to lead a sales team.",            zh: "我希望带领一个销售团队。" },
+          { en: "We'll let you know next week.",            zh: "我们下周会通知你。" }
+        ]
+      },
+      roleplay: {
+        start: 'r0',
+        nodes: {
+          r0: { npc: "Interview time! Pick a scenario.", options: [
+            { text: "A. 自我介绍", next: 'a1' },
+            { text: "B. 回答常见问题", next: 'b1' }
+          ] },
+          a1: { npc: "Please introduce yourself briefly.", expected: "I'm Lily, a marketing graduate.", next: 'a2' },
+          a2: { npc: "What's your educational background?", expected: "I graduated from Fudan University.", next: 'a3' },
+          a3: { npc: "Do you have any work experience?", expected: "I interned at an ad agency.", next: 'a4' },
+          a4: { npc: "What are your main strengths?", expected: "I'm creative and detail-oriented.", next: 'a5' },
+          a5: { npc: "Why should we hire you?", expected: "I bring passion and fresh ideas.", next: 'a6' },
+          a6: { npc: "Thank you, that was impressive.", expected: "Thank you for your time.", next: 'rEnd' },
+          b1: { npc: "Why do you want this job?", expected: "I love your company's mission.", next: 'b2' },
+          b2: { npc: "What's your biggest weakness?", expected: "I can be too much of a perfectionist.", next: 'b3' },
+          b3: { npc: "Where do you see yourself in five years?", expected: "Leading the product team.", next: 'b4' },
+          b4: { npc: "What's your expected salary?", expected: "I'm open to negotiation.", next: 'b5' },
+          b5: { npc: "When can you start?", expected: "I can start in two weeks.", next: 'rEnd' },
+          rEnd: { npc: "Interview complete. Well done!", end: true }
+        }
+      },
+      exam: [
+        { id: 'e1', type: 'choice', prompt: 'I\'m ___ for the engineer position.', options: ['applying', 'apply', 'applied', 'applies'], answer: 0, knowledge: '应聘' },
+        { id: 'e2', type: 'translation', prompt: '中译英：我有三年工作经验。', answer: 'I have three years of experience', accept: ['I have three years of experience', 'I have three years of work experience'], knowledge: '工作经验' },
+        { id: 'e3', type: 'fill', prompt: '我的专业是工商管理。 My ___ was business administration.', answer: 'major', accept: ['major'], knowledge: '专业' },
+        { id: 'e4', type: 'choice', prompt: 'I\'m good ___ solving problems.', options: ['at', 'in', 'on', 'to'], answer: 0, knowledge: '技能' },
+        { id: 'e5', type: 'order', prompt: '连词成句：player / a / I\'m / team', words: ['player', 'a', "I'm", 'team'], answer: ["I'm", 'a', 'team', 'player'], knowledge: '团队精神' },
+        { id: 'e6', type: 'retell', prompt: 'I graduated from Tsinghua University last year.', keywords: ['graduated', 'Tsinghua', 'year'], knowledge: '教育背景' },
+        { id: 'e7', type: 'translation', prompt: '中译英：你为什么想要这份工作？', answer: 'Why do you want this job', accept: ['Why do you want this job', 'Why are you interested in this position'], knowledge: '求职动机' },
+        { id: 'e8', type: 'choice', prompt: 'My ___ is my communication skills.', options: ['strength', 'weakness', 'problem', 'issue'], answer: 0, knowledge: '优势' },
+        { id: 'e9', type: 'fill', prompt: '我学习能力强。 I\'m a ___ learner.', answer: 'quick', accept: ['quick', 'fast'], knowledge: '学习能力' },
+        { id: 'e10', type: 'retell', prompt: 'I hope to grow into a department manager.', keywords: ['grow', 'manager', 'hope'], knowledge: '职业规划' },
+        { id: 'e11', type: 'choice', prompt: 'I can start ___ two weeks.', options: ['in', 'after', 'within', 'both A and C'], answer: 3, knowledge: '入职时间' },
+        { id: 'e12', type: 'translation', prompt: '中译英：我期待加入你们团队。', answer: "I'm looking forward to joining your team", accept: ["I'm looking forward to joining your team", 'I am looking forward to joining your team'], knowledge: '求职意愿' },
+        { id: 'e13', type: 'order', prompt: '连词成句：interview / the / for / Thank / you', words: ['interview', 'the', 'for', 'Thank', 'you'], answer: ['Thank', 'you', 'for', 'the', 'interview'], knowledge: '致谢' },
+        { id: 'e14', type: 'fill', prompt: '你的期望薪资是多少？ What\'s your expected ___?', answer: 'salary', accept: ['salary'], knowledge: '薪资' },
+        { id: 'e15', type: 'retell', prompt: 'I am a quick learner and a team player.', keywords: ['quick', 'learner', 'team', 'player', 'am'], knowledge: '个人特质' },
+        { id: 'e16', type: 'choice', prompt: 'Where do you see ___ in five years?', options: ['yourself', 'you', 'your', 'yours'], answer: 0, knowledge: '职业规划' }
+      ],
+      xp: 130
+    }
   ];
 
   // ---------- 徽章定义 ----------
