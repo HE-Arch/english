@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- 手机优先：禁用缩放，适配触屏 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#58CC02">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>EngForDev - 开发者英语</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+  <!-- 应用根容器：手机优先，桌面端居中限宽 -->
+  <div id="app">
+
+    <!-- ============ 顶部状态栏 ============ -->
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-mark">E</span>
+        <span class="logo-text">EngForDev</span>
+      </div>
+      <div class="stats">
+        <!-- 连续打卡天数 -->
+        <div class="stat-pill streak" title="连续打卡">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-value" id="streak-count">0</span>
+        </div>
+        <!-- 总 XP -->
+        <div class="stat-pill xp" title="总经验">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-value" id="xp-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ 主视图区 ============ -->
+    <!-- 各 .view 默认隐藏，.active 显示；由 app.js 切换 -->
+    <main id="main-view">
+
+      <!-- ---------- 首页：路径图 ---------- -->
+      <section id="view-home" class="view active">
+        <div class="view-inner">
+          <h1 class="page-title">选择章节</h1>
+          <p class="page-sub">自由选择想学习的内容，开口说英语</p>
+          <!-- 路径图节点由 app.js 根据 data.js 动态生成 -->
+          <div id="path-map" class="path-map"></div>
+        </div>
+      </section>
+
+      <!-- ---------- 学习页：分步流程 ---------- -->
+      <section id="view-learn" class="view">
+        <!-- 步骤进度条 -->
+        <div class="step-progress">
+          <div class="step-progress-bar"><div id="step-progress-fill"></div></div>
+          <button class="step-exit" id="step-exit" title="退出学习">✕</button>
+        </div>
+
+        <!-- 步骤容器：每个 step 由 app.js 渲染，默认全部隐藏 -->
+        <div id="learn-stage" class="learn-stage">
+          <!-- 1. 本章目标 -->
+          <div class="step" id="step-goal" hidden>
+            <h2 class="step-title">本章目标</h2>
+            <div class="goal-card" id="goal-card"></div>
+            <button class="btn btn-primary btn-block" data-step-next>开始学习</button>
+          </div>
+
+          <!-- 2. 核心词块 -->
+          <div class="step" id="step-blocks" hidden>
+            <h2 class="step-title">核心词块</h2>
+            <p class="step-hint">点喇叭朗读，跟读练习</p>
+            <div id="blocks-list" class="blocks-list"></div>
+            <button class="btn btn-primary btn-block" data-step-next>继续</button>
+          </div>
+
+          <!-- 3. 语法微讲解 -->
+          <div class="step" id="step-grammar" hidden>
+            <h2 class="step-title">语法微讲解</h2>
+            <div id="grammar-card" class="grammar-card"></div>
+            <button class="btn btn-primary btn-block" data-step-next>继续</button>
+          </div>
+
+          <!-- 4. 练习题（8道） -->
+          <div class="step" id="step-quiz" hidden>
+            <div class="quiz-header">
+              <span class="quiz-counter" id="quiz-counter">1 / 8</span>
+            </div>
+            <div id="quiz-body" class="quiz-body"></div>
+            <button class="btn btn-primary btn-block" id="quiz-check" disabled>检查</button>
+          </div>
+
+          <!-- 5. 视频播放器（中英双字幕） -->
+          <div class="step" id="step-video" hidden>
+            <h2 class="step-title">情景视频</h2>
+            <div class="video-wrap" id="video-wrap">
+              <!-- video 元素由 app.js 注入 src，track 加载 vtt 字幕 -->
+            </div>
+            <div id="subtitle-area" class="subtitle-area"></div>
+            <p class="step-hint">点击英文字母查看释义</p>
+            <!-- 跟读面板：点"跟读"按钮后展开，逐句朗读→录音→评分 -->
+            <div id="shadow-panel" class="shadow-panel" hidden>
+              <div class="shadow-head">
+                <span class="shadow-title">🎤 跟读练习</span>
+                <button class="shadow-close" id="shadow-close" title="关闭跟读" aria-label="关闭跟读">✕</button>
+              </div>
+              <div class="shadow-target">
+                <div class="shadow-target-en" id="shadow-target-en">—</div>
+                <div class="shadow-target-zh" id="shadow-target-zh">—</div>
+              </div>
+              <div class="shadow-result" id="shadow-result" hidden></div>
+              <button class="btn btn-secondary btn-block" id="shadow-start">🎤 开始录音跟读</button>
+            </div>
+            <button class="btn btn-secondary btn-block" id="step-video-shadow">🎤 跟读本句</button>
+            <button class="btn btn-primary btn-block" data-step-next>继续</button>
+          </div>
+
+          <!-- 6. 角色扮演 -->
+          <div class="step" id="step-roleplay" hidden>
+            <h2 class="step-title">角色扮演</h2>
+            <p class="step-hint" id="roleplay-scene"></p>
+            <div id="roleplay-log" class="roleplay-log"></div>
+            <div id="roleplay-options" class="roleplay-options"></div>
+          </div>
+
+          <!-- 7. 章测（5题） -->
+          <div class="step" id="step-exam" hidden>
+            <div class="quiz-header">
+              <span class="quiz-counter" id="exam-counter">1 / 5</span>
+              <span class="quiz-label">章测</span>
+            </div>
+            <div id="exam-body" class="quiz-body"></div>
+            <button class="btn btn-primary btn-block" id="exam-check" disabled>检查</button>
+          </div>
+
+          <!-- 8. 完成页 -->
+          <div class="step" id="step-done" hidden>
+            <div class="done-card">
+              <div class="done-emoji">🎉</div>
+              <h2 class="done-title">本章完成！</h2>
+              <div class="done-stats" id="done-stats"></div>
+              <button class="btn btn-primary btn-block" id="done-back-home">返回首页</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- 复习页 ---------- -->
+      <section id="view-review" class="view">
+        <div class="view-inner">
+          <h1 class="page-title">复习</h1>
+          <div class="tabs">
+            <button class="tab active" data-review-tab="wrong">错题本</button>
+            <button class="tab" data-review-tab="spaced">间隔复习</button>
+          </div>
+          <!-- 错题列表 -->
+          <div id="review-wrong" class="review-pane active">
+            <div id="wrong-list" class="card-list"></div>
+            <button class="btn btn-secondary btn-block" id="wrong-redo">重做全部错题</button>
+          </div>
+          <!-- 间隔复习 -->
+          <div id="review-spaced" class="review-pane">
+            <div id="spaced-list" class="card-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- 视频页 ---------- -->
+      <section id="view-video" class="view">
+        <div class="view-inner">
+          <h1 class="page-title">视频库</h1>
+          <p class="page-sub">支持加载 .vtt 双字幕与跟读</p>
+          <div id="video-list" class="card-list"></div>
+          <!-- 视频播放器（选中后展开） -->
+          <div id="video-player" class="video-player" hidden>
+            <div class="video-wrap" id="vp-wrap"></div>
+            <div id="vp-subtitle" class="subtitle-area"></div>
+            <!-- 跟读面板：与学习页结构一致，复用 startShadowing -->
+            <div id="vp-shadow-panel" class="shadow-panel" hidden>
+              <div class="shadow-head">
+                <span class="shadow-title">🎤 跟读练习</span>
+                <button class="shadow-close" id="vp-shadow-close" title="关闭跟读" aria-label="关闭跟读">✕</button>
+              </div>
+              <div class="shadow-target">
+                <div class="shadow-target-en" id="vp-shadow-target-en">—</div>
+                <div class="shadow-target-zh" id="vp-shadow-target-zh">—</div>
+              </div>
+              <div class="shadow-result" id="vp-shadow-result" hidden></div>
+              <button class="btn btn-secondary btn-block" id="vp-shadow-start">🎤 开始录音跟读</button>
+            </div>
+            <div class="vp-controls">
+              <button class="btn btn-secondary" id="vp-shadow">🎤 跟读模式</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- 我的页面 ---------- -->
+      <section id="view-profile" class="view">
+        <div class="view-inner">
+          <h1 class="page-title">我的</h1>
+          <!-- 统计卡 -->
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <div class="ps-value" id="profile-xp">0</div>
+              <div class="ps-label">总 XP</div>
+            </div>
+            <div class="profile-stat">
+              <div class="ps-value" id="profile-streak">0</div>
+              <div class="ps-label">连续打卡</div>
+            </div>
+            <div class="profile-stat">
+              <div class="ps-value" id="profile-chapters">0</div>
+              <div class="ps-label">完成章节</div>
+            </div>
+          </div>
+          <!-- 徽章墙 -->
+          <h2 class="section-title">徽章墙</h2>
+          <div id="badge-wall" class="badge-wall"></div>
+          <!-- AI 设置 -->
+          <h2 class="section-title">AI 角色扮演设置</h2>
+          <div class="settings-card">
+            <p class="settings-hint">填入 Gemini API Key 后，角色扮演将由 AI 生成回复；未填或调用失败时自动回退到预设对话树。</p>
+            <label class="settings-label" for="gemini-api-key">Gemini API Key</label>
+            <input type="password" id="gemini-api-key" class="settings-input" placeholder="AIza..." autocomplete="off">
+            <div class="settings-row">
+              <button class="btn btn-secondary" id="gemini-save">保存</button>
+              <button class="btn btn-primary" id="gemini-test">测试连接</button>
+            </div>
+            <p class="settings-link">免费获取地址：<a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a></p>
+            <p class="settings-status" id="gemini-status"></p>
+          </div>
+          <!-- 操作 -->
+          <button class="btn btn-danger btn-block" id="reset-progress">重置全部进度</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ============ 底部导航 ============ -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-view="home">
+        <span class="nav-icon">🏠</span><span class="nav-label">首页</span>
+      </button>
+      <button class="nav-btn" data-view="review">
+        <span class="nav-icon">🔁</span><span class="nav-label">复习</span>
+      </button>
+      <button class="nav-btn" data-view="video">
+        <span class="nav-icon">🎬</span><span class="nav-label">视频</span>
+      </button>
+      <button class="nav-btn" data-view="profile">
+        <span class="nav-icon">👤</span><span class="nav-label">我的</span>
+      </button>
+    </nav>
+
+    <!-- ============ 即时反馈遮罩 ============ -->
+    <!-- 答对/答错时由 app.js 控制 .show -->
+    <div id="feedback" class="feedback">
+      <div class="feedback-inner" id="feedback-inner">
+        <div class="feedback-emoji" id="feedback-emoji"></div>
+        <div class="feedback-text" id="feedback-text"></div>
+      </div>
+    </div>
+
+    <!-- ============ Toast 提示 ============ -->
+    <div id="toast" class="toast" hidden></div>
+
+    <!-- ============ 词义弹窗（点击字幕单词时弹出） ============ -->
+    <div id="word-popup" class="word-popup" hidden>
+      <div class="word-popup-card">
+        <div class="word-popup-head">
+          <span class="word-popup-word" id="word-popup-word">—</span>
+          <button class="word-popup-close" id="word-popup-close" title="关闭" aria-label="关闭">✕</button>
+        </div>
+        <div class="word-popup-def" id="word-popup-def">—</div>
+        <button class="btn btn-primary btn-block" id="word-popup-speak">🔊 朗读</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据层先于逻辑层加载 -->
+  <script src="data.js?v=9"></script>
+  <script src="app.js?v=9"></script>
+</body>
+</html>
