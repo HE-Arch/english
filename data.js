@@ -29,7 +29,11 @@
         { en: "I enjoy solving problems.",   zh: "我喜欢解决问题。",         speak: "I enjoy solving problems." },
         { en: "I'm a team player.",          zh: "我有团队合作精神。",       speak: "I'm a team player." },
         { en: "I graduated from Peking University.", zh: "我毕业于北京大学。", speak: "I graduated from Peking University." },
-        { en: "Thank you for your time.",    zh: "感谢您的时间。",           speak: "Thank you for your time." }
+        { en: "Thank you for your time.",    zh: "感谢您的时间。",           speak: "Thank you for your time." },
+        { en: "I'm currently learning React.", zh: "我目前在学 React。",     speak: "I'm currently learning React." },
+        { en: "I've been here for two years.", zh: "我来这儿两年了。",       speak: "I've been here for two years." },
+        { en: "I read tech blogs in my free time.", zh: "我空闲时读科技博客。", speak: "I read tech blogs in my free time." },
+        { en: "Nice talking to you.",        zh: "和你聊天很开心。",         speak: "Nice talking to you." }
       ],
       grammar: {
         title: 'be 动词与常用介词',
@@ -37,24 +41,24 @@
         table: [['主语', 'be 动词'], ['I', 'am'], ['he / she / it', 'is'], ['you / we / they', 'are']],
         examples: ['I am a developer.', 'She is a designer.', 'We are a team.']
       },
-      // 16 道练习题：选择 4 / 填空 4 / 排序 2 / 翻译 3 / 复述 3
+      // 16 道练习题：选择 6 / 填空 3 / 排序 2 / 翻译 3 / 复述 2
       quiz: [
         { id: 'q1',  type: 'choice', prompt: 'I ___ a developer.', options: ['am', 'is', 'are'], answer: 0, knowledge: 'be 动词' },
         { id: 'q2',  type: 'choice', prompt: 'She ___ a designer.', options: ['am', 'is', 'are'], answer: 1, knowledge: 'be 动词' },
         { id: 'q3',  type: 'choice', prompt: '自我介绍结尾常用：', options: ['Nice to meet you.', 'See you later.', "What's up?"], answer: 0, knowledge: '交际用语' },
         { id: 'q4',  type: 'choice', prompt: '"我有团队合作精神" 怎么说？', options: ["I'm a team player.", "I team player.", "I am team player."], answer: 0, knowledge: '交际用语' },
-        { id: 'q5',  type: 'fill',   prompt: 'I ___ a frontend engineer.（填 be 动词）', answer: 'am', accept: ['am'], knowledge: 'be 动词' },
-        { id: 'q6',  type: 'fill',   prompt: 'My name ___ Alex.（填 be 动词）', answer: 'is', accept: ['is'], knowledge: 'be 动词' },
-        { id: 'q7',  type: 'fill',   prompt: 'I come ___ Shanghai.（填介词）', answer: 'from', accept: ['from'], knowledge: '介词 from' },
-        { id: 'q8',  type: 'fill',   prompt: 'I enjoy ___ problems.（填 solve 的正确形式）', answer: 'solving', accept: ['solving'], knowledge: '动名词' },
-        { id: 'q9',  type: 'order',  prompt: '排列成句', words: ['I', 'work', 'as', 'an', 'engineer'], answer: ['I', 'work', 'as', 'an', 'engineer'], knowledge: '句型 SVO' },
-        { id: 'q10', type: 'order',  prompt: '排列成句', words: ['Nice', 'to', 'meet', 'you'], answer: ['Nice', 'to', 'meet', 'you'], knowledge: '交际用语' },
-        { id: 'q11', type: 'translation', prompt: '中译英：我叫 Alex。', answer: 'My name is Alex', accept: ['My name is Alex', "My name's Alex"], knowledge: '自我介绍' },
-        { id: 'q12', type: 'translation', prompt: '中译英：很高兴认识你。', answer: 'Nice to meet you', accept: ['Nice to meet you'], knowledge: '交际用语' },
-        { id: 'q13', type: 'translation', prompt: '中译英：我来自上海。', answer: 'I am from Shanghai', accept: ['I am from Shanghai', "I'm from Shanghai"], knowledge: '介词 from' },
-        { id: 'q14', type: 'retell', prompt: 'I am a frontend engineer from Shanghai.', keywords: ['frontend', 'engineer', 'Shanghai'], knowledge: '自我介绍' },
-        { id: 'q15', type: 'retell', prompt: 'I have three years of experience.', keywords: ['three', 'years', 'experience'], knowledge: '工作经验' },
-        { id: 'q16', type: 'retell', prompt: 'I am good at JavaScript.', keywords: ['good', 'javascript'], knowledge: '技能表达' }
+        { id: 'q5',  type: 'choice', prompt: 'I am good ___ JavaScript.', options: ['at', 'in', 'on', 'for'], answer: 0, knowledge: '介词 at' },
+        { id: 'q6',  type: 'choice', prompt: "I'm responsible ___ the UI.", options: ['for', 'at', 'in', 'on'], answer: 0, knowledge: '介词 for' },
+        { id: 'q7',  type: 'fill',   prompt: 'I ___ a frontend engineer.（填 be 动词）', answer: 'am', accept: ['am'], knowledge: 'be 动词' },
+        { id: 'q8',  type: 'fill',   prompt: 'I come ___ Shanghai.（填介词）', answer: 'from', accept: ['from'], knowledge: '介词 from' },
+        { id: 'q9',  type: 'fill',   prompt: 'I enjoy ___ problems.（填 solve 的正确形式）', answer: 'solving', accept: ['solving'], knowledge: '动名词' },
+        { id: 'q10', type: 'order',  prompt: '排列成句', words: ['I', 'work', 'as', 'an', 'engineer'], answer: ['I', 'work', 'as', 'an', 'engineer'], knowledge: '句型 SVO' },
+        { id: 'q11', type: 'order',  prompt: '排列成句', words: ['Nice', 'to', 'meet', 'you'], answer: ['Nice', 'to', 'meet', 'you'], knowledge: '交际用语' },
+        { id: 'q12', type: 'translation', prompt: '中译英：我叫 Alex。', answer: 'My name is Alex', accept: ['My name is Alex', "My name's Alex"], knowledge: '自我介绍' },
+        { id: 'q13', type: 'translation', prompt: '中译英：很高兴认识你。', answer: 'Nice to meet you', accept: ['Nice to meet you'], knowledge: '交际用语' },
+        { id: 'q14', type: 'translation', prompt: '中译英：我来自上海。', answer: 'I am from Shanghai', accept: ['I am from Shanghai', "I'm from Shanghai"], knowledge: '介词 from' },
+        { id: 'q15', type: 'retell', prompt: 'I am a frontend engineer from Shanghai.', keywords: ['frontend', 'engineer', 'Shanghai'], knowledge: '自我介绍' },
+        { id: 'q16', type: 'retell', prompt: 'I have three years of experience.', keywords: ['three', 'years', 'experience'], knowledge: '工作经验' }
       ],
       video: {
         title: '自我介绍对话',
@@ -74,7 +78,7 @@
           { t: 33, en: "See you later!",                     zh: '回头见！' }
         ]
       },
-      // 角色扮演：2 个场景，每个 9 轮开口对话
+      // 角色扮演：2 个场景，共 15 轮开口对话
       roleplay: {
         scene: '选择场景：A 向新同事自我介绍，B 向面试官自我介绍。',
         start: 'r0',
@@ -93,8 +97,7 @@
           a5: { npc: "How long have you been doing this?",      expected: "I have three years of experience.", next: 'a6' },
           a6: { npc: "What are you good at?",                   expected: "I am good at JavaScript.",       next: 'a7' },
           a7: { npc: "Do you like working in a team?",          expected: "Yes, I am a team player.",       next: 'a8' },
-          a8: { npc: "What do you enjoy doing?",                expected: "I enjoy solving problems.",      next: 'a9' },
-          a9: { npc: "Great to meet you, Alex!",                expected: "Nice to meet you too.",          next: 'aend' },
+          a8: { npc: "Great to meet you, Alex!",                expected: "Nice to meet you too.",          next: 'aend' },
           aend: { npc: "Welcome to the team! 🎉", end: true },
           b1: { npc: "Good morning. Please introduce yourself.", expected: "My name is Alex.",               next: 'b2' },
           b2: { npc: "Where did you graduate from?",             expected: "I graduated from Peking University.", next: 'b3' },
@@ -102,32 +105,30 @@
           b4: { npc: "What are you responsible for?",            expected: "I am responsible for the UI.",   next: 'b5' },
           b5: { npc: "How much experience do you have?",         expected: "I have three years of experience.", next: 'b6' },
           b6: { npc: "What skills do you have?",                 expected: "I am good at JavaScript.",       next: 'b7' },
-          b7: { npc: "Do you enjoy solving problems?",           expected: "Yes, I enjoy solving problems.", next: 'b8' },
-          b8: { npc: "Are you a team player?",                   expected: "Yes, I am a team player.",       next: 'b9' },
-          b9: { npc: "Do you have any questions for us?",        expected: "Thank you for your time.",       next: 'bend' },
+          b7: { npc: "Do you have any questions for us?",        expected: "Thank you for your time.",       next: 'bend' },
           bend: { npc: "Thank you for your time! 🎉", end: true }
         }
       },
-      // 16 道章测题：与练习题无完全重复，覆盖全部知识点
+      // 16 道章测题：与练习题重复率 <20%，全部带 knowledge
       exam: [
         { id: 'e1',  type: 'choice', prompt: 'They ___ developers.', options: ['am', 'is', 'are'], answer: 2, knowledge: 'be 动词' },
         { id: 'e2',  type: 'choice', prompt: 'He ___ a QA engineer.', options: ['am', 'is', 'are'], answer: 1, knowledge: 'be 动词' },
         { id: 'e3',  type: 'choice', prompt: '"我擅长编程" 怎么说？', options: ['I am good at programming.', 'I good at programming.', 'I am good programming.'], answer: 0, knowledge: '技能表达' },
         { id: 'e4',  type: 'choice', prompt: '"再见" 怎么说？', options: ['See you later.', 'Nice to meet you.', 'Thank you.'], answer: 0, knowledge: '交际用语' },
-        { id: 'e5',  type: 'fill',   prompt: 'She ___ a designer.（填 be 动词）', answer: 'is', accept: ['is'], knowledge: 'be 动词' },
-        { id: 'e6',  type: 'fill',   prompt: 'They ___ from Beijing.（填 be 动词）', answer: 'are', accept: ['are'], knowledge: 'be 动词' },
-        { id: 'e7',  type: 'fill',   prompt: 'She graduated ___ Peking University.（填介词）', answer: 'from', accept: ['from'], knowledge: '介词 from' },
+        { id: 'e5',  type: 'choice', prompt: 'I come ___ Beijing.', options: ['from', 'at', 'in', 'on'], answer: 0, knowledge: '介词 from' },
+        { id: 'e6',  type: 'choice', prompt: 'She is responsible ___ the design.', options: ['for', 'at', 'in', 'on'], answer: 0, knowledge: '介词 for' },
+        { id: 'e7',  type: 'fill',   prompt: 'She ___ a designer.（填 be 动词）', answer: 'is', accept: ['is'], knowledge: 'be 动词' },
         { id: 'e8',  type: 'fill',   prompt: 'I am good ___ JavaScript.（填介词）', answer: 'at', accept: ['at'], knowledge: '介词 at' },
-        { id: 'e9',  type: 'order',  prompt: '排列成句', words: ['I', 'graduated', 'from', 'Peking', 'University'], answer: ['I', 'graduated', 'from', 'Peking', 'University'], knowledge: '句型 SVO' },
-        { id: 'e10', type: 'order',  prompt: '排列成句', words: ['I', 'have', 'three', 'years', 'of', 'experience'], answer: ['I', 'have', 'three', 'years', 'of', 'experience'], knowledge: '工作经验' },
-        { id: 'e11', type: 'translation', prompt: '中译英：他是一名测试工程师。', answer: 'He is a QA engineer', accept: ['He is a QA engineer'], knowledge: 'be 动词' },
-        { id: 'e12', type: 'translation', prompt: '中译英：我们是一个团队。', answer: 'We are a team', accept: ['We are a team'], knowledge: 'be 动词' },
-        { id: 'e13', type: 'translation', prompt: '中译英：感谢您的时间。', answer: 'Thank you for your time', accept: ['Thank you for your time'], knowledge: '交际用语' },
-        { id: 'e14', type: 'retell', prompt: 'She works as a designer at our company.', keywords: ['designer', 'company'], knowledge: '工作角色' },
-        { id: 'e15', type: 'retell', prompt: 'I enjoy solving problems every day.', keywords: ['enjoy', 'solving', 'problems'], knowledge: '动名词' },
+        { id: 'e9',  type: 'fill',   prompt: 'I enjoy ___ problems.（填 solve 的正确形式）', answer: 'solving', accept: ['solving'], knowledge: '动名词' },
+        { id: 'e10', type: 'order',  prompt: '排列成句', words: ['I', 'graduated', 'from', 'Peking', 'University'], answer: ['I', 'graduated', 'from', 'Peking', 'University'], knowledge: '句型 SVO' },
+        { id: 'e11', type: 'order',  prompt: '排列成句', words: ['I', 'have', 'three', 'years', 'of', 'experience'], answer: ['I', 'have', 'three', 'years', 'of', 'experience'], knowledge: '工作经验' },
+        { id: 'e12', type: 'translation', prompt: '中译英：他是一名测试工程师。', answer: 'He is a QA engineer', accept: ['He is a QA engineer'], knowledge: 'be 动词' },
+        { id: 'e13', type: 'translation', prompt: '中译英：我们是一个团队。', answer: 'We are a team', accept: ['We are a team'], knowledge: 'be 动词' },
+        { id: 'e14', type: 'translation', prompt: '中译英：感谢您的时间。', answer: 'Thank you for your time', accept: ['Thank you for your time'], knowledge: '交际用语' },
+        { id: 'e15', type: 'retell', prompt: 'She works as a designer at our company.', keywords: ['designer', 'company'], knowledge: '工作角色' },
         { id: 'e16', type: 'retell', prompt: 'We work together as a team.', keywords: ['work', 'team'], knowledge: '团队合作' }
       ],
-      xp: 90
+      xp: 130
     },
 
     // ---------- 第二章：数字与时间 ----------
@@ -149,7 +150,11 @@
         { en: "Let's meet at 10:30.",               zh: "我们十点半见面吧。", speak: "Let's meet at 10:30." },
         { en: "It takes twenty minutes.",           zh: "需要二十分钟。",     speak: "It takes twenty minutes." },
         { en: "See you on Monday.",                 zh: "周一见。",           speak: "See you on Monday." },
-        { en: "I'll be there in an hour.",          zh: "我一小时后到。",     speak: "I'll be there in an hour." }
+        { en: "I'll be there in an hour.",          zh: "我一小时后到。",     speak: "I'll be there in an hour." },
+        { en: "It's a quarter past three.",         zh: "现在三点一刻。",     speak: "It's a quarter past three." },
+        { en: "The meeting lasts for an hour.",     zh: "会议持续一小时。",   speak: "The meeting lasts for an hour." },
+        { en: "I'll finish it by Friday.",          zh: "我周五前完成。",     speak: "I'll finish it by Friday." },
+        { en: "Let's take a short break.",          zh: "我们休息一下吧。",   speak: "Let's take a short break." }
       ],
       grammar: {
         title: '数词、时刻与时间介词',
@@ -157,24 +162,24 @@
         table: [['类型', '示例'], ['基数词', 'one, two, three, ten, twenty'], ['序数词', 'first, second, third'], ['时刻介词', 'at nine, at 10:30'], ['星期介词', 'on Monday']],
         examples: ["It's ten o'clock.", 'The meeting starts at nine AM.', 'I have three tasks today.']
       },
-      // 16 道练习题：选择 4 / 填空 4 / 排序 2 / 翻译 3 / 复述 3
+      // 16 道练习题：选择 6 / 填空 3 / 排序 2 / 翻译 3 / 复述 2
       quiz: [
         { id: 'q1',  type: 'choice', prompt: "It's ___ o'clock.（10点）", options: ['ten', 'tenth', 'tenly'], answer: 0, knowledge: '数词' },
         { id: 'q2',  type: 'choice', prompt: 'The meeting starts ___ nine AM.', options: ['at', 'in', 'on'], answer: 0, knowledge: '介词 at' },
         { id: 'q3',  type: 'choice', prompt: '"请稍等" 怎么说？', options: ['Please wait a second.', 'Please wait second.', 'Wait second please.'], answer: 0, knowledge: '交际用语' },
         { id: 'q4',  type: 'choice', prompt: 'See you ___ Monday.', options: ['on', 'in', 'at'], answer: 0, knowledge: '介词 on' },
-        { id: 'q5',  type: 'fill',   prompt: 'The bug was fixed in five ___.（填"分钟"）', answer: 'minutes', accept: ['minutes', 'minute'], knowledge: '时间单位' },
-        { id: 'q6',  type: 'fill',   prompt: "It's half ___ two.（填「过」）", answer: 'past', accept: ['past'], knowledge: '时刻表达' },
-        { id: 'q7',  type: 'fill',   prompt: 'The deadline is ___.（填「明天」）', answer: 'tomorrow', accept: ['tomorrow'], knowledge: '时间词' },
-        { id: 'q8',  type: 'fill',   prompt: "I'll be there in an ___.（填「小时」）", answer: 'hour', accept: ['hour'], knowledge: '时间单位' },
-        { id: 'q9',  type: 'order',  prompt: '排列成句', words: ['I', 'have', 'three', 'tasks', 'today'], answer: ['I', 'have', 'three', 'tasks', 'today'], knowledge: '句型 SVO' },
-        { id: 'q10', type: 'order',  prompt: '排列成句', words: ['The', 'meeting', 'starts', 'at', 'nine'], answer: ['The', 'meeting', 'starts', 'at', 'nine'], knowledge: '时刻表达' },
-        { id: 'q11', type: 'translation', prompt: '中译英：现在是十点。', answer: "It's ten o'clock", accept: ["It's ten o'clock"], knowledge: '时刻表达' },
-        { id: 'q12', type: 'translation', prompt: '中译英：我今天有三个任务。', answer: 'I have three tasks today', accept: ['I have three tasks today'], knowledge: '数词' },
-        { id: 'q13', type: 'translation', prompt: '中译英：请稍等一下。', answer: 'Please wait a second', accept: ['Please wait a second'], knowledge: '交际用语' },
-        { id: 'q14', type: 'retell', prompt: 'The meeting starts at nine AM.', keywords: ['meeting', 'starts', 'nine'], knowledge: '时刻表达' },
-        { id: 'q15', type: 'retell', prompt: 'I work from nine to six.', keywords: ['work', 'nine', 'six'], knowledge: '工作时间' },
-        { id: 'q16', type: 'retell', prompt: "It takes twenty minutes.", keywords: ['takes', 'twenty', 'minutes'], knowledge: '时间单位' }
+        { id: 'q5',  type: 'choice', prompt: "It's half ___ two.（两点半）", options: ['past', 'to', 'at', 'on'], answer: 0, knowledge: '时刻表达' },
+        { id: 'q6',  type: 'choice', prompt: 'I\'ll finish it ___ Friday.', options: ['by', 'on', 'in', 'at'], answer: 0, knowledge: '介词 by' },
+        { id: 'q7',  type: 'fill',   prompt: 'The bug was fixed in five ___.（填"分钟"）', answer: 'minutes', accept: ['minutes', 'minute'], knowledge: '时间单位' },
+        { id: 'q8',  type: 'fill',   prompt: 'The deadline is ___.（填「明天」）', answer: 'tomorrow', accept: ['tomorrow'], knowledge: '时间词' },
+        { id: 'q9',  type: 'fill',   prompt: "I'll be there in an ___.（填「小时」）", answer: 'hour', accept: ['hour'], knowledge: '时间单位' },
+        { id: 'q10', type: 'order',  prompt: '排列成句', words: ['I', 'have', 'three', 'tasks', 'today'], answer: ['I', 'have', 'three', 'tasks', 'today'], knowledge: '句型 SVO' },
+        { id: 'q11', type: 'order',  prompt: '排列成句', words: ['The', 'meeting', 'starts', 'at', 'nine'], answer: ['The', 'meeting', 'starts', 'at', 'nine'], knowledge: '时刻表达' },
+        { id: 'q12', type: 'translation', prompt: '中译英：现在是十点。', answer: "It's ten o'clock", accept: ["It's ten o'clock"], knowledge: '时刻表达' },
+        { id: 'q13', type: 'translation', prompt: '中译英：我今天有三个任务。', answer: 'I have three tasks today', accept: ['I have three tasks today'], knowledge: '数词' },
+        { id: 'q14', type: 'translation', prompt: '中译英：请稍等一下。', answer: 'Please wait a second', accept: ['Please wait a second'], knowledge: '交际用语' },
+        { id: 'q15', type: 'retell', prompt: 'The meeting starts at nine AM.', keywords: ['meeting', 'starts', 'nine'], knowledge: '时刻表达' },
+        { id: 'q16', type: 'retell', prompt: 'I work from nine to six.', keywords: ['work', 'nine', 'six'], knowledge: '工作时间' }
       ],
       video: {
         title: '团队站会：今日时间安排',
@@ -194,7 +199,7 @@
           { t: 33, en: "It takes twenty minutes.",            zh: '需要二十分钟。' }
         ]
       },
-      // 角色扮演：2 个场景，每个 9 轮开口
+      // 角色扮演：2 个场景，共 15 轮开口对话
       roleplay: {
         scene: '选择场景：A 确认会议日程，B 估算任务时间。',
         start: 'r0',
@@ -213,41 +218,38 @@
           a5: { npc: "Which day?",                            expected: "See you on Monday.",               next: 'a6' },
           a6: { npc: "What are your working hours?",          expected: "I work from nine to six.",         next: 'a7' },
           a7: { npc: "How long will you be there?",           expected: "I'll be there in an hour.",        next: 'a8' },
-          a8: { npc: "Can you come at half past two?",        expected: "Yes, it's half past two.",         next: 'a9' },
-          a9: { npc: "Great, see you then!",                  expected: "See you on Monday.",               next: 'aend' },
+          a8: { npc: "Great, see you then!",                  expected: "See you on Monday.",               next: 'aend' },
           aend: { npc: "Perfect! See you at the meeting 🎉", end: true },
           b1: { npc: "How many tasks do you have today?",     expected: "I have three tasks today.",        next: 'b2' },
           b2: { npc: "How long does it take to fix the bug?", expected: "It takes twenty minutes.",         next: 'b3' },
           b3: { npc: "When was the bug fixed?",               expected: "The bug was fixed in five minutes.", next: 'b4' },
           b4: { npc: "What time is it now?",                  expected: "It's half past two.",              next: 'b5' },
-          b5: { npc: "Can we finish quickly?",                expected: "Please wait a second.",            next: 'b6' },
-          b6: { npc: "When is the deadline?",                 expected: "The deadline is tomorrow.",        next: 'b7' },
-          b7: { npc: "Will you finish on time?",              expected: "Yes, I'll be there in an hour.",   next: 'b8' },
-          b8: { npc: "How many minutes do you need?",         expected: "It takes twenty minutes.",         next: 'b9' },
-          b9: { npc: "Great, let's get it done!",             expected: "See you on Monday.",               next: 'bend' },
+          b5: { npc: "When is the deadline?",                 expected: "The deadline is tomorrow.",        next: 'b6' },
+          b6: { npc: "Will you finish on time?",              expected: "Yes, I'll be there in an hour.",   next: 'b7' },
+          b7: { npc: "Great, let's get it done!",             expected: "See you on Monday.",               next: 'bend' },
           bend: { npc: "Well done! Let's finish on time 🎉", end: true }
         }
       },
-      // 16 道章测题：与练习题无完全重复
+      // 16 道章测题：与练习题重复率 <20%，全部带 knowledge
       exam: [
         { id: 'e1',  type: 'choice', prompt: '"现在是十点" 怎么说？', options: ["It's ten o'clock.", "It ten o'clock.", "It's ten clock."], answer: 0, knowledge: '时刻表达' },
         { id: 'e2',  type: 'choice', prompt: 'I have ___ tasks today.（3个）', options: ['three', 'third', 'threely'], answer: 0, knowledge: '数词' },
         { id: 'e3',  type: 'choice', prompt: '"我们十点半见面" 怎么说？', options: ["Let's meet at 10:30.", "Let meet 10:30.", "Let's meet 10:30."], answer: 0, knowledge: '时刻表达' },
-        { id: 'e4',  type: 'choice', prompt: '"会议九点开始" 怎么说？', options: ["The meeting starts at nine AM.", "The meeting start nine AM.", "The meeting starts nine AM."], answer: 0, knowledge: '介词 at' },
-        { id: 'e5',  type: 'fill',   prompt: 'It takes twenty ___.（填「分钟」）', answer: 'minutes', accept: ['minutes', 'minute'], knowledge: '时间单位' },
-        { id: 'e6',  type: 'fill',   prompt: 'I work ___ nine to six.（填介词）', answer: 'from', accept: ['from'], knowledge: '介词 from' },
-        { id: 'e7',  type: 'fill',   prompt: "It's half ___ three.（填「过」）", answer: 'past', accept: ['past'], knowledge: '时刻表达' },
+        { id: 'e4',  type: 'choice', prompt: 'The meeting starts ___ nine.', options: ['at', 'in', 'on', 'to'], answer: 0, knowledge: '介词 at' },
+        { id: 'e5',  type: 'choice', prompt: 'I work ___ nine to six.', options: ['from', 'at', 'in', 'on'], answer: 0, knowledge: '介词 from' },
+        { id: 'e6',  type: 'choice', prompt: 'I\'ll finish it ___ Friday.', options: ['by', 'in', 'at', 'to'], answer: 0, knowledge: '介词 by' },
+        { id: 'e7',  type: 'fill',   prompt: 'It takes twenty ___.（填「分钟」）', answer: 'minutes', accept: ['minutes', 'minute'], knowledge: '时间单位' },
         { id: 'e8',  type: 'fill',   prompt: 'See you ___ Friday.（填介词）', answer: 'on', accept: ['on'], knowledge: '介词 on' },
-        { id: 'e9',  type: 'order',  prompt: '排列成句', words: ['I', 'work', 'from', 'nine', 'to', 'six'], answer: ['I', 'work', 'from', 'nine', 'to', 'six'], knowledge: '工作时间' },
-        { id: 'e10', type: 'order',  prompt: '排列成句', words: ['Please', 'wait', 'a', 'second'], answer: ['Please', 'wait', 'a', 'second'], knowledge: '交际用语' },
-        { id: 'e11', type: 'translation', prompt: '中译英：截止日期是明天。', answer: 'The deadline is tomorrow', accept: ['The deadline is tomorrow'], knowledge: '时间词' },
-        { id: 'e12', type: 'translation', prompt: '中译英：需要二十分钟。', answer: 'It takes twenty minutes', accept: ['It takes twenty minutes'], knowledge: '时间单位' },
-        { id: 'e13', type: 'translation', prompt: '中译英：周一见。', answer: 'See you on Monday', accept: ['See you on Monday'], knowledge: '介词 on' },
-        { id: 'e14', type: 'retell', prompt: 'I have three tasks today.', keywords: ['three', 'tasks', 'today'], knowledge: '数词' },
-        { id: 'e15', type: 'retell', prompt: 'The deadline is tomorrow.', keywords: ['deadline', 'tomorrow'], knowledge: '时间词' },
+        { id: 'e9',  type: 'fill',   prompt: "It's a quarter ___ three.（填「过」）", answer: 'past', accept: ['past'], knowledge: '时刻表达' },
+        { id: 'e10', type: 'order',  prompt: '排列成句', words: ['I', 'work', 'from', 'nine', 'to', 'six'], answer: ['I', 'work', 'from', 'nine', 'to', 'six'], knowledge: '工作时间' },
+        { id: 'e11', type: 'order',  prompt: '排列成句', words: ['Please', 'wait', 'a', 'second'], answer: ['Please', 'wait', 'a', 'second'], knowledge: '交际用语' },
+        { id: 'e12', type: 'translation', prompt: '中译英：截止日期是明天。', answer: 'The deadline is tomorrow', accept: ['The deadline is tomorrow'], knowledge: '时间词' },
+        { id: 'e13', type: 'translation', prompt: '中译英：需要二十分钟。', answer: 'It takes twenty minutes', accept: ['It takes twenty minutes'], knowledge: '时间单位' },
+        { id: 'e14', type: 'translation', prompt: '中译英：周一见。', answer: 'See you on Monday', accept: ['See you on Monday'], knowledge: '介词 on' },
+        { id: 'e15', type: 'retell', prompt: 'I have three tasks today.', keywords: ['three', 'tasks', 'today'], knowledge: '数词' },
         { id: 'e16', type: 'retell', prompt: "I'll be there in an hour.", keywords: ['there', 'hour'], knowledge: '时间单位' }
       ],
-      xp: 100
+      xp: 130
     },
 
     // ---------- 第三章：问路与方向 ----------
@@ -269,7 +271,11 @@
         { en: "Walk for two blocks.",            zh: "走两个街区。",       speak: "Walk for two blocks." },
         { en: "You can't miss it.",              zh: "你不会错过的。",     speak: "You can't miss it." },
         { en: "It's on the second floor.",       zh: "在二楼。",           speak: "It's on the second floor." },
-        { en: "Thank you so much!",              zh: "太感谢了！",         speak: "Thank you so much!" }
+        { en: "Thank you so much!",              zh: "太感谢了！",         speak: "Thank you so much!" },
+        { en: "Go down this hallway.",           zh: "沿着走廊走。",       speak: "Go down this hallway." },
+        { en: "Take the elevator to the third floor.", zh: "坐电梯到三楼。", speak: "Take the elevator to the third floor." },
+        { en: "It's opposite the elevator.",     zh: "在电梯对面。",       speak: "It's opposite the elevator." },
+        { en: "I'll walk you there.",            zh: "我带你过去。",       speak: "I'll walk you there." }
       ],
       grammar: {
         title: '方位介词与祈使句',
@@ -277,24 +283,24 @@
         table: [['表达', '用法'], ['Go straight', '一直走'], ['Turn left / right', '左转 / 右转'], ['on your left / right', '在你左 / 右边'], ['next to', '紧邻'], ['at the corner', '在拐角处']],
         examples: ['Go straight ahead.', 'Turn left at the corner.', "It's on your right.", "It's next to the cafeteria."]
       },
-      // 16 道练习题：选择 4 / 填空 4 / 排序 2 / 翻译 3 / 复述 3
+      // 16 道练习题：选择 6 / 填空 3 / 排序 2 / 翻译 3 / 复述 2
       quiz: [
         { id: 'q1',  type: 'choice', prompt: '"洗手间在哪里" 怎么问？', options: ["Where is the restroom?", "Where restroom?", "Where is restroom?"], answer: 0, knowledge: '问路句型' },
         { id: 'q2',  type: 'choice', prompt: '"一直往前走" 怎么说？', options: ['Go straight ahead.', 'Go ahead straight.', 'Straight go ahead.'], answer: 0, knowledge: '祈使句' },
         { id: 'q3',  type: 'choice', prompt: '"打扰一下" 怎么说？', options: ['Excuse me.', 'Sorry me.', 'Pardon you.'], answer: 0, knowledge: '交际用语' },
         { id: 'q4',  type: 'choice', prompt: '"你不会错过的" 怎么说？', options: ["You can't miss it.", "You not miss it.", "You no miss it."], answer: 0, knowledge: '指路用语' },
-        { id: 'q5',  type: 'fill',   prompt: 'Turn left ___ the corner.（填介词）', answer: 'at', accept: ['at'], knowledge: '介词 at' },
-        { id: 'q6',  type: 'fill',   prompt: "It's on your ___.（填「右边」）", answer: 'right', accept: ['right'], knowledge: '方位词' },
-        { id: 'q7',  type: 'fill',   prompt: 'Go ___ ahead.（填「一直」）', answer: 'straight', accept: ['straight'], knowledge: '祈使句' },
-        { id: 'q8',  type: 'fill',   prompt: "It's next ___ the cafeteria.（填介词）", answer: 'to', accept: ['to'], knowledge: '介词 to' },
-        { id: 'q9',  type: 'order',  prompt: '排列成句', words: ['Turn', 'left', 'at', 'the', 'corner'], answer: ['Turn', 'left', 'at', 'the', 'corner'], knowledge: '祈使句' },
-        { id: 'q10', type: 'order',  prompt: '排列成句', words: ['How', 'do', 'I', 'get', 'to', 'the', 'office'], answer: ['How', 'do', 'I', 'get', 'to', 'the', 'office'], knowledge: '问路句型' },
-        { id: 'q11', type: 'translation', prompt: '中译英：洗手间在哪里？', answer: 'Where is the restroom', accept: ['Where is the restroom', 'Where is the bathroom'], knowledge: '问路句型' },
-        { id: 'q12', type: 'translation', prompt: '中译英：一直往前走。', answer: 'Go straight ahead', accept: ['Go straight ahead'], knowledge: '祈使句' },
-        { id: 'q13', type: 'translation', prompt: '中译英：太感谢了！', answer: 'Thank you so much', accept: ['Thank you so much', 'Thanks a lot'], knowledge: '交际用语' },
-        { id: 'q14', type: 'retell', prompt: 'Turn right at the traffic light.', keywords: ['turn', 'right', 'traffic', 'light'], knowledge: '祈使句' },
-        { id: 'q15', type: 'retell', prompt: "It's next to the cafeteria.", keywords: ['next', 'cafeteria'], knowledge: '介词 to' },
-        { id: 'q16', type: 'retell', prompt: "It's on the second floor.", keywords: ['second', 'floor'], knowledge: '方位词' }
+        { id: 'q5',  type: 'choice', prompt: 'Turn left ___ the corner.', options: ['at', 'in', 'on', 'to'], answer: 0, knowledge: '介词 at' },
+        { id: 'q6',  type: 'choice', prompt: "It's next ___ the cafeteria.", options: ['to', 'at', 'in', 'on'], answer: 0, knowledge: '介词 to' },
+        { id: 'q7',  type: 'fill',   prompt: "It's on your ___.（填「右边」）", answer: 'right', accept: ['right'], knowledge: '方位词' },
+        { id: 'q8',  type: 'fill',   prompt: 'Go ___ ahead.（填「一直」）', answer: 'straight', accept: ['straight'], knowledge: '祈使句' },
+        { id: 'q9',  type: 'fill',   prompt: "It's on the ___ floor.（填「第二」）", answer: 'second', accept: ['second'], knowledge: '序数词' },
+        { id: 'q10', type: 'order',  prompt: '排列成句', words: ['Turn', 'left', 'at', 'the', 'corner'], answer: ['Turn', 'left', 'at', 'the', 'corner'], knowledge: '祈使句' },
+        { id: 'q11', type: 'order',  prompt: '排列成句', words: ['How', 'do', 'I', 'get', 'to', 'the', 'office'], answer: ['How', 'do', 'I', 'get', 'to', 'the', 'office'], knowledge: '问路句型' },
+        { id: 'q12', type: 'translation', prompt: '中译英：洗手间在哪里？', answer: 'Where is the restroom', accept: ['Where is the restroom', 'Where is the bathroom'], knowledge: '问路句型' },
+        { id: 'q13', type: 'translation', prompt: '中译英：一直往前走。', answer: 'Go straight ahead', accept: ['Go straight ahead'], knowledge: '祈使句' },
+        { id: 'q14', type: 'translation', prompt: '中译英：太感谢了！', answer: 'Thank you so much', accept: ['Thank you so much', 'Thanks a lot'], knowledge: '交际用语' },
+        { id: 'q15', type: 'retell', prompt: 'Turn right at the traffic light.', keywords: ['turn', 'right', 'traffic', 'light'], knowledge: '祈使句' },
+        { id: 'q16', type: 'retell', prompt: "It's next to the cafeteria.", keywords: ['next', 'cafeteria'], knowledge: '介词 to' }
       ],
       video: {
         title: '园区指路对话',
@@ -314,7 +320,7 @@
           { t: 33, en: "Thank you so much!",                  zh: '太感谢了！' }
         ]
       },
-      // 角色扮演：2 个场景，每个 9 轮开口
+      // 角色扮演：2 个场景，共 15 轮开口对话
       roleplay: {
         scene: '选择场景：A 问洗手间在哪，B 问会议室在哪。',
         start: 'r0',
@@ -333,8 +339,7 @@
           a5: { npc: "How far is it?",                         expected: "Walk for two blocks.",               next: 'a6' },
           a6: { npc: "Do I turn at the traffic light?",        expected: "Turn right at the traffic light.",   next: 'a7' },
           a7: { npc: "Which floor is it on?",                  expected: "It's on the second floor.",          next: 'a8' },
-          a8: { npc: "Will I find it easily?",                 expected: "Yes, you can't miss it.",            next: 'a9' },
-          a9: { npc: "Got it, thanks!",                        expected: "Thank you so much.",                 next: 'aend' },
+          a8: { npc: "Got it, thanks!",                        expected: "Thank you so much.",                 next: 'aend' },
           aend: { npc: "You're welcome! 🎉", end: true },
           b1: { npc: "Excuse me, how do I get to the office?", expected: "Go straight ahead.",                 next: 'b2' },
           b2: { npc: "Do I turn left or right?",               expected: "Turn right at the traffic light.",   next: 'b3' },
@@ -342,32 +347,30 @@
           b4: { npc: "How many blocks?",                       expected: "Walk for two blocks.",               next: 'b5' },
           b5: { npc: "Is it on the left or right?",            expected: "It's on your left.",                 next: 'b6' },
           b6: { npc: "Which floor?",                           expected: "It's on the second floor.",          next: 'b7' },
-          b7: { npc: "Will I find it?",                        expected: "Yes, you can't miss it.",            next: 'b8' },
-          b8: { npc: "How do I ask if I get lost?",            expected: "Excuse me, where is the restroom?",  next: 'b9' },
-          b9: { npc: "Thank you for your help!",               expected: "Thank you so much.",                 next: 'bend' },
+          b7: { npc: "Thank you for your help!",               expected: "Thank you so much.",                 next: 'bend' },
           bend: { npc: "You're very helpful! 🎉", end: true }
         }
       },
-      // 16 道章测题：与练习题无完全重复
+      // 16 道章测题：与练习题重复率 <20%，全部带 knowledge
       exam: [
         { id: 'e1',  type: 'choice', prompt: '"我怎么去办公室" 怎么问？', options: ["How do I get to the office?", "How to office?", "Where office?"], answer: 0, knowledge: '问路句型' },
         { id: 'e2',  type: 'choice', prompt: '"在红绿灯右转" 怎么说？', options: ['Turn right at the traffic light.', 'Right turn traffic light.', 'Turn right traffic light.'], answer: 0, knowledge: '祈使句' },
         { id: 'e3',  type: 'choice', prompt: '"在二楼" 怎么说？', options: ["It's on the second floor.", "It's on second floor.", "It's in second floor."], answer: 0, knowledge: '方位词' },
         { id: 'e4',  type: 'choice', prompt: 'Go ___ ahead.', options: ['straight', 'straightly', 'straights'], answer: 0, knowledge: '祈使句' },
-        { id: 'e5',  type: 'fill',   prompt: 'Turn right ___ the traffic light.（填介词）', answer: 'at', accept: ['at'], knowledge: '介词 at' },
-        { id: 'e6',  type: 'fill',   prompt: "It's on your ___.（填「左边」）", answer: 'left', accept: ['left'], knowledge: '方位词' },
-        { id: 'e7',  type: 'fill',   prompt: "It's ___ to the cafeteria.（填「紧邻」）", answer: 'next', accept: ['next'], knowledge: '介词 to' },
+        { id: 'e5',  type: 'choice', prompt: 'Turn right ___ the traffic light.', options: ['at', 'in', 'on', 'to'], answer: 0, knowledge: '介词 at' },
+        { id: 'e6',  type: 'choice', prompt: "It's ___ to the cafeteria.", options: ['next', 'near', 'behind', 'at'], answer: 0, knowledge: '介词 to' },
+        { id: 'e7',  type: 'fill',   prompt: "It's on your ___.（填「左边」）", answer: 'left', accept: ['left'], knowledge: '方位词' },
         { id: 'e8',  type: 'fill',   prompt: 'Walk ___ two blocks.（填介词）', answer: 'for', accept: ['for'], knowledge: '介词 for' },
-        { id: 'e9',  type: 'order',  prompt: '排列成句', words: ['Go', 'straight', 'ahead'], answer: ['Go', 'straight', 'ahead'], knowledge: '祈使句' },
-        { id: 'e10', type: 'order',  prompt: '排列成句', words: ['It', 'is', 'on', 'your', 'right'], answer: ['It', 'is', 'on', 'your', 'right'], knowledge: '方位词' },
-        { id: 'e11', type: 'translation', prompt: '中译英：打扰一下。', answer: 'Excuse me', accept: ['Excuse me'], knowledge: '交际用语' },
-        { id: 'e12', type: 'translation', prompt: '中译英：在拐角左转。', answer: 'Turn left at the corner', accept: ['Turn left at the corner'], knowledge: '祈使句' },
-        { id: 'e13', type: 'translation', prompt: '中译英：你不会错过的。', answer: "You can't miss it", accept: ["You can't miss it"], knowledge: '指路用语' },
-        { id: 'e14', type: 'retell', prompt: 'Go straight ahead and turn left.', keywords: ['straight', 'turn', 'left'], knowledge: '祈使句' },
-        { id: 'e15', type: 'retell', prompt: 'Turn left at the corner.', keywords: ['turn', 'left', 'corner'], knowledge: '祈使句' },
+        { id: 'e9',  type: 'fill',   prompt: 'Go ___ this hallway.（填「沿着」）', answer: 'down', accept: ['down'], knowledge: '指路用语' },
+        { id: 'e10', type: 'order',  prompt: '排列成句', words: ['Go', 'straight', 'ahead'], answer: ['Go', 'straight', 'ahead'], knowledge: '祈使句' },
+        { id: 'e11', type: 'order',  prompt: '排列成句', words: ['It', 'is', 'on', 'your', 'right'], answer: ['It', 'is', 'on', 'your', 'right'], knowledge: '方位词' },
+        { id: 'e12', type: 'translation', prompt: '中译英：打扰一下。', answer: 'Excuse me', accept: ['Excuse me'], knowledge: '交际用语' },
+        { id: 'e13', type: 'translation', prompt: '中译英：在拐角左转。', answer: 'Turn left at the corner', accept: ['Turn left at the corner'], knowledge: '祈使句' },
+        { id: 'e14', type: 'translation', prompt: '中译英：你不会错过的。', answer: "You can't miss it", accept: ["You can't miss it"], knowledge: '指路用语' },
+        { id: 'e15', type: 'retell', prompt: 'Go straight ahead and turn left.', keywords: ['straight', 'turn', 'left'], knowledge: '祈使句' },
         { id: 'e16', type: 'retell', prompt: 'Walk for two blocks.', keywords: ['walk', 'two', 'blocks'], knowledge: '指路用语' }
       ],
-      xp: 110
+      xp: 130
     },
 
     // ---------- 第四章：购物与付款 ----------
