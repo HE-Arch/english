@@ -3,7 +3,7 @@
    - 预缓存应用外壳（本地双击运行时不会注册，仅在 HTTP 部署时生效）
    - 离线优先策略：网络失败回退缓存
    ============================================================ */
-const CACHE = 'engfordev-v14';
+const CACHE = 'engfordev-v16';
 const ASSETS = [
   './',
   './index.html',

@@ -53,6 +53,42 @@
   }
   App.tap = tap;
 
+  // 带滑动阈值的点击：按住滑动不触发，只有移动距离 < 10px 才认为是点击
+  // 仅用于可滚动列表中的卡片（章节卡片、视频卡片），避免滑动误触进入
+  function tapCard(el, fn) {
+    if (!el) return;
+    const THRESHOLD = 10;   // 滑动阈值（px）
+    let startX = 0, startY = 0, moved = false, lastTouchEnd = 0;
+
+    el.addEventListener('touchstart', (e) => {
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      startX = t.clientX; startY = t.clientY; moved = false;
+    }, { passive: true });
+
+    el.addEventListener('touchmove', (e) => {
+      if (moved) return;
+      const t = e.touches && e.touches[0];
+      if (!t) return;
+      if (Math.abs(t.clientX - startX) > THRESHOLD || Math.abs(t.clientY - startY) > THRESHOLD) {
+        moved = true;
+      }
+    }, { passive: true });
+
+    el.addEventListener('touchend', (e) => {
+      lastTouchEnd = Date.now();
+      if (moved) return;          // 滑动过，不触发
+      fn(e);
+    });
+
+    // 桌面鼠标点击兜底；移动端 touchend 后会触发合成 click，用时间窗抑制重复
+    el.addEventListener('click', (e) => {
+      if (Date.now() - lastTouchEnd < 500) return;
+      fn(e);
+    });
+  }
+  App.tapCard = tapCard;
+
   function todayStr() {
     const d = new Date();
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -653,7 +689,7 @@
         mid.appendChild(bar);
         mid.appendChild(el('div', 'chapter-pct', { text: pct + '%' }));
         card.appendChild(left); card.appendChild(mid);
-        tap(card, () => startChapter(ch));
+        tapCard(card, () => startChapter(ch));
         group.appendChild(card);
       });
       map.appendChild(group);
@@ -1389,7 +1425,7 @@
       meta.appendChild(el('div', 'video-title', { text: ch.video.title }));
       meta.appendChild(el('div', 'video-desc', { text: '内置字幕 · 点击英文单词查释义' }));
       card.appendChild(meta);
-      tap(card, () => openVideoPlayer(ch));
+      tapCard(card, () => openVideoPlayer(ch));
       list.appendChild(card);
     }
     // 加载本地视频（.vtt 双字幕）
