@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EngForDev · 自动化测试</title>
-  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="style.css?v=20">
   <style>
     #test-panel { position: fixed; right: 0; top: 0; bottom: 0; width: 340px; background: #1a1a2e; color: #eee; font: 12px/1.5 monospace; z-index: 9999; overflow-y: auto; padding: 10px; box-sizing: border-box; border-left: 1px solid #333; }
     #test-toggle { position: fixed; right: 10px; bottom: 10px; z-index: 10000; background: #58CC02; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 700; }
@@ -52,8 +52,8 @@
     <div id="test-list"></div>
   </div>
 
-  <script src="data.js?v=19"></script>
-  <script src="app.js?v=19"></script>
+  <script src="data.js?v=20"></script>
+  <script src="app.js?v=20"></script>
   <script>
     (function () {
       const App = window.EngForDev;
@@ -152,7 +152,7 @@
       section('渲染冒烟');
       App.renderPathMap();
       const cardCount = document.querySelectorAll('#path-map .chapter-card').length;
-      assert(cardCount === 20, '首页渲染 20 个章节卡片（实际 ' + cardCount + '）');
+      assert(cardCount === 25, '首页渲染 25 个章节卡片（实际 ' + cardCount + '）');
       const stages = document.querySelectorAll('#path-map .stage-label');
       assert(stages.length === 3, '按 A1/A2/B1 三阶段分组');
       assert(!document.querySelector('#path-map .node-circle.locked'), '无锁定节点');
@@ -256,8 +256,8 @@
 
       /* ---------- 15. 全量判分校验 ---------- */
       section('全量判分校验');
-      const chapters = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20'].map(id => App.getChapter(id)).filter(Boolean);
-      assert(chapters.length === 20, '共 20 章数据完整');
+      const chapters = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20','ch21','ch22','ch23','ch24','ch25'].map(id => App.getChapter(id)).filter(Boolean);
+      assert(chapters.length === 25, '共 25 章数据完整');
       let totalQ = 0, totalFail = 0;
       chapters.forEach(ch => {
         [ch.quiz || [], ch.exam || []].forEach(qset => qset.forEach(q => {
